@@ -5,6 +5,14 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+/* ant-design-vue start */
+import { ConfigProvider } from 'ant-design-vue'
+Vue.use(ConfigProvider)
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
+/* ant-design-vue end */
+
 new Vue({
   router,
   store,
