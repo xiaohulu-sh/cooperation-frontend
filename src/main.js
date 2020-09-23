@@ -7,11 +7,16 @@ import 'intersection-observer'
 Vue.config.productionTip = false
 
 /* ant-design-vue start */
-import { ConfigProvider } from 'ant-design-vue'
-Vue.use(ConfigProvider)
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
+import { ConfigProvider, Icon, Button, Dropdown, Menu, Result } from 'ant-design-vue'
+Vue.use(ConfigProvider)
+Vue.use(Icon)
+Vue.use(Button)
+Vue.use(Dropdown)
+Vue.use(Menu)
+Vue.use(Result)
 /* ant-design-vue end */
 
 /* echarts start */

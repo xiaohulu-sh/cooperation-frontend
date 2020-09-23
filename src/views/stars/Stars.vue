@@ -1,0 +1,16 @@
+<template>
+  <main :class="$style.main">
+    <SideNav></SideNav>
+    <router-view></router-view>
+  </main>
+</template>
+
+<script>
+import SideNav from '@/components/SideNav.vue'
+
+export default {
+  components: { SideNav }
+}
+</script>
+
+<style src="@/styles/common.module.less" lang="less" module></style>

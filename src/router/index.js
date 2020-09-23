@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
 import '@/styles/nprogress.css'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -17,11 +16,23 @@ function stopProgressBar() {
 }
 
 const routes = [
+  { path: '/', redirect: '/stars/by-type' },
   {
-    path: '/',
-    name: 'Home',
-    component: Home
-  }
+    path: '/stars',
+    redirect: '/stars/by-type',
+    component: () => import('@/views/stars/Stars.vue'),
+    children: [
+      { path: 'by-type', component: () => import('@/views/stars/ByType.vue') },
+      { path: 'by-category', component: () => import('@/views/stars/ByCategory.vue') },
+      { path: 'by-fans', component: () => import('@/views/stars/ByFans.vue') }
+    ]
+  },
+  {
+    path: '/star/:id',
+    component: () => import('@/views/star/Star.vue')
+  },
+  // { path: '*', component: () => import('@/views/View404.vue') },
+  { path: '*', component: () => import('@/views/Placeholder.vue') }
 ]
 
 const router = new VueRouter({

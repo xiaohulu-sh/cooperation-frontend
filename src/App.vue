@@ -1,17 +1,52 @@
 <template>
   <a-config-provider :locale="locale">
-    <router-view />
+    <div id="app">
+      <Header />
+      <router-view />
+      <img
+        v-if="designVisible"
+        src="../temp/design.png"
+        :style="`position:absolute;width:${designWidth}px;left:50%;top:0;transform:translateX(-50%);opacity:${designOpacity}`"
+      />
+    </div>
   </a-config-provider>
 </template>
 
 <script>
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import Header from '@/components/Header.vue'
 
 export default {
+  components: { Header },
   data() {
     return {
-      locale: zhCN
+      locale: zhCN,
+      // designMode
+      devMode: process.env.NODE_ENV === 'development',
+      designVisible: false,
+      designOpacity: 0.2,
+      designWidth: 1366
+    }
+  },
+  mounted() {
+    if (this.devMode) {
+      document.addEventListener('keyup', e => {
+        if (e.ctrlKey) {
+          if (e.key === 'h') {
+            this.designVisible = !this.designVisible
+          } else if (/^[0-9]$/.test(e.key)) {
+            this.designOpacity = e.key === '0' ? 1 : e.key / 10
+          }
+        }
+      })
     }
   }
 }
 </script>
+
+<style>
+body {
+  background: #f8f8f8;
+  cursor: default;
+}
+</style>
