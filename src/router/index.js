@@ -1,19 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import NProgress from 'nprogress'
-import '@/styles/nprogress.css'
+import { startProgressBar, stopProgressBar } from '@/components/progress-bar'
 
 Vue.use(VueRouter)
-
-let progressBarTimeout = null
-function startProgressBar() {
-  clearTimeout(progressBarTimeout)
-  progressBarTimeout = setTimeout(NProgress.start, 500)
-}
-function stopProgressBar() {
-  clearTimeout(progressBarTimeout)
-  NProgress.done()
-}
 
 const routes = [
   { path: '/', redirect: '/stars/by-type' },

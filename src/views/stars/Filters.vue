@@ -1,0 +1,316 @@
+<template>
+  <div>
+    <div v-if="fields.includes('platform')" :class="$style.filterRow">
+      <div :class="$style.rowTitle">平台类型：</div>
+      <div :class="$style.rowContent">
+        <radio-list :list="platforms" v-model="platform"></radio-list>
+      </div>
+    </div>
+    <div v-if="fields.includes('type')" :class="$style.filterRow">
+      <div :class="$style.rowTitle">创作类型：</div>
+      <div :class="$style.rowContent">
+        <radio-list :list="types" v-model="type"></radio-list>
+      </div>
+    </div>
+    <div v-if="fields.includes('category')" :class="$style.filterRow">
+      <div :class="$style.rowTitle">带货品类：</div>
+      <div :class="$style.rowContent">
+        <radio-list :list="categorys" v-model="category"></radio-list>
+      </div>
+    </div>
+    <div v-if="otherFields.length > 0" :class="$style.filterRow">
+      <div :class="$style.rowTitle" style="line-height:25px">其他选项：</div>
+      <div :class="$style.rowContent">
+        <template v-for="key in fields">
+          <div v-if="key === 'area'" :key="key" :class="$style.filterItem">
+            所在地：
+            <a-select v-model="province" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">省份</a-select-option>
+              <a-select-option v-for="p in provinces" :key="p">{{ p }} </a-select-option>
+            </a-select>
+            <a-select v-model="city" size="small" :class="$style.select" style="width:92px;margin-left:10px">
+              <a-select-option key="">城市</a-select-option>
+              <a-select-option v-for="c in cities" :key="c">{{ c }} </a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'frequency'" :key="key" :class="$style.filterItem">
+            视频发布频率：
+            <a-select v-model="frequency" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">不限</a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'broadcasted'" :key="key" :class="$style.filterItem">
+            历史是否开直播：
+            <a-select v-model="broadcasted" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">不限</a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'grow'" :key="key" :class="$style.filterItem">
+            数据涨幅：
+            <a-select v-model="grow" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">不限</a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'gender'" :key="key" :class="$style.filterItem">
+            粉丝性别：
+            <a-select v-model="gender" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">不限</a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'thumbs'" :key="key" :class="$style.filterItem">
+            历史作品总点赞：
+            <a-select v-model="thumbs" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">不限</a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'purchase'" :key="key" :class="$style.filterItem">
+            粉丝购买力：
+            <a-select v-model="purchase" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">不限</a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'occupation'" :key="key" :class="$style.filterItem">
+            消费者职业：
+            <a-select v-model="occupation" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">不限</a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'loyalty'" :key="key" :class="$style.filterItem">
+            粉丝购买忠诚度：
+            <a-select v-model="loyalty" size="small" :class="$style.select" style="width:92px">
+              <a-select-option key="">不限</a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="key === 'age'" :key="key" :class="$style.filterItem">
+            粉丝年龄：
+            <a-checkbox-group v-model="age" :options="ages"></a-checkbox-group>
+          </div>
+          <div v-else-if="key === 'pop'" :key="key" :class="$style.filterItem">
+            粉丝数：
+            <radio-list :list="pops" :allValue="allRange" v-model="pop"></radio-list>
+            <custom-range v-model="pop"></custom-range>
+          </div>
+        </template>
+      </div>
+    </div>
+    <div v-if="selectedList.length > 0" :class="$style.selectedFilters">
+      <div :class="$style.selectedTitle">已选：</div>
+      <div :class="$style.selectedContent">
+        <div v-for="{ key, label, text } in selectedList" :key="key" :class="$style.selectedItem">
+          {{ label }}: <a-tag closable @close="e => (e.preventDefault(), reset(key))">{{ text }}</a-tag>
+        </div>
+      </div>
+      <button :class="$style.selectedReset" @click="resetAll">
+        <svg height="12" viewBox="0 0 12 12" width="12">
+          <path
+            d="m9.89688244 8.37578681c-1.33357225 2.20306849-4.19297107 2.90330759-6.38665103 1.56403979-2.19367995-1.3392796-2.89093497-4.21091602-1.55737449-6.41398444 1.3335722-2.20306842 4.19297103-2.90330754 6.38665098-1.56403972.42472123.25929918.80528246.58533032 1.12718575.96567348l-1.56538461 1.54809226 4.09869096.26401511-.2748395-4.11623245-1.3263948 1.34407326c-2.21785082-2.45374003-5.99644223-2.63727704-8.43972571-.4099447-2.44328348 2.22734293-2.62603834 6.02210588-.40819788 8.4758461 1.11072222 1.2288606 2.67863769 1.9408306 4.33100766 1.9667608 2.12035742.0045757 4.08820617-1.1065125 5.18609583-2.92826017.1909526-.32482392.0840365-.7435823-.238991-.93605295-.3234479-.19177007-.7404217-.0843965-.93207216.24001363z"
+            fill="currentColor"
+            fill-rule="evenodd"
+            transform="matrix(-1 0 0 1 12 0)"
+          />
+        </svg>
+        重置
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    fields: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    const allRange = ['', '']
+    const data = {
+      allRange
+    }
+    const initial = {
+      platform: {
+        platform: '',
+        platforms: [
+          { label: '抖音', value: 1 },
+          { label: '快手', value: 2 }
+        ]
+      },
+      type: {
+        type: '',
+        types: [
+          { label: '母婴', value: 1 },
+          { label: '美妆', value: 2 },
+          { label: '游戏', value: 3 },
+          { label: '二次元', value: 4 },
+          { label: '泛娱乐', value: 5 },
+          { label: '汽车', value: 6 },
+          { label: '萌宠', value: 7 },
+          { label: '美食', value: 8 },
+          { label: '旅行', value: 9 },
+          { label: '科技数码', value: 10 },
+          { label: '教育培训', value: 11 },
+          { label: '运动健身', value: 12 },
+          { label: '家居家装', value: 13 },
+          { label: '财经投资', value: 14 },
+          { label: '三农', value: 15 },
+          { label: '园艺', value: 16 },
+          { label: '未分类', value: 17 }
+        ]
+      },
+      category: {
+        category: '',
+        categorys: [
+          { label: '女装', value: 1 },
+          { label: '男装', value: 2 },
+          { label: '内衣', value: 3 },
+          { label: '箱包', value: 4 },
+          { label: '美妆', value: 5 },
+          { label: '个人护理', value: 6 },
+          { label: '腕表', value: 7 },
+          { label: '眼镜', value: 8 },
+          { label: '珠宝首饰', value: 9 },
+          { label: '手机', value: 10 },
+          { label: '进口食品', value: 11 },
+          { label: '茶酒零食', value: 12 },
+          { label: '母婴玩具', value: 13 },
+          { label: '电脑办公', value: 14 },
+          { label: '数码', value: 15 },
+          { label: '未分类', value: 16 }
+        ]
+      },
+      area: {
+        cityData: {
+          上海市: ['上海市'],
+          江苏省: ['苏州市', '南京市', '南通市'],
+          浙江省: ['杭州市', '宁波市', '温州市']
+        },
+        province: '',
+        city: ''
+      },
+      frequency: { frequency: '' },
+      broadcasted: { broadcasted: '' },
+      grow: { grow: '' },
+      gender: { gender: '' },
+      thumbs: { thumbs: '' },
+      purchase: { purchase: '' },
+      occupation: { occupation: '' },
+      loyalty: { loyalty: '' },
+      age: {
+        ages: [
+          { label: '18岁以下', value: 18 },
+          { label: '18-25岁', value: 25 },
+          { label: '26-32岁', value: 32 },
+          { label: '33-39岁', value: 39 },
+          { label: '40岁以上', value: 40 }
+        ],
+        age: []
+      },
+      pop: {
+        pops: [
+          { label: '10万以上', value: [100000, ''] },
+          { label: '5万-10万', value: [50000, 100000] },
+          { label: '1万-5万', value: [10000, 50000] },
+          { label: '1万以下', value: ['', 10000] }
+        ],
+        pop: allRange
+      }
+    }
+    this.fields.forEach(key => {
+      if (key in initial) {
+        Object.assign(data, initial[key])
+      }
+    })
+    return data
+  },
+  computed: {
+    otherFields() {
+      return this.fields.filter(key => !['platform', 'type', 'category'].includes(key))
+    },
+    provinces() {
+      return Object.keys(this.cityData)
+    },
+    cities() {
+      return this.cityData[this.province]
+    },
+    selected() {
+      const selected = {}
+      if (this.platform) selected.platform = this.platform
+      if (this.type) selected.type = this.type
+      if (this.category) selected.category = this.category
+      if (this.province) selected.province = this.province
+      if (this.city) selected.city = this.city
+      if (this.age && this.age.length > 0) selected.age = this.age
+      if (this.pop && (this.pop[0] !== '' || this.pop[1] !== '')) selected.pop = this.pop
+      return selected
+    },
+    selectedList() {
+      const list = []
+      if (this.platform) {
+        const item = this.platforms.find(({ value }) => value === this.platform)
+        if (item) list.push({ key: 'platform', label: '平台类型', text: item.label })
+      }
+      if (this.type) {
+        const item = this.types.find(({ value }) => value === this.type)
+        if (item) list.push({ key: 'type', label: '创作类型', text: item.label })
+      }
+      if (this.category) {
+        const item = this.categorys.find(({ value }) => value === this.category)
+        if (item) list.push({ key: 'category', label: '带货品类', text: item.label })
+      }
+      if (this.province || this.city) {
+        list.push({ key: 'area', label: '所在地', text: [this.province, this.city].filter(v => v).join(' ') })
+      }
+      if (this.age && this.age.length > 0) {
+        list.push({ key: 'age', label: '粉丝年龄', text: this.age.map(v => this.ages.find(({ value }) => v === value).label).join('、') })
+      }
+      if (this.pop) {
+        const [popMin, popMax] = this.pop
+        let popText = ''
+        if (popMin !== '' && popMax === '') {
+          popText = popMin + '以上'
+        } else if (popMin !== '' && popMax !== '') {
+          popText = `${popMin}-${popMax}`
+        } else if (popMin === '' && popMax !== '') {
+          popText = popMax + '以下'
+        }
+        if (popText) {
+          list.push({ key: 'pop', label: '粉丝数', text: popText })
+        }
+      }
+      return list
+    }
+  },
+  watch: {
+    province() {
+      this.city = ''
+    }
+  },
+  methods: {
+    reset(key) {
+      const handlers = {
+        area: () => {
+          this.province = ''
+          this.city = ''
+        },
+        age: () => {
+          this.age = []
+        },
+        pop: () => {
+          this.pop = this.allRange
+        }
+      }
+      if (handlers[key]) {
+        handlers[key]()
+      } else {
+        this[key] = ''
+      }
+    },
+    resetAll() {
+      this.selectedList.forEach(({ key }) => this.reset(key))
+    }
+  }
+}
+</script>
+
+<style src="@/styles/common.module.less" lang="less" module></style>

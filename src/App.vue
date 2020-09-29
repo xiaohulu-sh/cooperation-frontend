@@ -5,7 +5,7 @@
       <router-view />
       <img
         v-if="designVisible"
-        src="../temp/design.png"
+        src="../temp/design.webp"
         :style="`position:absolute;width:${designWidth}px;left:50%;top:0;transform:translateX(-50%);opacity:${designOpacity}`"
       />
     </div>
@@ -48,5 +48,15 @@ export default {
 body {
   background: #f8f8f8;
   cursor: default;
+}
+button,
+a {
+  cursor: pointer;
+  outline: none;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 </style>

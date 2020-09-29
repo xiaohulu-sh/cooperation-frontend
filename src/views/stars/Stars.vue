@@ -1,7 +1,7 @@
 <template>
   <main :class="$style.main">
     <SideNav></SideNav>
-    <router-view></router-view>
+    <router-view :class="$style.content"></router-view>
   </main>
 </template>
 

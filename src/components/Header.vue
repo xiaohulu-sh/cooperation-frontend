@@ -8,7 +8,7 @@
       <div :class="$style.user">
         <img :class="$style.avatar" src="https://via.placeholder.com/120/00ff00/ffffff?text=avatar" />
         <span :class="$style.nickname">拉尔夫</span>
-        <a-icon :class="$style.arrow" type="caret-down" />
+        <a-icon :class="$style.arrow" type="down" />
       </div>
       <a-menu :class="$style.menu" slot="overlay">
         <a-menu-item>
@@ -67,7 +67,7 @@ header {
   color: #736af2;
 }
 .arrow {
-  font-size: 10px;
+  font-size: 12px;
   vertical-align: middle;
   margin: -2px 0 0 5px;
 }

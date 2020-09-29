@@ -81,7 +81,6 @@
 <style lang="less" module>
 .menu {
   width: 160px;
-  margin-top: 20px;
   padding: 8px 0 16px;
   border-right: 0;
   color: #333;

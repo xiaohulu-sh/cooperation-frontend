@@ -10,13 +10,17 @@ Vue.config.productionTip = false
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
-import { ConfigProvider, Icon, Button, Dropdown, Menu, Result } from 'ant-design-vue'
+import { ConfigProvider, Icon, Button, Dropdown, Menu, Select, Checkbox, Tag, Result, message } from 'ant-design-vue'
 Vue.use(ConfigProvider)
 Vue.use(Icon)
 Vue.use(Button)
 Vue.use(Dropdown)
 Vue.use(Menu)
+Vue.use(Select)
+Vue.use(Checkbox)
+Vue.use(Tag)
 Vue.use(Result)
+Vue.prototype.$message = message
 /* ant-design-vue end */
 
 /* echarts start */
@@ -34,6 +38,10 @@ Vue.prototype.echarts = echarts
 /* custom components start */
 import Chart from '@/components/Chart.vue'
 Vue.component('Chart', Chart)
+import RadioList from '@/components/RadioList.vue'
+Vue.component('RadioList', RadioList)
+import CustomRange from '@/components/CustomRange.vue'
+Vue.component('CustomRange', CustomRange)
 /* custom components end */
 
 new Vue({
