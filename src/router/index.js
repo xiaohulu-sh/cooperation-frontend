@@ -9,19 +9,19 @@ const routes = [
   {
     path: '/stars',
     redirect: '/stars/by-type',
-    component: () => import('@/views/stars/Stars.vue'),
+    component: () => import('@/views/stars/Stars'),
     children: [
-      { path: 'by-type', component: () => import('@/views/stars/ByType.vue') },
-      { path: 'by-category', component: () => import('@/views/stars/ByCategory.vue') },
-      { path: 'by-fans', component: () => import('@/views/stars/ByFans.vue') }
+      { path: 'by-type', component: () => import('@/views/stars/ByType') },
+      { path: 'by-category', component: () => import('@/views/stars/ByCategory') },
+      { path: 'by-fans', component: () => import('@/views/stars/ByFans') }
     ]
   },
   {
     path: '/star/:id',
-    component: () => import('@/views/star/Star.vue')
+    component: () => import('@/views/star/Star')
   },
-  // { path: '*', component: () => import('@/views/View404.vue') },
-  { path: '*', component: () => import('@/views/Placeholder.vue') }
+  // { path: '*', component: () => import('@/views/View404') },
+  { path: '*', component: () => import('@/views/Placeholder') }
 ]
 
 const router = new VueRouter({

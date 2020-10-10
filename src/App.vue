@@ -3,18 +3,14 @@
     <div id="app">
       <Header />
       <router-view />
-      <img
-        v-if="designVisible"
-        src="../temp/design.webp"
-        :style="`position:absolute;width:${designWidth}px;left:50%;top:0;transform:translateX(-50%);opacity:${designOpacity}`"
-      />
+      <img v-if="designVisible" src="../temp/design.webp" :style="`position:absolute;width:${designWidth}px;left:50%;top:-76px;transform:translateX(-50%);opacity:${designOpacity}`" />
     </div>
   </a-config-provider>
 </template>
 
 <script>
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import Header from '@/components/Header.vue'
+import Header from '@/components/Header'
 
 export default {
   components: { Header },
@@ -47,6 +43,7 @@ export default {
 <style>
 body {
   background: #f8f8f8;
+  font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   cursor: default;
 }
 button,

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App'
 import router from './router'
 import store from './store'
 import 'intersection-observer'
@@ -10,10 +10,11 @@ Vue.config.productionTip = false
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
-import { ConfigProvider, Icon, Button, Dropdown, Menu, Select, Checkbox, Tag, Result, message } from 'ant-design-vue'
+import { ConfigProvider, Icon, Button, Spin, Dropdown, Menu, Select, Checkbox, Tag, Result, message } from 'ant-design-vue'
 Vue.use(ConfigProvider)
 Vue.use(Icon)
 Vue.use(Button)
+Vue.use(Spin)
 Vue.use(Dropdown)
 Vue.use(Menu)
 Vue.use(Select)
@@ -35,12 +36,23 @@ import 'echarts/lib/component/visualMap'
 Vue.prototype.echarts = echarts
 /* echarts end */
 
+/* vue-virtual-scroller start */
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import { RecycleScroller } from 'vue-virtual-scroller'
+Vue.component('RecycleScroller', RecycleScroller)
+/* vue-virtual-scroller end */
+
+/* vue-infinite-scroll start */
+import infiniteScroll from 'vue-infinite-scroll'
+Vue.use(infiniteScroll)
+/* vue-infinite-scroll end */
+
 /* custom components start */
-import Chart from '@/components/Chart.vue'
+import Chart from '@/components/Chart'
 Vue.component('Chart', Chart)
-import RadioList from '@/components/RadioList.vue'
+import RadioList from '@/components/RadioList'
 Vue.component('RadioList', RadioList)
-import CustomRange from '@/components/CustomRange.vue'
+import CustomRange from '@/components/CustomRange'
 Vue.component('CustomRange', CustomRange)
 /* custom components end */
 

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import SideNav from '@/components/SideNav.vue'
+import SideNav from '@/components/SideNav'
 
 export default {
   components: { SideNav }
