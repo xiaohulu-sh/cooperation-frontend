@@ -3,6 +3,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 import 'intersection-observer'
+import smoothscroll from 'smoothscroll-polyfill'
+
+smoothscroll.polyfill()
 
 Vue.config.productionTip = false
 
@@ -54,6 +57,8 @@ import RadioList from '@/components/RadioList'
 Vue.component('RadioList', RadioList)
 import CustomRange from '@/components/CustomRange'
 Vue.component('CustomRange', CustomRange)
+import FixedNav from '@/components/FixedNav'
+Vue.component('FixedNav', FixedNav)
 /* custom components end */
 
 new Vue({

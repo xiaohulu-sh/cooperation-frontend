@@ -2,6 +2,7 @@
   <main :class="$style.main">
     <SideNav></SideNav>
     <router-view :class="$style.content"></router-view>
+    <FixedNav></FixedNav>
   </main>
 </template>
 
