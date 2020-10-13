@@ -17,11 +17,11 @@ const routes = [
     ]
   },
   {
-    path: '/star/:id',
-    component: () => import('@/views/star/Star')
+    path: '/star/:platform/:room',
+    component: () => import('@/views/star/Star'),
+    children: [{ path: 'video', component: () => import('@/views/star/VideoData') }]
   },
-  // { path: '*', component: () => import('@/views/View404') },
-  { path: '*', component: () => import('@/views/Placeholder') }
+  { path: '*', component: () => import('@/views/View404') }
 ]
 
 const router = new VueRouter({

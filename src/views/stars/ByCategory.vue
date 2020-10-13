@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><i :class="$style.iconCategory"></i>按带货品类筛选红人</h2>
+    <h2><i :class="[$common.titleIcon, $style.category]"></i>按带货品类筛选红人</h2>
     <filters key="category" :fields="['platform', 'category', 'gender', 'broadcasted', 'thumbs', 'area', 'pop']"></filters>
   </div>
 </template>
@@ -13,4 +13,8 @@ export default {
 }
 </script>
 
-<style src="@/styles/common.module.less" lang="less" module></style>
+<style module>
+.category {
+  background-image: url(../../assets/by-category.svg);
+}
+</style>

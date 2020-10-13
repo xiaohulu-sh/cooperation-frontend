@@ -1,11 +1,16 @@
 <template>
-  <div :class="{ [$style.empty]: isEmpty }"></div>
+  <div :class="$style.container">
+    <div ref="chart" :class="{ [$style.chart]: true, [$style.hidden]: isEmpty }"></div>
+    <a-empty v-if="isEmpty" description="暂无数据" />
+    <a-spin v-if="loading" />
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    chartData: [Object, Function]
+    chartData: [Object, Function],
+    loading: Boolean
   },
   data() {
     return {
@@ -43,7 +48,7 @@ export default {
     }
   },
   mounted() {
-    this.chart = this.echarts.init(this.$el)
+    this.chart = this.echarts.init(this.$refs.chart)
     this.mounted = true
     this.$once('hook:beforeDestroy', () => {
       if (!this.chart) return
@@ -55,20 +60,23 @@ export default {
 </script>
 
 <style lang="less" module>
-.empty {
+.container {
   position: relative;
-  canvas {
-    visibility: hidden;
+  :global {
+    .ant-empty,
+    .ant-spin {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
-  &::before {
-    content: '暂无数据';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    color: #909399;
-    font-size: 12px;
-    white-space: nowrap;
-  }
+}
+.chart {
+  width: 100%;
+  height: 100%;
+}
+.hidden {
+  visibility: hidden;
 }
 </style>

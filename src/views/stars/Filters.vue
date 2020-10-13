@@ -313,4 +313,71 @@ export default {
 }
 </script>
 
-<style src="@/styles/common.module.less" lang="less" module></style>
+<style lang="less" module>
+.filterRow {
+  display: flex;
+  margin-bottom: 10px;
+}
+.rowTitle {
+  min-width: 80px;
+  color: #333;
+  font-weight: 600;
+}
+.rowContent {
+  flex: 1 1 auto;
+}
+.select {
+  :global {
+    .ant-select-selection--single {
+      height: 26px;
+    }
+    .ant-select-selection__rendered {
+      line-height: 24px;
+    }
+    .ant-select-arrow-icon {
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
+}
+.filterItem {
+  display: inline-block;
+  min-width: 273px;
+  margin: 0 20px 10px 0;
+}
+.selectedFilters {
+  display: flex;
+  border-top: 1px solid #e3e4eb;
+  padding: 20px 0;
+}
+.selectedTitle {
+  min-width: 50px;
+  color: #333;
+  font-weight: 600;
+}
+.selectedContent {
+  flex: 1 1 auto;
+}
+.selectedItem {
+  display: inline-block;
+  margin: 0 25px 8px 0;
+  :global .ant-tag {
+    vertical-align: middle;
+    margin-top: -2px;
+  }
+}
+.selectedReset {
+  border: 0;
+  background: none;
+  color: #736af2;
+  white-space: nowrap;
+  margin-top: -10px;
+  transition: all 0.3s;
+  &:hover {
+    color: #a399ff;
+  }
+  svg {
+    vertical-align: middle;
+    margin: -2px 4px 0 0;
+  }
+}
+</style>

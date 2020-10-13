@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
-import { ConfigProvider, Icon, Button, Spin, Dropdown, Menu, Select, Checkbox, Tag, Result, message } from 'ant-design-vue'
+import { ConfigProvider, Icon, Button, Spin, Dropdown, Menu, Select, Checkbox, Tag, Empty, Result, message } from 'ant-design-vue'
 Vue.use(ConfigProvider)
 Vue.use(Icon)
 Vue.use(Button)
@@ -23,6 +23,7 @@ Vue.use(Menu)
 Vue.use(Select)
 Vue.use(Checkbox)
 Vue.use(Tag)
+Vue.use(Empty)
 Vue.use(Result)
 Vue.prototype.$message = message
 /* ant-design-vue end */
@@ -33,9 +34,11 @@ import 'echarts/lib/chart/bar'
 import 'echarts/lib/chart/line'
 import 'echarts/lib/chart/pie'
 import 'echarts/lib/chart/map'
+import 'echarts/lib/chart/heatmap'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/visualMap'
+import 'echarts/lib/component/calendar'
 Vue.prototype.echarts = echarts
 /* echarts end */
 
@@ -50,15 +53,24 @@ import infiniteScroll from 'vue-infinite-scroll'
 Vue.use(infiniteScroll)
 /* vue-infinite-scroll end */
 
+/* common style start */
+import commonStyle from '@/styles/common.module.less'
+Vue.prototype.$common = commonStyle
+/* common style end */
+
 /* custom components start */
 import Chart from '@/components/Chart'
 Vue.component('Chart', Chart)
+import LazyBlock from '@/components/LazyBlock'
+Vue.component('LazyBlock', LazyBlock)
 import RadioList from '@/components/RadioList'
 Vue.component('RadioList', RadioList)
 import CustomRange from '@/components/CustomRange'
 Vue.component('CustomRange', CustomRange)
 import FixedNav from '@/components/FixedNav'
 Vue.component('FixedNav', FixedNav)
+import NavList from '@/components/NavList'
+Vue.component('NavList', NavList)
 /* custom components end */
 
 new Vue({

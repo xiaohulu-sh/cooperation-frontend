@@ -1,13 +1,13 @@
 <template>
-  <div :class="$style.starsContainer">
+  <div :class="$style.container">
     <div v-if="empty" :class="$style.emptyTitle">
       智选库中暂无数据，请减少部分条件
       <div>为您推荐可能感兴趣的KOL</div>
     </div>
     <h3 v-else-if="list.length > 0">符合条件的红人(1931)</h3>
-    <RecycleScroller :class="$style.starList" v-infinite-scroll="loadMore" infinite-scroll-disabled="infDisabled" infinite-scroll-distance="120" page-mode :items="list" :itemSize="476" :buffer="1000">
+    <RecycleScroller :class="$style.list" v-infinite-scroll="loadMore" infinite-scroll-disabled="infDisabled" infinite-scroll-distance="120" page-mode :items="list" :itemSize="476" :buffer="1000">
       <template v-slot="{ item: arr }">
-        <StarItem :class="$style.starItem" v-for="item in arr" :key="item.id" :item="item"></StarItem>
+        <StarItem v-for="item in arr" :key="item.id" :item="item"></StarItem>
       </template>
       <template v-if="loading" #after>
         <div :class="$style.moreLoading"><a-spin /></div>
@@ -77,4 +77,32 @@ export default {
 }
 </script>
 
-<style src="@/styles/common.module.less" lang="less" module></style>
+<style lang="less" module>
+.container {
+  h3 {
+    color: #333;
+    font-size: 16px;
+    margin: 20px 0;
+  }
+}
+.list {
+  margin: 0 -30px -30px 0;
+}
+.moreLoading {
+  text-align: center;
+  padding: 20px 0 40px;
+}
+.emptyTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin: 20px 0 38px;
+  & > div {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    margin-top: 10px;
+  }
+}
+</style>

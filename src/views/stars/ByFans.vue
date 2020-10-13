@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><i :class="$style.iconFans"></i>按人群画像筛选红人</h2>
+    <h2><i :class="[$common.titleIcon, $style.fans]"></i>按人群画像筛选红人</h2>
     <filters key="type" :fields="['platform', 'type', 'gender', 'broadcasted', 'area', 'grow', 'thumbs', 'purchase', 'occupation', 'loyalty', 'age', 'pop']"></filters>
   </div>
 </template>
@@ -13,4 +13,8 @@ export default {
 }
 </script>
 
-<style src="@/styles/common.module.less" lang="less" module></style>
+<style module>
+.fans {
+  background-image: url(../../assets/by-fans.svg);
+}
+</style>
