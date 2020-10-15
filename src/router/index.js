@@ -19,7 +19,10 @@ const routes = [
   {
     path: '/star/:platform/:room',
     component: () => import('@/views/star/Star'),
-    children: [{ path: 'video', component: () => import('@/views/star/VideoData') }]
+    children: [
+      { path: 'video', component: () => import('@/views/star/VideoData'), meta: { navKey: 'video' } },
+      { path: 'live', component: () => import('@/views/star/LiveData'), meta: { navKey: 'live' } }
+    ]
   },
   { path: '*', component: () => import('@/views/View404') }
 ]

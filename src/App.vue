@@ -46,6 +46,12 @@ body {
   font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   cursor: default;
 }
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+}
 button,
 a {
   cursor: pointer;
@@ -55,5 +61,8 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+em {
+  font-style: normal;
 }
 </style>

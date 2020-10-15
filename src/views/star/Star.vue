@@ -28,7 +28,7 @@
       <a-button :class="$style.addBtn" type="primary"><i :class="$common.plus"></i>添加红人</a-button>
     </div>
     <div :class="$style.body">
-      <NavList :list="navList" :active="active" @itemClick="onNavChange"></NavList>
+      <NavList :list="navList" :active="$route.meta.navKey" @itemClick="onNavChange"></NavList>
       <router-view :class="$style.content"></router-view>
     </div>
     <FixedNav></FixedNav>
@@ -91,7 +91,8 @@ export default {
   methods: {
     onAvatarError,
     onNavChange(key) {
-      this.active = key
+      const { platform, room } = this.$route.params
+      this.$router.replace(`/star/${platform}/${room}/${key}`)
     }
   }
 }

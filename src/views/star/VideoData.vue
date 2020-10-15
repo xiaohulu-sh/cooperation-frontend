@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="$common.dataBlock">
-      <div :class="[$common.imgTitle, $style.title1]">作品数据概览</div>
+      <h2 :class="[$common.imgTitle, $style.title1]">作品数据概览</h2>
       <ul :class="$style.list1">
         <li>
           <em>6113.90<span>万</span></em>
@@ -30,14 +30,14 @@
       </ul>
     </div>
     <div :class="$common.dataBlock">
-      <div :class="[$common.imgTitle, $style.title2]">趋势表现</div>
-      <ul :class="[$common.dataTabs, $style.tab1]">
+      <h2 :class="[$common.imgTitle, $style.title2]">趋势表现</h2>
+      <ul :class="[$common.dataTabs, $common.dataTab1]">
         <li :class="$common.dataTabActive">近7天</li>
         <li>近30天</li>
       </ul>
       <ul :class="$common.dataTabs" style="padding: 30px 30px 0">
-        <li :class="$common.dataTabActive">粉丝数</li>
-        <li>点赞数</li>
+        <li :class="$common.dataTabActive">点赞数</li>
+        <li>粉丝数</li>
         <li>评论数</li>
       </ul>
       <LazyBlock :class="$common.lazyBlock" :keyData="chartLines" style="height:338px;padding:0 30px 30px">
@@ -45,14 +45,14 @@
       </LazyBlock>
     </div>
     <div :class="$common.dataBlock">
-      <div :class="[$common.imgTitle, $style.title3]">作品发布频率</div>
-      <div v-if="numAverage" :class="$style.subTitle">{{ numAverage }}个/周</div>
+      <h2 :class="[$common.imgTitle, $style.title3]">作品发布频率</h2>
+      <div v-if="numAverage" :class="$style.titleText">{{ numAverage }}个/周</div>
       <LazyBlock :class="$common.lazyBlock" :keyData="chartCalendar" style="height:310px;padding-bottom:30px">
         <Chart :chartData="chartCalendar" :loading="chartCalendarLoading" style="height:280px"></Chart>
       </LazyBlock>
     </div>
     <div :class="$common.dataBlock">
-      <div :class="[$common.imgTitle, $style.title4]">作品列表</div>
+      <h2 :class="[$common.imgTitle, $style.title4]">作品列表</h2>
       <ul v-if="videoList && videoList.length > 0" :class="$style.videoList">
         <li v-for="({ video_screen_pic, video_desc, video_digg_count, video_comment_count, video_create_time, video_url }, index) in videoList" :key="index">
           <a :href="video_url" target="_blank" rel="noreferrer">
@@ -345,7 +345,6 @@ export default {
   }
   em {
     display: block;
-    font-style: normal;
     font-size: 24px;
     color: #ff7b00;
     margin-bottom: 4px;
@@ -354,15 +353,7 @@ export default {
     }
   }
 }
-.tab1 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  justify-content: center;
-  padding: 14px 0;
-}
-.subTitle {
+.titleText {
   position: absolute;
   left: 212px;
   top: 15px;
