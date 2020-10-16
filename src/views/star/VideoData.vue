@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div :class="$common.dataBlock">
-      <h2 :class="[$common.imgTitle, $style.title1]">作品数据概览</h2>
-      <ul :class="$style.list1">
+    <div :class="c.dataBlock">
+      <h2 :class="[c.imgTitle, s.title1]">作品数据概览</h2>
+      <ul :class="s.list1">
         <li>
           <em>6113.90<span>万</span></em>
           总粉丝数
@@ -29,47 +29,47 @@
         </li>
       </ul>
     </div>
-    <div :class="$common.dataBlock">
-      <h2 :class="[$common.imgTitle, $style.title2]">趋势表现</h2>
-      <ul :class="[$common.dataTabs, $common.dataTab1]">
-        <li :class="$common.dataTabActive">近7天</li>
+    <div :class="c.dataBlock">
+      <h2 :class="[c.imgTitle, s.title2]">趋势表现</h2>
+      <ul :class="[c.dataTabs, c.dataTab1]">
+        <li :class="c.dataTabActive">近7天</li>
         <li>近30天</li>
       </ul>
-      <ul :class="$common.dataTabs" style="padding: 30px 30px 0">
-        <li :class="$common.dataTabActive">点赞数</li>
+      <ul :class="c.dataTabs" style="padding: 30px 30px 0">
+        <li :class="c.dataTabActive">点赞数</li>
         <li>粉丝数</li>
         <li>评论数</li>
       </ul>
-      <LazyBlock :class="$common.lazyBlock" :keyData="chartLines" style="height:338px;padding:0 30px 30px">
+      <LazyBlock :class="c.lazyBlock" :data="chartLines" style="height:338px;padding:0 30px 30px">
         <Chart :chartData="chartLines" :loading="chartLinesLoading" style="height:308px"></Chart>
       </LazyBlock>
     </div>
-    <div :class="$common.dataBlock">
-      <h2 :class="[$common.imgTitle, $style.title3]">作品发布频率</h2>
-      <div v-if="numAverage" :class="$style.titleText">{{ numAverage }}个/周</div>
-      <LazyBlock :class="$common.lazyBlock" :keyData="chartCalendar" style="height:310px;padding-bottom:30px">
+    <div :class="c.dataBlock">
+      <h2 :class="[c.imgTitle, s.title3]">作品发布频率</h2>
+      <div v-if="numAverage" :class="s.titleText">{{ numAverage }}个/周</div>
+      <LazyBlock :class="c.lazyBlock" :data="chartCalendar" style="height:310px;padding-bottom:30px">
         <Chart :chartData="chartCalendar" :loading="chartCalendarLoading" style="height:280px"></Chart>
       </LazyBlock>
     </div>
-    <div :class="$common.dataBlock">
-      <h2 :class="[$common.imgTitle, $style.title4]">作品列表</h2>
-      <ul v-if="videoList && videoList.length > 0" :class="$style.videoList">
+    <div :class="c.dataBlock">
+      <h2 :class="[c.imgTitle, s.title4]">作品列表</h2>
+      <ul v-if="videoList && videoList.length > 0" :class="s.videoList">
         <li v-for="({ video_screen_pic, video_desc, video_digg_count, video_comment_count, video_create_time, video_url }, index) in videoList" :key="index">
           <a :href="video_url" target="_blank" rel="noreferrer">
-            <div :class="$style.videoCover"><img :src="video_screen_pic" referrerpolicy="no-referrer" /></div>
-            <div :class="$style.videoContent">
-              <div :class="[$common.ellipsis1, $style.videoTitle]">{{ video_desc }}</div>
-              <div :class="$style.videoData">
-                <span :class="$style.digg">{{ formatNumber(video_digg_count) }}</span>
-                <span :class="$style.comment">{{ formatNumber(video_comment_count) }}</span>
+            <div :class="s.videoCover"><img :src="video_screen_pic" referrerpolicy="no-referrer" /></div>
+            <div :class="s.videoContent">
+              <div :class="[c.ellipsis1, s.videoTitle]">{{ video_desc }}</div>
+              <div :class="s.videoData">
+                <span :class="s.digg">{{ formatNumber(video_digg_count) }}</span>
+                <span :class="s.comment">{{ formatNumber(video_comment_count) }}</span>
               </div>
-              <div :class="$style.videoInfo">发布时间：{{ video_create_time }}</div>
+              <div :class="s.videoInfo">发布时间：{{ video_create_time }}</div>
             </div>
           </a>
         </li>
       </ul>
-      <a-empty v-else-if="videoList && videoList.length === 0" description="暂无数据" style="padding: 40px 0 50px" />
-      <a-spin v-if="videoListLoading" :class="$common.posCenter" />
+      <a-empty v-else-if="videoList && videoList.length === 0" style="padding: 40px 0 50px" />
+      <a-spin v-if="videoListLoading" :class="c.posCenter" />
     </div>
   </div>
 </template>
@@ -278,7 +278,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .title1 {
   width: 292px;
   height: 49px;

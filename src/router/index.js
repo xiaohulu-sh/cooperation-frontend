@@ -2,6 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { startProgressBar, stopProgressBar } from '@/components/progress-bar'
 
+// 解决路由访问重复时报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+const originalReplace = VueRouter.prototype.replace
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err)
+}
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,7 +30,8 @@ const routes = [
     component: () => import('@/views/star/Star'),
     children: [
       { path: 'video', component: () => import('@/views/star/VideoData'), meta: { navKey: 'video' } },
-      { path: 'live', component: () => import('@/views/star/LiveData'), meta: { navKey: 'live' } }
+      { path: 'live', component: () => import('@/views/star/LiveData'), meta: { navKey: 'live' } },
+      { path: 'danmu', component: () => import('@/views/star/DanmuData'), meta: { navKey: 'danmu' } }
     ]
   },
   { path: '*', component: () => import('@/views/View404') }

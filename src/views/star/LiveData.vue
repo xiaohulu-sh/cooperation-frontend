@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div :class="[$common.dataBlock, $style.summary]">
-      <ul :class="$style.summary1">
+    <div :class="[c.dataBlock, s.summary]">
+      <ul :class="s.summary1">
         <li><em>6080.10万</em>粉丝数</li>
         <li><em>0.06</em>成长指数</li>
         <li><em>2.29</em>人均送礼</li>
@@ -9,62 +9,54 @@
         <li><em>14.71%</em>观众互动率</li>
         <li><em>2.6%</em>观众付费率</li>
       </ul>
-      <ul :class="$style.summary2">
+      <ul :class="s.summary2">
         <li><em>3900.02</em>小葫芦指数(月)</li>
         <li><em>0</em>主播段位</li>
         <li><em>第6名</em>全网排名</li>
         <li><em>第5名</em>分类排名</li>
       </ul>
-      <ul :class="$style.summary3">
+      <ul :class="s.summary3">
         <li><em>47.54万人</em>互动人数</li>
         <li><em>64.77万条</em>弹幕数量</li>
         <li><em>442.76万元</em>收到贡献值</li>
         <li><em>14.36万人</em>送礼人数</li>
       </ul>
     </div>
-    <div :class="$common.dataBlock">
-      <h2 :class="[$common.imgTitle, $style.title1]">直播数据分析</h2>
-      <ul :class="[$common.dataTabs, $common.dataTab1]">
-        <li v-for="{ value, label } in presetList" :key="value" :class="{ [$common.dataTabActive]: value === preset }" @click="onPresetClick(value)">{{ label }}</li>
-        <a-dropdown>
-          <li :class="{ [$common.dataTabActive]: day !== null }">{{ day || '按日期选择' }}</li>
-          <a-menu slot="overlay" style="padding:10px 0">
-            <a-menu-item v-for="{ value } in dayList" :key="value" :class="$style.dropdownItem" @click="onTimeSelect(value)">{{ value }}</a-menu-item>
-          </a-menu>
-        </a-dropdown>
-      </ul>
-      <div :class="$style.block">
-        <h3 :class="$common.h3">
+    <div :class="c.dataBlock">
+      <h2 :class="[c.imgTitle, s.title1]">直播数据分析</h2>
+      <DataTimeRange :preset.sync="preset" :presetList="presetList" :day.sync="day" :dayList="dayList" />
+      <div :class="c.block1">
+        <h3 :class="c.h3">
           <em> {{ range }} </em>共进行过<em> 4 </em>场直播
         </h3>
-        <ul :class="$common.dataInfoList">
+        <ul :class="c.dataInfoList">
           <li>
             礼物收入<em>49.91<span>万</span></em>
-            <div :class="$common.subTxt">比上周期<span :class="$common.up">+10.13万</span></div>
+            <div :class="c.subTxt">比上周期<span :class="c.up">+10.13万</span></div>
           </li>
           <li>
             送礼人数<em>5877</em>
-            <div :class="$common.subTxt">比上周期<span :class="$common.up">+2513</span></div>
+            <div :class="c.subTxt">比上周期<span :class="c.up">+2513</span></div>
           </li>
           <li>
             直播时长<em>62.90h</em>
-            <div :class="$common.subTxt">比上周期<span :class="$common.up">+28.90</span></div>
+            <div :class="c.subTxt">比上周期<span :class="c.up">+28.90</span></div>
           </li>
           <li>
             总观看数<em>1.05<span>亿</span></em>
-            <div :class="$common.subTxt">比上周期<span :class="$common.up">+4305.29万</span></div>
+            <div :class="c.subTxt">比上周期<span :class="c.up">+4305.29万</span></div>
           </li>
           <li>
             峰值在线<em>13.40<span>万</span></em>
-            <div :class="$common.subTxt">比上周期<span :class="$common.down">-2.79万</span></div>
+            <div :class="c.subTxt">比上周期<span :class="c.down">-2.79万</span></div>
           </li>
         </ul>
       </div>
-      <div :class="$style.block">
-        <h3 :class="$common.h3">
+      <div :class="c.block1">
+        <h3 :class="c.h3">
           <em> {{ range }} </em>共进行过<em> 4 </em>场直播
         </h3>
-        <ul :class="$common.dataInfoList">
+        <ul :class="c.dataInfoList">
           <li>
             收到贡献值<em>362.39<span>万</span></em>
           </li>
@@ -82,34 +74,34 @@
           </li>
         </ul>
       </div>
-      <ul :class="$common.dataTabs" style="padding: 30px 30px 0">
-        <li :class="$common.dataTabActive">礼物收入</li>
+      <ul :class="c.dataTabs" style="padding: 30px 30px 0">
+        <li :class="c.dataTabActive">礼物收入</li>
         <li>观看数</li>
       </ul>
-      <LazyBlock :class="[$common.lazyBlock, $style.block]" :keyData="chartLines" style="height:338px">
+      <LazyBlock :class="[c.lazyBlock, c.block1]" :data="chartLines" style="height:338px">
         <Chart :chartData="chartLines" :loading="chartLinesLoading" style="height:308px"></Chart>
       </LazyBlock>
-      <ul :class="$common.dataTabs" style="padding: 30px 30px 0">
-        <li :class="$common.dataTabActive">人气峰值</li>
+      <ul :class="c.dataTabs" style="padding: 30px 30px 0">
+        <li :class="c.dataTabActive">人气峰值</li>
         <li>直播时长</li>
         <li>粉丝关注</li>
       </ul>
-      <LazyBlock :class="[$common.lazyBlock, $style.block]" :keyData="chartLines" style="height:338px">
+      <LazyBlock :class="[c.lazyBlock, c.block1]" :data="chartLines" style="height:338px">
         <Chart :chartData="chartLines" :loading="chartLinesLoading" style="height:308px"></Chart>
       </LazyBlock>
-      <div :class="$style.block">
-        <h3 :class="$common.h3">
+      <div :class="c.block1">
+        <h3 :class="c.h3">
           <em> {{ range }} </em>直播记录
         </h3>
         <LiveList v-if="recordsTotal" :list="records" :page.sync="recordsPage" :pageSize="recordsPageSize" :total="recordsTotal"></LiveList>
-        <a-empty v-else description="暂无数据" />
+        <a-empty v-else />
       </div>
-      <div :class="$style.block">
-        <h3 :class="$common.h3">
+      <div :class="c.block1">
+        <h3 :class="c.h3">
           <em> {{ range }} </em>送礼土豪
         </h3>
         <TycoonList v-if="tycoonsTotal" :list="tycoons" :page.sync="tycoonsPage" :pageSize="tycoonsPageSize" :total="tycoonsTotal"></TycoonList>
-        <a-empty v-else description="暂无数据" />
+        <a-empty v-else />
       </div>
     </div>
   </div>
@@ -119,29 +111,13 @@
 import { createLine1 } from '@/utils/charts/line'
 import LiveList from './LiveList'
 import TycoonList from './TycoonList'
+import dataTimeRange from './common/data-time-range'
 
 export default {
   components: { LiveList, TycoonList },
   data() {
     return {
-      preset: 3,
-      presetList: [
-        { value: 1, label: '今日' },
-        { value: 2, label: '昨日' },
-        { value: 3, label: '近7天' },
-        { value: 4, label: '近30天' }
-      ],
-      day: null,
-      dayList: [
-        { id: 0, value: '2020-10-13', start: '2020-10-13', end: '2020-10-13' },
-        { id: 1, value: '2020-10-12', start: '2020-10-12', end: '2020-10-12' },
-        { id: 2, value: '2020-10-11', start: '2020-10-11', end: '2020-10-11' },
-        { id: 3, value: '2020-10-10', start: '2020-10-10', end: '2020-10-10' },
-        { id: 4, value: '2020-10-09', start: '2020-10-09', end: '2020-10-09' },
-        { id: 5, value: '2020-10-08', start: '2020-10-08', end: '2020-10-08' },
-        { id: 6, value: '2020-10-07', start: '2020-10-07', end: '2020-10-07' },
-        { id: 7, value: '2020-10-06', start: '2020-10-06', end: '2020-10-06' }
-      ],
+      ...dataTimeRange.data(),
       chartLines: null,
       chartLinesLoading: false,
       records: [{}, {}, {}, {}, {}],
@@ -155,23 +131,7 @@ export default {
     }
   },
   computed: {
-    range() {
-      if (this.preset) {
-        return this.presetList.find(({ value }) => value === this.preset)?.label || ''
-      }
-      if (this.day) return this.day
-      return ''
-    }
-  },
-  methods: {
-    onPresetClick(value) {
-      this.preset = value
-      this.day = null
-    },
-    onTimeSelect(value) {
-      this.preset = null
-      this.day = value
-    }
+    ...dataTimeRange.computed
   },
   mounted() {
     this.chartLinesLoading = true
@@ -192,7 +152,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .title1 {
   width: 292px;
   height: 60px;
@@ -279,13 +239,5 @@ export default {
     font-weight: bold;
     font-size: 18px;
   }
-}
-.dropdownItem {
-  line-height: 40px;
-  text-align: center;
-  padding: 0;
-}
-.block {
-  padding: 0 30px 30px;
 }
 </style>

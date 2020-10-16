@@ -1,8 +1,8 @@
 <template>
-  <div :class="$style.container">
-    <div :class="$style.fixed">
-      <a :class="$style.cart" href="javascript:"></a>
-      <div :class="$style.backtop" :style="{ visibility: showBackTop ? '' : 'hidden' }" @click="scrollToTop"></div>
+  <div :class="s.container">
+    <div :class="s.fixed">
+      <a :class="s.cart" href="javascript:"></a>
+      <div :class="s.backtop" :style="{ visibility: showBackTop ? '' : 'hidden' }" @click="scrollToTop"></div>
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .container {
   position: absolute;
   right: -10px;

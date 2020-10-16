@@ -1,6 +1,6 @@
 <template>
-  <ul v-if="dataList.length > 0" class="radio-list">
-    <li v-for="item in dataList" :key="String(item.value)" :class="{ 'radio-active': isEqual(value, item.value) }" @click="itemClick(item)">
+  <ul v-if="dataList.length > 0" :class="s.list">
+    <li v-for="item in dataList" :key="String(item.value)" :class="{ [s.active]: isEqual(value, item.value) }" @click="itemClick(item)">
       {{ item.label }}
     </li>
   </ul>
@@ -45,8 +45,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.radio-list {
+<style lang="less" module="s">
+.list {
   display: inline-block;
   font-size: 14px;
   line-height: 22px;
@@ -62,7 +62,7 @@ export default {
       color: #736af2;
     }
 
-    &.radio-active {
+    &.active {
       background: #736af2;
       border-radius: 2px;
       color: #fff;

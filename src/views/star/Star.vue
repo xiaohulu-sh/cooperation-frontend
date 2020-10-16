@@ -1,35 +1,35 @@
 <template>
-  <main :class="$common.main">
-    <div :class="$style.header">
-      <div :class="$style.info">
-        <div :class="[$style.avatarContainer, $common.male, $style.male]">
-          <div :class="[$style.avatar, $style.live]">
+  <main :class="c.main">
+    <div :class="s.header">
+      <div :class="s.info">
+        <div :class="[s.avatarContainer, c.male, s.male]">
+          <div :class="[s.avatar, s.live]">
             <img src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" alt="头像" />
           </div>
         </div>
         <div>
           <div>
-            <span :class="[$common.ellipsis1, $style.name]">辛有志 辛巴 818</span>
-            <span :class="$style.certified">已认证内容</span>
+            <span :class="[c.ellipsis1, s.name]">辛有志 辛巴 818</span>
+            <span :class="s.certified">已认证内容</span>
           </div>
-          <div :class="$style.baseInfo">
+          <div :class="s.baseInfo">
             <span>快手号 ：3xxcgtnm2bj65kq</span>
             <span>黑龙江 哈尔滨</span>
             <span>24岁</span>
           </div>
-          <div :class="$style.tags">
-            <span :class="$style.tag1">快手</span>
-            <span :class="$style.tag2">#音乐</span>
-            <span :class="$style.tag2">#生活</span>
+          <div :class="s.tags">
+            <span :class="s.tag1">快手</span>
+            <span :class="s.tag2">#音乐</span>
+            <span :class="s.tag2">#生活</span>
           </div>
-          <div :class="$style.intro">简介：快手平台娱乐分类主播，农民的儿子，平日以直播（唱歌、跳舞、或其他才艺）为主，直播风格特别，富有很强的娱乐色彩，每次直播都会有大批观众涌入，人气火爆</div>
+          <div :class="s.intro">简介：快手平台娱乐分类主播，农民的儿子，平日以直播（唱歌、跳舞、或其他才艺）为主，直播风格特别，富有很强的娱乐色彩，每次直播都会有大批观众涌入，人气火爆</div>
         </div>
       </div>
-      <a-button :class="$style.addBtn" type="primary"><i :class="$common.plus"></i>添加红人</a-button>
+      <a-button :class="s.addBtn" type="primary"><i :class="c.plus"></i>添加红人</a-button>
     </div>
-    <div :class="$style.body">
+    <div :class="s.body">
       <NavList :list="navList" :active="$route.meta.navKey" @itemClick="onNavChange"></NavList>
-      <router-view :class="$style.content"></router-view>
+      <router-view :class="s.content"></router-view>
     </div>
     <FixedNav></FixedNav>
   </main>
@@ -98,7 +98,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .header {
   background: #fff;
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.04);

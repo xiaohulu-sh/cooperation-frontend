@@ -129,6 +129,9 @@
   margin-bottom: 20px;
   min-height: 200px;
 }
+.block1 {
+  padding: 0 30px 30px;
+}
 .imgTitle {
   background-repeat: no-repeat;
   background-size: contain;
@@ -174,6 +177,12 @@
   margin: 30px 0 20px;
   em {
     color: #736af2;
+  }
+  small {
+    font-size: 14px;
+    font-weight: normal;
+    color: #999;
+    margin: 0 10px;
   }
 }
 .dataInfoList {
@@ -227,5 +236,57 @@
     .down {
       color: #00a300;
     }
+  }
+}
+.tbList {
+  color: #333;
+  li {
+    display: flex;
+    align-items: center;
+    &:nth-child(2n) {
+      background: #f9f9fb;
+    }
+  }
+}
+.th {
+  display: flex;
+  font-size: 12px;
+  height: 24px;
+  line-height: 24px;
+  background: #e9ebf1;
+  color: #596a85;
+}
+.colOrder {
+  span {
+    display: block;
+    margin: auto;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 50%;
+    background: #f2f3f7;
+    color: #999999;
+    font-size: 12px;
+  }
+  .no1,
+  .no2,
+  .no3 {
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    text-indent: -50px;
+    border-radius: 0;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .no1 {
+    background-image: url(../assets/gold.svg);
+  }
+  .no2 {
+    background-image: url(../assets/silver.svg);
+  }
+  .no3 {
+    background-image: url(../assets/bronze.svg);
   }
 }

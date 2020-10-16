@@ -14,7 +14,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 intersectionObserver.USE_MUTATION_OBSERVER = false
 
 export default {
-  props: ['keyData'],
+  props: ['data'],
   data() {
     return {
       visible: false,
@@ -32,7 +32,7 @@ export default {
         this.dataChanged = false
       }
     },
-    keyData() {
+    data() {
       if (!this.visible) this.dataChanged = true
     }
   },

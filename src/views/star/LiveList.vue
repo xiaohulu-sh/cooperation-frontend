@@ -1,21 +1,21 @@
 <template>
   <div>
-    <ul :class="$style.list">
+    <ul :class="s.list">
       <li v-for="(item, index) in list" :key="index">
-        <div :class="$style.avatar"><img src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" alt="头像" /></div>
+        <div :class="s.avatar"><img src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" alt="头像" /></div>
         <div>
-          <div :class="$style.titleLine">
-            <span :class="$style.tag1">带货直播</span>
-            <span :class="$style.tag2">已结束</span>
-            <span :class="$style.tag3">直播中</span>
-            <span :class="[$common.ellispis1, $style.title]">直播惊喜价！免单抽奖！</span>
+          <div :class="s.titleLine">
+            <span :class="s.tag1">带货直播</span>
+            <span :class="s.tag2">已结束</span>
+            <span :class="s.tag3">直播中</span>
+            <span :class="[c.ellispis1, s.title]">直播惊喜价！免单抽奖！</span>
           </div>
-          <div :class="$style.timeInfo">
+          <div :class="s.timeInfo">
             <span>开始时间：2020-10-06 19:53:18</span>
             <span>结束时间：2020-10-07 00:03:15</span>
             <span>总直播时长 3.8h</span>
           </div>
-          <ul :class="$style.data">
+          <ul :class="s.data">
             <li>峰值人气<span>10万</span></li>
             <li>收到贡献值<span>156.62万</span></li>
             <li>送礼人数<span>5.72万</span></li>
@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .list > li {
   display: flex;
   padding: 20px;

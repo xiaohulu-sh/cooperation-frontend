@@ -1,29 +1,29 @@
 <template>
-  <div :class="$style.item">
-    <div :class="$style.bg" :style="`background-image:url(${item.avatar})`">
-      <span :class="$style.area">内蒙古 克什克腾旗</span>
-      <div :class="$style.name">
-        <span :class="$style.tag1">快手</span>
-        <span :class="[$common[item.gender], $style[item.gender]]">狂鸟丶楚河-90327</span>
+  <div :class="s.item">
+    <div :class="s.bg" :style="`background-image:url(${item.avatar})`">
+      <span :class="s.area">内蒙古 克什克腾旗</span>
+      <div :class="s.name">
+        <span :class="s.tag1">快手</span>
+        <span :class="[c[item.gender], s[item.gender]]">狂鸟丶楚河-90327</span>
       </div>
-      <div :class="$style.tags">
-        <span :class="$style.tag2">科技数码</span>
-        <span :class="$style.tag2">旅行</span>
-        <span :class="$style.tag2">美食</span>
-        <span :class="$style.tag3">新动传媒</span>
+      <div :class="s.tags">
+        <span :class="s.tag2">科技数码</span>
+        <span :class="s.tag2">旅行</span>
+        <span :class="s.tag2">美食</span>
+        <span :class="s.tag3">新动传媒</span>
       </div>
     </div>
-    <div :class="[$common.ellipsis1, $style.intro1]">男女粉丝比例：男粉居多，26-32岁粉丝居多</div>
-    <div :class="[$common.ellipsis2, $style.intro2]">
+    <div :class="[c.ellipsis1, s.intro1]">男女粉丝比例：男粉居多，26-32岁粉丝居多</div>
+    <div :class="[c.ellipsis2, s.intro2]">
       Redmi 10X 高性能处理器，性能比肩旗舰配置，带来流畅游戏体验，直播间购机享专属钜惠福利，性能比肩旗舰配置，带来流畅游戏体验，直播间购机享专属钜惠福利
     </div>
-    <div :class="$style.data">
-      <div :class="$style.dataCol">总粉丝数<br /><strong>172万</strong><span>30天涨粉64万</span></div>
-      <div :class="$style.dataCol">总点赞数<br /><strong>172万</strong><span>作品137个</span></div>
-      <div :class="$style.dataCol">星途报价<br /><strong>172万美元</strong><span>1-20s报价</span></div>
+    <div :class="s.data">
+      <div :class="s.dataCol">总粉丝数<br /><strong>172万</strong><span>30天涨粉64万</span></div>
+      <div :class="s.dataCol">总点赞数<br /><strong>172万</strong><span>作品137个</span></div>
+      <div :class="s.dataCol">星途报价<br /><strong>172万美元</strong><span>1-20s报价</span></div>
     </div>
-    <div :class="$style.btnWrap">
-      <a-button><i :class="$common.plus"></i>添加红人</a-button>
+    <div :class="s.btnWrap">
+      <a-button><i :class="c.plus"></i>添加红人</a-button>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .item {
   display: inline-block;
   position: relative;

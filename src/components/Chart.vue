@@ -1,7 +1,7 @@
 <template>
-  <div :class="$style.container">
-    <div ref="chart" :class="{ [$style.chart]: true, [$style.hidden]: isEmpty }"></div>
-    <a-empty v-if="isEmpty" description="暂无数据" />
+  <div :class="s.container">
+    <div ref="chart" :class="{ [s.chart]: true, [s.hidden]: isEmpty }"></div>
+    <a-empty v-if="isEmpty" />
     <a-spin v-if="loading" />
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .container {
   position: relative;
   :global {

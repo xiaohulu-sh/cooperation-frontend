@@ -1,91 +1,91 @@
 <template>
   <div>
-    <div v-if="fields.includes('platform')" :class="$style.filterRow">
-      <div :class="$style.rowTitle">平台类型：</div>
-      <div :class="$style.rowContent">
+    <div v-if="fields.includes('platform')" :class="s.filterRow">
+      <div :class="s.rowTitle">平台类型：</div>
+      <div :class="s.rowContent">
         <radio-list :list="platforms" v-model="platform"></radio-list>
       </div>
     </div>
-    <div v-if="fields.includes('type')" :class="$style.filterRow">
-      <div :class="$style.rowTitle">创作类型：</div>
-      <div :class="$style.rowContent">
+    <div v-if="fields.includes('type')" :class="s.filterRow">
+      <div :class="s.rowTitle">创作类型：</div>
+      <div :class="s.rowContent">
         <radio-list :list="types" v-model="type"></radio-list>
       </div>
     </div>
-    <div v-if="fields.includes('category')" :class="$style.filterRow">
-      <div :class="$style.rowTitle">带货品类：</div>
-      <div :class="$style.rowContent">
+    <div v-if="fields.includes('category')" :class="s.filterRow">
+      <div :class="s.rowTitle">带货品类：</div>
+      <div :class="s.rowContent">
         <radio-list :list="categorys" v-model="category"></radio-list>
       </div>
     </div>
-    <div v-if="otherFields.length > 0" :class="$style.filterRow">
-      <div :class="$style.rowTitle" style="line-height:25px">其他选项：</div>
-      <div :class="$style.rowContent">
+    <div v-if="otherFields.length > 0" :class="s.filterRow">
+      <div :class="s.rowTitle" style="line-height:25px">其他选项：</div>
+      <div :class="s.rowContent">
         <template v-for="key in fields">
-          <div v-if="key === 'area'" :key="key" :class="$style.filterItem">
+          <div v-if="key === 'area'" :key="key" :class="s.filterItem">
             所在地：
-            <a-select v-model="province" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="province" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">省份</a-select-option>
               <a-select-option v-for="p in provinces" :key="p">{{ p }} </a-select-option>
             </a-select>
-            <a-select v-model="city" size="small" :class="$style.select" style="width:92px;margin-left:10px">
+            <a-select v-model="city" size="small" :class="s.select" style="width:92px;margin-left:10px">
               <a-select-option key="">城市</a-select-option>
               <a-select-option v-for="c in cities" :key="c">{{ c }} </a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'frequency'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'frequency'" :key="key" :class="s.filterItem">
             视频发布频率：
-            <a-select v-model="frequency" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="frequency" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'broadcasted'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'broadcasted'" :key="key" :class="s.filterItem">
             历史是否开直播：
-            <a-select v-model="broadcasted" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="broadcasted" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'grow'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'grow'" :key="key" :class="s.filterItem">
             数据涨幅：
-            <a-select v-model="grow" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="grow" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'gender'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'gender'" :key="key" :class="s.filterItem">
             粉丝性别：
-            <a-select v-model="gender" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="gender" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'thumbs'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'thumbs'" :key="key" :class="s.filterItem">
             历史作品总点赞：
-            <a-select v-model="thumbs" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="thumbs" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'purchase'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'purchase'" :key="key" :class="s.filterItem">
             粉丝购买力：
-            <a-select v-model="purchase" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="purchase" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'occupation'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'occupation'" :key="key" :class="s.filterItem">
             消费者职业：
-            <a-select v-model="occupation" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="occupation" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'loyalty'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'loyalty'" :key="key" :class="s.filterItem">
             粉丝购买忠诚度：
-            <a-select v-model="loyalty" size="small" :class="$style.select" style="width:92px">
+            <a-select v-model="loyalty" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'age'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'age'" :key="key" :class="s.filterItem">
             粉丝年龄：
             <a-checkbox-group v-model="age" :options="ages"></a-checkbox-group>
           </div>
-          <div v-else-if="key === 'pop'" :key="key" :class="$style.filterItem">
+          <div v-else-if="key === 'pop'" :key="key" :class="s.filterItem">
             粉丝数：
             <radio-list :list="pops" :allValue="allRange" v-model="pop"></radio-list>
             <custom-range v-model="pop"></custom-range>
@@ -93,14 +93,14 @@
         </template>
       </div>
     </div>
-    <div v-if="selectedList.length > 0" :class="$style.selectedFilters">
-      <div :class="$style.selectedTitle">已选：</div>
-      <div :class="$style.selectedContent">
-        <div v-for="{ key, label, text } in selectedList" :key="key" :class="$style.selectedItem">
+    <div v-if="selectedList.length > 0" :class="s.selectedFilters">
+      <div :class="s.selectedTitle">已选：</div>
+      <div :class="s.selectedContent">
+        <div v-for="{ key, label, text } in selectedList" :key="key" :class="s.selectedItem">
           {{ label }}: <a-tag closable @close="e => (e.preventDefault(), reset(key))">{{ text }}</a-tag>
         </div>
       </div>
-      <button :class="$style.selectedReset" @click="resetAll">
+      <button :class="s.selectedReset" @click="resetAll">
         <svg height="12" viewBox="0 0 12 12" width="12">
           <path
             d="m9.89688244 8.37578681c-1.33357225 2.20306849-4.19297107 2.90330759-6.38665103 1.56403979-2.19367995-1.3392796-2.89093497-4.21091602-1.55737449-6.41398444 1.3335722-2.20306842 4.19297103-2.90330754 6.38665098-1.56403972.42472123.25929918.80528246.58533032 1.12718575.96567348l-1.56538461 1.54809226 4.09869096.26401511-.2748395-4.11623245-1.3263948 1.34407326c-2.21785082-2.45374003-5.99644223-2.63727704-8.43972571-.4099447-2.44328348 2.22734293-2.62603834 6.02210588-.40819788 8.4758461 1.11072222 1.2288606 2.67863769 1.9408306 4.33100766 1.9667608 2.12035742.0045757 4.08820617-1.1065125 5.18609583-2.92826017.1909526-.32482392.0840365-.7435823-.238991-.93605295-.3234479-.19177007-.7404217-.0843965-.93207216.24001363z"
@@ -313,7 +313,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .filterRow {
   display: flex;
   margin-bottom: 10px;

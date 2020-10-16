@@ -40,6 +40,7 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/visualMap'
 import 'echarts/lib/component/calendar'
+import 'echarts-wordcloud'
 Vue.prototype.echarts = echarts
 /* echarts end */
 
@@ -56,7 +57,7 @@ Vue.use(infiniteScroll)
 
 /* common style start */
 import commonStyle from '@/styles/common.module.less'
-Vue.prototype.$common = commonStyle
+Vue.prototype.c = commonStyle
 /* common style end */
 
 /* custom components start */
@@ -72,6 +73,8 @@ import FixedNav from '@/components/FixedNav'
 Vue.component('FixedNav', FixedNav)
 import NavList from '@/components/NavList'
 Vue.component('NavList', NavList)
+import DataTimeRange from '@/components/DataTimeRange'
+Vue.component('DataTimeRange', DataTimeRange)
 /* custom components end */
 
 new Vue({

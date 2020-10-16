@@ -1,6 +1,6 @@
 <template>
-  <ul :class="$style.list">
-    <li v-for="{ key, text, svg } in list" :key="key" :class="{ [$style.item]: true, [$style.active]: key === active }" @click="onClick(key)"><i :class="$style.icon" v-html="svg"></i>{{ text }}</li>
+  <ul :class="s.list">
+    <li v-for="{ key, text, svg } in list" :key="key" :class="{ [s.item]: true, [s.active]: key === active }" @click="onClick(key)"><i :class="s.icon" v-html="svg"></i>{{ text }}</li>
   </ul>
 </template>
 
@@ -18,7 +18,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .list {
   width: 160px;
   font-size: 16px;

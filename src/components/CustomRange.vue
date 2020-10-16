@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-range">
+  <div :class="s.range">
     <label>
       {{ label1 }}
       <input ref="min" type="text" v-model="minValue" :placeholder="placeholder1" />
@@ -104,8 +104,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.custom-range {
+<style lang="less" module="s">
+.range {
   margin-left: 20px;
   display: inline-block;
 

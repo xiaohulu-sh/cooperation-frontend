@@ -1,16 +1,16 @@
 <template>
-  <header :class="$style.header">
-    <h1 :class="$style.h1">
-      <router-link to="/"><img :class="$style.logo" src="../assets/logo.svg" alt="京东智联云"/></router-link>
-      <span :class="$style.title">智慧直播营销服务平台</span>
+  <header :class="s.header">
+    <h1 :class="s.h1">
+      <router-link to="/"><img :class="s.logo" src="../assets/logo.svg" alt="京东智联云"/></router-link>
+      <span :class="s.title">智慧直播营销服务平台</span>
     </h1>
     <a-dropdown>
-      <div :class="$style.user">
-        <img :class="$style.avatar" src="https://via.placeholder.com/120/00ff00/ffffff?text=avatar" />
-        <span :class="$style.nickname">拉尔夫</span>
-        <a-icon :class="$style.arrow" type="down" />
+      <div :class="s.user">
+        <img :class="s.avatar" src="https://via.placeholder.com/120/00ff00/ffffff?text=avatar" />
+        <span :class="s.nickname">拉尔夫</span>
+        <a-icon :class="s.arrow" type="down" />
       </div>
-      <a-menu :class="$style.menu" slot="overlay">
+      <a-menu :class="s.menu" slot="overlay">
         <a-menu-item>
           <a href="javascript:;">退出登录</a>
         </a-menu-item>
@@ -19,7 +19,7 @@
   </header>
 </template>
 
-<style lang="less" module>
+<style lang="less" module="s">
 header {
   display: flex;
   align-items: center;

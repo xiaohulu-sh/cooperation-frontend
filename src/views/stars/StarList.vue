@@ -1,16 +1,16 @@
 <template>
-  <div :class="$style.container">
-    <div v-if="empty" :class="$style.emptyTitle">
+  <div :class="s.container">
+    <div v-if="empty" :class="s.emptyTitle">
       智选库中暂无数据，请减少部分条件
       <div>为您推荐可能感兴趣的KOL</div>
     </div>
     <h3 v-else-if="list.length > 0">符合条件的红人(1931)</h3>
-    <RecycleScroller :class="$style.list" v-infinite-scroll="loadMore" infinite-scroll-disabled="infDisabled" infinite-scroll-distance="120" page-mode :items="list" :itemSize="476" :buffer="1000">
+    <RecycleScroller :class="s.list" v-infinite-scroll="loadMore" infinite-scroll-disabled="infDisabled" infinite-scroll-distance="120" page-mode :items="list" :itemSize="476" :buffer="1000">
       <template v-slot="{ item: arr }">
         <StarItem v-for="item in arr" :key="item.id" :item="item"></StarItem>
       </template>
       <template v-if="loading" #after>
-        <div :class="$style.moreLoading"><a-spin /></div>
+        <div :class="s.moreLoading"><a-spin /></div>
       </template>
     </RecycleScroller>
   </div>
@@ -77,7 +77,7 @@ export default {
 }
 </script>
 
-<style lang="less" module>
+<style lang="less" module="s">
 .container {
   h3 {
     color: #333;

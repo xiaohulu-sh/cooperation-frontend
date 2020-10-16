@@ -1,7 +1,7 @@
 <template>
-  <main :class="$common.main1">
+  <main :class="c.main1">
     <SideNav></SideNav>
-    <router-view :class="$common.content"></router-view>
+    <router-view :class="c.content"></router-view>
     <FixedNav></FixedNav>
   </main>
 </template>
