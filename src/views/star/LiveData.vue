@@ -78,7 +78,7 @@
         <li :class="c.dataTabActive">礼物收入</li>
         <li>观看数</li>
       </ul>
-      <LazyBlock :class="[c.lazyBlock, c.block1]" :data="chartLines" style="height:338px">
+      <LazyBlock :class="c.block1" :data="chartLines" style="height:338px">
         <Chart :chartData="chartLines" :loading="chartLinesLoading" style="height:308px"></Chart>
       </LazyBlock>
       <ul :class="c.dataTabs" style="padding: 30px 30px 0">
@@ -86,7 +86,7 @@
         <li>直播时长</li>
         <li>粉丝关注</li>
       </ul>
-      <LazyBlock :class="[c.lazyBlock, c.block1]" :data="chartLines" style="height:338px">
+      <LazyBlock :class="c.block1" :data="chartLines" style="height:338px">
         <Chart :chartData="chartLines" :loading="chartLinesLoading" style="height:308px"></Chart>
       </LazyBlock>
       <div :class="c.block1">
@@ -111,13 +111,14 @@
 import { createLine1 } from '@/utils/charts/line'
 import LiveList from './LiveList'
 import TycoonList from './TycoonList'
-import dataTimeRange from './common/data-time-range'
+import useDataTimeRange from './data-time-range'
+import DataTimeRange from './data-time-range/DataTimeRange'
 
 export default {
-  components: { LiveList, TycoonList },
+  components: { DataTimeRange, LiveList, TycoonList },
   data() {
     return {
-      ...dataTimeRange.data(),
+      ...useDataTimeRange.data(),
       chartLines: null,
       chartLinesLoading: false,
       records: [{}, {}, {}, {}, {}],
@@ -131,7 +132,7 @@ export default {
     }
   },
   computed: {
-    ...dataTimeRange.computed
+    ...useDataTimeRange.computed
   },
   mounted() {
     this.chartLinesLoading = true

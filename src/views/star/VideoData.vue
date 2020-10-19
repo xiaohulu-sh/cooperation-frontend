@@ -40,14 +40,14 @@
         <li>粉丝数</li>
         <li>评论数</li>
       </ul>
-      <LazyBlock :class="c.lazyBlock" :data="chartLines" style="height:338px;padding:0 30px 30px">
+      <LazyBlock :data="chartLines" style="height:338px;padding:0 30px 30px">
         <Chart :chartData="chartLines" :loading="chartLinesLoading" style="height:308px"></Chart>
       </LazyBlock>
     </div>
     <div :class="c.dataBlock">
       <h2 :class="[c.imgTitle, s.title3]">作品发布频率</h2>
       <div v-if="numAverage" :class="s.titleText">{{ numAverage }}个/周</div>
-      <LazyBlock :class="c.lazyBlock" :data="chartCalendar" style="height:310px;padding-bottom:30px">
+      <LazyBlock :data="chartCalendar" style="height:310px;padding-bottom:30px">
         <Chart :chartData="chartCalendar" :loading="chartCalendarLoading" style="height:280px"></Chart>
       </LazyBlock>
     </div>

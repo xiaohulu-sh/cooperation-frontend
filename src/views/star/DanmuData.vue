@@ -5,7 +5,7 @@
       <div :class="s.container1">
         <div style="width:447px;margin-right:24px">
           <h3 :class="c.h3">关键词分析<small>近7天评论</small></h3>
-          <LazyBlock :class="c.lazyBlock" :data="chartWords" style="height:396px;margin-top:-20px">
+          <LazyBlock :data="chartWords" style="height:396px;margin-top:-20px">
             <Chart :chartData="chartWords" :loading="chartWordsLoading" style="height:396px"></Chart>
           </LazyBlock>
         </div>
@@ -56,7 +56,7 @@
         <li :class="c.dataTabActive">弹幕条数</li>
         <li>弹幕人数</li>
       </ul>
-      <LazyBlock :class="[c.lazyBlock, c.block1]" :data="chartLines" style="height:338px">
+      <LazyBlock :class="c.block1" :data="chartLines" style="height:338px">
         <Chart :chartData="chartLines" :loading="chartLinesLoading" style="height:308px"></Chart>
       </LazyBlock>
       <div :class="s.container1">
@@ -64,7 +64,7 @@
           <h3 :class="c.h3">
             <em>{{ range }}</em> 单位观众发送弹幕数量占比
           </h3>
-          <LazyBlock :class="c.lazyBlock" :data="chartPie" style="height:470px;margin-top:-20px">
+          <LazyBlock :data="chartPie" style="height:470px;margin-top:-20px">
             <Chart :chartData="chartPie" :loading="chartPieLoading" style="height:470px"></Chart>
           </LazyBlock>
         </div>
@@ -102,19 +102,20 @@
 </template>
 
 <script>
-import HotWords from '@/components/HotWords'
 import { createWordCloud1 } from '@/utils/charts/word-cloud'
 import { createLine1 } from '@/utils/charts/line'
 import { createPie1 } from '@/utils/charts/pie'
-import dataTimeRange from './common/data-time-range'
+import HotWords from '@/components/HotWords'
+import useDataTimeRange from './data-time-range'
+import DataTimeRange from './data-time-range/DataTimeRange'
 
 export default {
-  components: { HotWords },
+  components: { HotWords, DataTimeRange },
   data() {
     return {
       chartWords: null,
       chartWordsLoading: false,
-      ...dataTimeRange.data(),
+      ...useDataTimeRange.data(),
       chartLines: null,
       chartLinesLoading: false,
       chartPie: null,
@@ -144,7 +145,7 @@ export default {
       ].map(item => ({ text: item.content }))
     }
   },
-  computed: { ...dataTimeRange.computed },
+  computed: { ...useDataTimeRange.computed },
   mounted() {
     this.chartWordsLoading = true
     setTimeout(() => {
