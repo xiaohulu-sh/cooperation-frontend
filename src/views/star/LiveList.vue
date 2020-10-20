@@ -5,12 +5,12 @@
         <div :class="s.avatar"><img src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" alt="头像" /></div>
         <div>
           <div :class="s.titleLine">
-            <span :class="s.tag1">带货直播</span>
-            <span :class="s.tag2">已结束</span>
-            <span :class="s.tag3">直播中</span>
+            <span :class="[c.tag1, s.tag]">带货直播</span>
+            <span :class="[c.tag2, s.tag]">已结束</span>
+            <span :class="[c.tag3, s.tag]">直播中</span>
             <span :class="[c.ellispis1, s.title]">直播惊喜价！免单抽奖！</span>
           </div>
-          <div :class="s.timeInfo">
+          <div :class="c.splitInfo">
             <span>开始时间：2020-10-06 19:53:18</span>
             <span>结束时间：2020-10-07 00:03:15</span>
             <span>总直播时长 3.8h</span>
@@ -75,29 +75,6 @@ export default {
     border-radius: 4px;
   }
 }
-.tag {
-  width: 76px;
-  text-align: center;
-  height: 23px;
-  line-height: 23px;
-  color: #fff;
-  border-radius: 12px;
-  margin-right: 10px;
-}
-.tag1 {
-  composes: tag;
-  background: #ffbc40;
-}
-.tag2 {
-  composes: tag;
-  background: #d8d8d8;
-}
-.tag3 {
-  composes: tag;
-  background: #ec595d;
-  border: 1px solid #c13539;
-  line-height: 21px;
-}
 .titleLine {
   display: flex;
   align-items: center;
@@ -108,23 +85,8 @@ export default {
   max-width: 450px;
   color: #333;
 }
-.timeInfo {
-  color: #666;
-  margin-top: 10px;
-  span {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 20px;
-    &::after {
-      content: '|';
-      margin-left: 20px;
-    }
-    &:last-child {
-      &::after {
-        content: none;
-      }
-    }
-  }
+.tag {
+  width: 76px;
 }
 .data {
   display: flex;

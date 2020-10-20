@@ -2,7 +2,7 @@
   <div>
     <div :class="c.dataBlock">
       <h2 :class="[c.imgTitle, s.title1]">作品数据概览</h2>
-      <ul :class="s.list1">
+      <ul :class="c.dataList" style="padding:10px 30px 0;">
         <li>
           <em>6113.90<span>万</span></em>
           总粉丝数
@@ -51,7 +51,7 @@
         <Chart :chartData="chartCalendar" :loading="chartCalendarLoading" style="height:280px"></Chart>
       </LazyBlock>
     </div>
-    <div :class="c.dataBlock">
+    <div :class="c.dataBlock" style="min-height:200px">
       <h2 :class="[c.imgTitle, s.title4]">作品列表</h2>
       <ul v-if="videoList && videoList.length > 0" :class="s.videoList">
         <li v-for="({ video_screen_pic, video_desc, video_digg_count, video_comment_count, video_create_time, video_url }, index) in videoList" :key="index">
@@ -311,46 +311,6 @@ export default {
   }
   .title4 {
     background-image: url(../../assets/video-title4@2x.png);
-  }
-}
-.list1 {
-  display: flex;
-  padding: 10px 30px 0;
-  li {
-    flex: 1;
-    position: relative;
-    text-align: center;
-    color: #999;
-    &::before {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 1px;
-      height: 82px;
-      overflow: hidden;
-      background: #f3f6f8;
-    }
-    &:last-child::before {
-      content: none;
-    }
-    &::after {
-      content: '';
-      display: block;
-      width: 89px;
-      height: 28px;
-      margin: 4px auto 0;
-      background: url(../../assets/bg-data.svg) no-repeat 0 0 / contain;
-    }
-  }
-  em {
-    display: block;
-    font-size: 24px;
-    color: #ff7b00;
-    margin-bottom: 4px;
-    span {
-      font-size: 14px;
-    }
   }
 }
 .titleText {
