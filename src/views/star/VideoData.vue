@@ -35,7 +35,7 @@
         <li :class="c.dataTabActive">近7天</li>
         <li>近30天</li>
       </ul>
-      <ul :class="c.dataTabs" style="padding: 30px 30px 0">
+      <ul :class="c.dataTabs" style="padding:30px 30px 0">
         <li :class="c.dataTabActive">点赞数</li>
         <li>粉丝数</li>
         <li>评论数</li>

@@ -32,7 +32,8 @@ const routes = [
       { path: 'video', component: () => import('@/views/star/VideoData'), meta: { navKey: 'video' } },
       { path: 'live', component: () => import('@/views/star/LiveData'), meta: { navKey: 'live' } },
       { path: 'danmu', component: () => import('@/views/star/DanmuData'), meta: { navKey: 'danmu' } },
-      { path: 'commerce', component: () => import('@/views/star/CommerceData'), meta: { navKey: 'commerce' } }
+      { path: 'commerce', component: () => import('@/views/star/CommerceData'), meta: { navKey: 'commerce' } },
+      { path: 'records', component: () => import('@/views/star/Records'), meta: { navKey: 'records' } }
     ]
   },
   { path: '*', component: () => import('@/views/View404') }
