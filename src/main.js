@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
-import { ConfigProvider, Icon, Button, Spin, Dropdown, Menu, Select, Checkbox, Tag, Empty, Result, Pagination, Popover, message } from 'ant-design-vue'
+import { ConfigProvider, Icon, Button, Spin, Dropdown, Menu, Select, Checkbox, Tag, Empty, Result, Pagination, Popover, Radio, message } from 'ant-design-vue'
 Vue.use(ConfigProvider)
 Vue.use(Icon)
 Vue.use(Button)
@@ -27,6 +27,7 @@ Vue.use(Empty)
 Vue.use(Result)
 Vue.use(Pagination)
 Vue.use(Popover)
+Vue.use(Radio)
 Vue.prototype.$message = message
 /* ant-design-vue end */
 
