@@ -38,6 +38,7 @@ const routes = [
       { path: 'fans', component: () => import('@/views/star/FansData'), meta: { navKey: 'fans' } }
     ]
   },
+  { path: '/goods/:id/data', component: () => import('@/views/goods/GoodsData') },
   { path: '*', component: () => import('@/views/View404') }
 ]
 

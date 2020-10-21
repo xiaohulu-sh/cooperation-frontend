@@ -69,7 +69,7 @@
           <div :class="c.colVal">6790.5</div>
           <div :class="c.colVal">1252.3万</div>
           <div :class="c.colVal">8502.8万</div>
-          <div :class="c.colLink1"><a href="javascript:">查看购买详情 &gt;</a></div>
+          <div :class="c.colLink1"><router-link to="/goods/123/data">查看购买详情 &gt;</router-link></div>
         </li>
       </ul>
     </div>
