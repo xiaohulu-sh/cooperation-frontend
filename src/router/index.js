@@ -15,6 +15,8 @@ import StarRecords from '@/views/star/Records'
 import StarCommerceDetail from '@/views/star/CommerceDetail'
 import StarFans from '@/views/star/FansData'
 import GoodsData from '@/views/goods/GoodsData'
+import My from '@/views/my/My'
+import MyOrders from '@/views/my/MyOrders'
 import View404 from '@/views/View404'
 
 // 解决路由访问重复时报错问题
@@ -55,6 +57,7 @@ const routes = [
     ]
   },
   { path: '/goods/:id/data', component: GoodsData },
+  { path: '/my', redirect: '/my/orders', component: My, children: [{ path: 'orders', component: MyOrders }] },
   { path: '*', component: View404 }
 ]
 
