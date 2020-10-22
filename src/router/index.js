@@ -1,6 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { startProgressBar, stopProgressBar } from '@/components/progress-bar'
+import Stars from '@/views/stars/Stars'
+import ByType from '@/views/stars/ByType'
+import ByCategory from '@/views/stars/ByCategory'
+import ByFans from '@/views/stars/ByFans'
+import Star from '@/views/star/Star'
+import StarVideo from '@/views/star/VideoData'
+import StarLive from '@/views/star/LiveData'
+import StarDanmu from '@/views/star/DanmuData'
+import StarCommerce from '@/views/star/CommerceData'
+import StarRecords from '@/views/star/Records'
+import StarCommerceDetail from '@/views/star/CommerceDetail'
+import StarFans from '@/views/star/FansData'
+import GoodsData from '@/views/goods/GoodsData'
+import View404 from '@/views/View404'
 
 // 解决路由访问重复时报错问题
 const originalPush = VueRouter.prototype.push
@@ -18,28 +32,28 @@ const routes = [
   {
     path: '/stars',
     redirect: '/stars/by-type',
-    component: () => import('@/views/stars/Stars'),
+    component: Stars,
     children: [
-      { path: 'by-type', component: () => import('@/views/stars/ByType') },
-      { path: 'by-category', component: () => import('@/views/stars/ByCategory') },
-      { path: 'by-fans', component: () => import('@/views/stars/ByFans') }
+      { path: 'by-type', component: ByType },
+      { path: 'by-category', component: ByCategory },
+      { path: 'by-fans', component: ByFans }
     ]
   },
   {
     path: '/star/:platform/:room',
-    component: () => import('@/views/star/Star'),
+    component: Star,
     children: [
-      { path: 'video', component: () => import('@/views/star/VideoData'), meta: { navKey: 'video' } },
-      { path: 'live', component: () => import('@/views/star/LiveData'), meta: { navKey: 'live' } },
-      { path: 'danmu', component: () => import('@/views/star/DanmuData'), meta: { navKey: 'danmu' } },
-      { path: 'commerce', component: () => import('@/views/star/CommerceData'), meta: { navKey: 'commerce' } },
-      { path: 'records', component: () => import('@/views/star/Records'), meta: { navKey: 'records' } },
-      { path: 'records/:id', component: () => import('@/views/star/CommerceDetail'), meta: { navKey: 'records' } },
-      { path: 'fans', component: () => import('@/views/star/FansData'), meta: { navKey: 'fans' } }
+      { path: 'video', component: StarVideo, meta: { navKey: 'video' } },
+      { path: 'live', component: StarLive, meta: { navKey: 'live' } },
+      { path: 'danmu', component: StarDanmu, meta: { navKey: 'danmu' } },
+      { path: 'commerce', component: StarCommerce, meta: { navKey: 'commerce' } },
+      { path: 'records', component: StarRecords, meta: { navKey: 'records' } },
+      { path: 'records/:id', component: StarCommerceDetail, meta: { navKey: 'records' } },
+      { path: 'fans', component: () => StarFans, meta: { navKey: 'fans' } }
     ]
   },
-  { path: '/goods/:id/data', component: () => import('@/views/goods/GoodsData') },
-  { path: '*', component: () => import('@/views/View404') }
+  { path: '/goods/:id/data', component: GoodsData },
+  { path: '*', component: View404 }
 ]
 
 const router = new VueRouter({
