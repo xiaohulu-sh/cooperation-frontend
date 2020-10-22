@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import 'intersection-observer'
 import smoothscroll from 'smoothscroll-polyfill'
+import { onAvatarError } from './utils/utils'
 
 smoothscroll.polyfill()
 
@@ -71,10 +72,15 @@ import RadioList from '@/components/RadioList'
 Vue.component('RadioList', RadioList)
 import CustomRange from '@/components/CustomRange'
 Vue.component('CustomRange', CustomRange)
-import FixedNav from '@/components/FixedNav'
-Vue.component('FixedNav', FixedNav)
 import NavList from '@/components/NavList'
 Vue.component('NavList', NavList)
+import SideNav from '@/views/components/SideNav'
+Vue.component('SideNav', SideNav)
+import FixedNav from '@/views/components/FixedNav'
+Vue.component('FixedNav', FixedNav)
+import StarInfo from '@/views/components/StarInfo'
+Vue.component('StarInfo', StarInfo)
+Vue.prototype.onAvatarError = onAvatarError
 /* custom components end */
 
 new Vue({

@@ -15,12 +15,18 @@
   background: #fff;
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.04);
   border-radius: 4px;
-  h2 {
-    font-size: 20px;
-    font-weight: normal;
-    color: #666;
-    margin-bottom: 20px;
-  }
+}
+.h2a {
+  font-size: 20px;
+  font-weight: normal;
+  color: #666;
+  margin-bottom: 20px;
+}
+.h2b {
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: 20px;
 }
 .ellipsis1 {
   white-space: nowrap;
@@ -339,9 +345,9 @@
 }
 .th {
   display: flex;
+  align-items: center;
   font-size: 12px;
-  height: 24px;
-  line-height: 24px;
+  min-height: 24px;
   background: #e9ebf1;
   color: #596a85;
 }
@@ -488,6 +494,35 @@
 }
 .tag {
   display: inline-block;
+  height: 22px;
+  line-height: 22px;
+  padding: 0 3px;
+  border-radius: 2px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.tag1 {
+  composes: tag;
+  color: #fa541c;
+  background: #fff2e8;
+  border-color: #ffbb96;
+}
+.tag2 {
+  composes: tag;
+  color: #1890ff;
+  background: #e6f7ff;
+  border-color: #91d5ff;
+}
+.tag3 {
+  composes: tag;
+  color: #722ed1;
+  background: #f9f0ff;
+  border-color: #d3adf7;
+}
+.tagR {
+  display: inline-block;
   text-align: center;
   height: 23px;
   line-height: 23px;
@@ -496,17 +531,44 @@
   margin-right: 10px;
   padding: 0 10px;
 }
-.tag1 {
-  composes: tag;
+.tagR1 {
+  composes: tagR;
   background: #ffbc40;
 }
-.tag2 {
-  composes: tag;
+.tagR2 {
+  composes: tagR;
   background: #d8d8d8;
 }
-.tag3 {
-  composes: tag;
+.tagR3 {
+  composes: tagR;
   background: #ec595d;
   border: 1px solid #c13539;
   line-height: 21px;
+}
+.th1 {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  background: #e9ebf1;
+  color: #666;
+}
+.tbList1 {
+  composes: tbList;
+  li {
+    min-height: 88px;
+  }
+}
+.delBtn {
+  color: #736af2;
+  cursor: pointer;
+  &:hover {
+    color: #a399ff;
+  }
+  svg {
+    display: inline-block;
+    width: 13px;
+    height: 16px;
+    vertical-align: middle;
+    margin: -4px 0 0 0;
+  }
 }

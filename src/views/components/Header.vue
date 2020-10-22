@@ -1,12 +1,12 @@
 <template>
   <header :class="s.header">
     <h1 :class="s.h1">
-      <router-link to="/"><img :class="s.logo" src="../assets/logo.svg" alt="京东智联云"/></router-link>
+      <router-link to="/"><img :class="s.logo" src="../../assets/logo.svg" alt="京东智联云"/></router-link>
       <span :class="s.title">智慧直播营销服务平台</span>
     </h1>
     <a-dropdown>
       <div :class="s.user">
-        <img :class="s.avatar" src="https://via.placeholder.com/120/00ff00/ffffff?text=avatar" />
+        <img :class="s.avatar" src="https://via.placeholder.com/120/00ff00/ffffff?text=avatar" referrerpolicy="no-referrer" @error="onAvatarError" />
         <span :class="s.nickname">拉尔夫</span>
         <a-icon :class="s.arrow" type="down" />
       </div>

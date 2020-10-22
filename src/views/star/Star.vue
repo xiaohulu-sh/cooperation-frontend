@@ -36,8 +36,6 @@
 </template>
 
 <script>
-import { onAvatarError } from '@/utils/utils'
-
 export default {
   data() {
     return {
@@ -83,7 +81,6 @@ export default {
     }
   },
   methods: {
-    onAvatarError,
     onNavChange(key) {
       const { platform, room } = this.$route.params
       this.$router.replace(`/star/${platform}/${room}/${key}`)

@@ -11,9 +11,9 @@
           <span>总直播时长 3小时15分</span>
         </div>
         <div style="margin-top:10px">
-          <span :class="c.tag1">带货直播</span>
-          <span :class="c.tag2">已结束</span>
-          <span :class="c.tag3">直播中</span>
+          <span :class="c.tagR1">带货直播</span>
+          <span :class="c.tagR2">已结束</span>
+          <span :class="c.tagR3">直播中</span>
         </div>
       </div>
     </div>
@@ -78,7 +78,6 @@
 </template>
 
 <script>
-import { onAvatarError } from '@/utils/utils'
 import { createLine1 } from '@/utils/charts/line'
 
 export default {
@@ -97,7 +96,6 @@ export default {
       return `/star/${platform}/${room}/records`
     }
   },
-  methods: { onAvatarError },
   mounted() {
     this.chartLinesLoading = true
     setTimeout(() => {

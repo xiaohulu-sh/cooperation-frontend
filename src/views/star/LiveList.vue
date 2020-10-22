@@ -5,9 +5,9 @@
         <div :class="s.avatar"><img src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" alt="头像" /></div>
         <div>
           <div :class="s.titleLine">
-            <span :class="[c.tag1, s.tag]">带货直播</span>
-            <span :class="[c.tag2, s.tag]">已结束</span>
-            <span :class="[c.tag3, s.tag]">直播中</span>
+            <span :class="[c.tagR1, s.tag]">带货直播</span>
+            <span :class="[c.tagR2, s.tag]">已结束</span>
+            <span :class="[c.tagR3, s.tag]">直播中</span>
             <span :class="[c.ellispis1, s.title]">直播惊喜价！免单抽奖！</span>
           </div>
           <div :class="c.splitInfo">
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { onAvatarError } from '@/utils/utils'
 export default {
   props: {
     list: Array,
@@ -48,7 +47,6 @@ export default {
     }
   },
   methods: {
-    onAvatarError,
     onPageChange(page) {
       this.$emit('update:page', page)
     }

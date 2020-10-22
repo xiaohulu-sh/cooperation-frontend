@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { startProgressBar, stopProgressBar } from '@/components/progress-bar'
 import Stars from '@/views/stars/Stars'
-import ByType from '@/views/stars/ByType'
-import ByCategory from '@/views/stars/ByCategory'
-import ByFans from '@/views/stars/ByFans'
+import StarsByType from '@/views/stars/ByType'
+import StarsByCategory from '@/views/stars/ByCategory'
+import StarsByFans from '@/views/stars/ByFans'
+import StarsSelected from '@/views/stars/Selected'
 import Star from '@/views/star/Star'
 import StarVideo from '@/views/star/VideoData'
 import StarLive from '@/views/star/LiveData'
@@ -34,9 +35,10 @@ const routes = [
     redirect: '/stars/by-type',
     component: Stars,
     children: [
-      { path: 'by-type', component: ByType },
-      { path: 'by-category', component: ByCategory },
-      { path: 'by-fans', component: ByFans }
+      { path: 'by-type', component: StarsByType },
+      { path: 'by-category', component: StarsByCategory },
+      { path: 'by-fans', component: StarsByFans },
+      { path: 'selected', component: StarsSelected }
     ]
   },
   {

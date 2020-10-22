@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2><i :class="[c.titleIcon, s.type]"></i>按创作类型筛选红人</h2>
+    <h2 :class="c.h2a"><i :class="[c.titleIcon, s.type]"></i>按创作类型筛选红人</h2>
     <filters key="type" :fields="['platform', 'type', 'area', 'frequency', 'broadcasted', 'grow', 'gender', 'thumbs', 'age', 'pop']"></filters>
-    <star-list></star-list>
+    <StarList></StarList>
   </div>
 </template>
 

@@ -10,7 +10,7 @@
 
 <script>
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import Header from '@/components/Header'
+import Header from '@/views/components/Header'
 
 export default {
   components: { Header },

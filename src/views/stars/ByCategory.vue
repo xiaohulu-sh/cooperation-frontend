@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2><i :class="[c.titleIcon, s.category]"></i>按带货品类筛选红人</h2>
+    <h2 :class="c.h2a"><i :class="[c.titleIcon, s.category]"></i>按带货品类筛选红人</h2>
     <filters key="category" :fields="['platform', 'category', 'gender', 'broadcasted', 'thumbs', 'area', 'pop']"></filters>
   </div>
 </template>

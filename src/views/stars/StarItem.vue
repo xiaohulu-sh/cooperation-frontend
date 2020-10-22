@@ -3,14 +3,14 @@
     <div :class="s.bg" :style="`background-image:url(${item.avatar})`">
       <span :class="s.area">内蒙古 克什克腾旗</span>
       <div :class="s.name">
-        <span :class="s.tag1">快手</span>
+        <span :class="[c.tag1, s.tag1]">快手</span>
         <span :class="[c[item.gender], s[item.gender]]">狂鸟丶楚河-90327</span>
       </div>
       <div :class="s.tags">
-        <span :class="s.tag2">科技数码</span>
-        <span :class="s.tag2">旅行</span>
-        <span :class="s.tag2">美食</span>
-        <span :class="s.tag3">新动传媒</span>
+        <span :class="[c.tag2, s.tag2]">科技数码</span>
+        <span :class="[c.tag2, s.tag2]">旅行</span>
+        <span :class="[c.tag2, s.tag2]">美食</span>
+        <span :class="[c.tag3, s.tag3]">新动传媒</span>
       </div>
     </div>
     <div :class="[c.ellipsis1, s.intro1]">男女粉丝比例：男粉居多，26-32岁粉丝居多</div>
@@ -86,35 +86,13 @@ export default {
     margin: -2px 4px 0 0;
   }
 }
-.tag {
-  display: inline-block;
-  height: 22px;
-  line-height: 22px;
-  padding: 0 3px;
-  border-radius: 2px;
-  border-width: 1px;
-  border-style: solid;
-  font-size: 12px;
-}
 .tag1 {
-  composes: tag;
-  color: #fa541c;
-  background: #fff2e8;
-  border-color: #ffbb96;
   margin-right: 5px;
 }
 .tag2 {
-  composes: tag;
-  color: #1890ff;
-  background: #e6f7ff;
-  border-color: #91d5ff;
   margin-left: 10px;
 }
 .tag3 {
-  composes: tag;
-  color: #722ed1;
-  background: #f9f0ff;
-  border-color: #d3adf7;
   float: right;
   margin-right: 10px;
 }

@@ -61,9 +61,9 @@ export default {
   }
 }
 .cart {
-  background-image: url(../assets/cart.svg);
+  background-image: url(../../assets/cart.svg);
 }
 .backtop {
-  background-image: url(../assets/up.svg);
+  background-image: url(../../assets/up.svg);
 }
 </style>
