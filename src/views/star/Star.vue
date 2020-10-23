@@ -1,7 +1,7 @@
 <template>
   <main :class="c.main">
     <div :class="s.header">
-      <div :class="s.info">
+      <div style="display:flex">
         <div :class="[s.avatarContainer, c.male, s.male]">
           <div :class="[s.avatar, s.live]">
             <img src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" alt="头像" />
@@ -95,9 +95,6 @@ export default {
   border-radius: 4px;
   padding: 30px;
   position: relative;
-}
-.info {
-  display: flex;
 }
 .avatarContainer {
   flex: 0 0 auto;

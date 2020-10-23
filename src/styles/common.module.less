@@ -3,18 +3,26 @@
   width: 1200px;
   margin: 20px auto 0;
 }
+.block {
+  background: #fff;
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+}
 .main1 {
   composes: main;
   display: flex;
   align-items: flex-start;
 }
+.main2 {
+  composes: main;
+  composes: block;
+  padding: 30px;
+}
 .content {
+  composes: block;
   width: 1020px;
   margin-left: 20px;
   padding: 30px;
-  background: #fff;
-  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.04);
-  border-radius: 4px;
 }
 .h2a {
   font-size: 20px;
@@ -66,6 +74,31 @@
 }
 .female::after {
   background-image: url(../assets/female.svg);
+}
+.link {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 1px;
+  line-height: 22px;
+  padding: 0 8px;
+  color: rgba(0, 0, 0, 0.65);
+  transition: all 0.3s;
+  margin-left: 20px;
+  &:hover {
+    border-color: #a399ff;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    overflow: hidden;
+    background: url(../assets/link.svg) no-repeat left top/contain;
+    vertical-align: middle;
+    margin: -2px 6px 0 0;
+  }
 }
 .plus {
   display: inline-block;
@@ -127,10 +160,8 @@
   }
 }
 .dataBlock {
+  composes: block;
   position: relative;
-  background: #fff;
-  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.04);
-  border-radius: 4px;
   margin-bottom: 20px;
 }
 .block1 {
@@ -177,6 +208,7 @@
   border-left: 3px solid #736af2;
   padding-left: 10px;
   font-size: 18px;
+  line-height: 25px;
   font-weight: bold;
   margin: 30px 0 20px;
   em {
@@ -574,5 +606,50 @@
     height: 16px;
     vertical-align: middle;
     margin: -4px 0 0 0;
+  }
+}
+.goodsImg {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 2px;
+  border: 1px solid #efefef;
+  margin-right: 10px;
+  div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  img {
+    width: 100%;
+  }
+  span {
+    position: absolute;
+    left: -1px;
+    bottom: -1px;
+    background: #fff2e8;
+    border-radius: 2px;
+    border: 1px solid #ffbb96;
+    font-size: 12px;
+    font-weight: 400;
+    color: #fa541c;
+    line-height: 20px;
+    padding: 0 4px;
+  }
+}
+.goodsInfo {
+  width: 260px;
+  overflow: hidden;
+}
+.goodsTitle {
+  font-weight: 600;
+  color: #333333;
+}
+.goodsSub {
+  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.85);
+  em {
+    font-weight: 600;
+    color: #ee7a30;
   }
 }

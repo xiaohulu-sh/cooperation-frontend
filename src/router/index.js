@@ -18,6 +18,8 @@ import GoodsData from '@/views/goods/GoodsData'
 import My from '@/views/my/My'
 import MyOrders from '@/views/my/Orders'
 import Order from '@/views/my/Order'
+import OrderData from '@/views/my/OrderData'
+import OrderSummary from '@/views/my/OrderSummary'
 import View404 from '@/views/View404'
 
 // 解决路由访问重复时报错问题
@@ -68,6 +70,8 @@ const routes = [
       { path: 'order/:id', component: Order, meta: { sideKey: '/my/orders' } }
     ]
   },
+  { path: '/my/order/:id/data', component: OrderData },
+  { path: '/my/order/:id/summary', component: OrderSummary },
   { path: '*', component: View404 }
 ]
 

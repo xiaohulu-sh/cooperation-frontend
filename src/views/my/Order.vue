@@ -119,7 +119,7 @@
             <div :class="s.colF">
               <!-- <span style="color:#999">未开始</span> -->
               <!-- <span style="color:#333">数据计算中</span> -->
-              <a href="javascript:">查看报告</a>
+              <router-link to="/my/order/123/data">查看报告</router-link>
             </div>
           </div>
           <div :class="s.extraList">

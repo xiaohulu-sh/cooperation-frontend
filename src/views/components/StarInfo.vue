@@ -1,5 +1,5 @@
 <template>
-  <component :is="tagName" :class="s.info">
+  <component :is="tagName" style="display:flex">
     <div :class="[s.avatar, c.male, s.gender]">
       <img src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" />
     </div>
@@ -30,9 +30,6 @@ export default {
 </script>
 
 <style lang="less" module="s">
-.info {
-  display: flex;
-}
 .avatar {
   position: relative;
   width: 56px;
