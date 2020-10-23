@@ -16,7 +16,8 @@ import StarCommerceDetail from '@/views/star/CommerceDetail'
 import StarFans from '@/views/star/FansData'
 import GoodsData from '@/views/goods/GoodsData'
 import My from '@/views/my/My'
-import MyOrders from '@/views/my/MyOrders'
+import MyOrders from '@/views/my/Orders'
+import Order from '@/views/my/Order'
 import View404 from '@/views/View404'
 
 // 解决路由访问重复时报错问题
@@ -45,26 +46,42 @@ const routes = [
   },
   {
     path: '/star/:platform/:room',
+    redirect: { name: 'starVideo' },
     component: Star,
     children: [
-      { path: 'video', component: StarVideo, meta: { navKey: 'video' } },
+      { name: 'starVideo', path: 'video', component: StarVideo, meta: { navKey: 'video' } },
       { path: 'live', component: StarLive, meta: { navKey: 'live' } },
       { path: 'danmu', component: StarDanmu, meta: { navKey: 'danmu' } },
       { path: 'commerce', component: StarCommerce, meta: { navKey: 'commerce' } },
       { path: 'records', component: StarRecords, meta: { navKey: 'records' } },
       { path: 'records/:id', component: StarCommerceDetail, meta: { navKey: 'records' } },
-      { path: 'fans', component: () => StarFans, meta: { navKey: 'fans' } }
+      { path: 'fans', component: StarFans, meta: { navKey: 'fans' } }
     ]
   },
   { path: '/goods/:id/data', component: GoodsData },
-  { path: '/my', redirect: '/my/orders', component: My, children: [{ path: 'orders', component: MyOrders }] },
+  {
+    path: '/my',
+    redirect: '/my/orders',
+    component: My,
+    children: [
+      { path: 'orders', component: MyOrders },
+      { path: 'order/:id', component: Order, meta: { sideKey: '/my/orders' } }
+    ]
+  },
   { path: '*', component: View404 }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 export default router

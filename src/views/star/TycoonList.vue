@@ -69,6 +69,7 @@ export default {
   border-radius: 11px;
 }
 .list {
+  color: #333;
   li {
     min-height: 48px;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div :class="s.item">
+  <router-link to="/star/59/188888880" :class="s.item">
     <div :class="s.bg" :style="`background-image:url(${item.avatar})`">
       <span :class="s.area">内蒙古 克什克腾旗</span>
       <div :class="s.name">
@@ -23,15 +23,21 @@
       <div :class="s.dataCol">星途报价<br /><strong>172万美元</strong><span>1-20s报价</span></div>
     </div>
     <div :class="s.btnWrap">
-      <a-button><i :class="c.plus"></i>添加红人</a-button>
+      <a-button @click.prevent="onAddClick"><i :class="c.plus"></i>添加红人</a-button>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
 export default {
   props: {
     item: Object
+  },
+  methods: {
+    onAddClick() {
+      // eslint-disable-next-line no-console
+      console.log('add')
+    }
   }
 }
 </script>
@@ -45,6 +51,13 @@ export default {
   border: 1px solid #d9d9d9;
   margin: 0 30px 30px 0;
   padding-top: 200px;
+  color: rgba(0, 0, 0, 0.65);
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    color: rgba(0, 0, 0, 0.65);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  }
 }
 .bg {
   position: absolute;

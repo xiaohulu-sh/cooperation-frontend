@@ -334,7 +334,6 @@
   }
 }
 .tbList {
-  color: #333;
   li {
     display: flex;
     align-items: center;
@@ -554,8 +553,13 @@
 }
 .tbList1 {
   composes: tbList;
+  color: #666;
   li {
     min-height: 88px;
+    transition: all 0.3s;
+    &:hover {
+      background: #eeedfd;
+    }
   }
 }
 .delBtn {

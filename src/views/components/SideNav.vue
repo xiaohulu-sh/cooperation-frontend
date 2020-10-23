@@ -1,5 +1,5 @@
 <template>
-  <a-menu :class="s.menu" mode="inline" :defaultOpenKeys="['/stars', '/my', '/manual']" :selectedKeys="[$route.path]" :inlineIndent="15">
+  <a-menu :class="s.menu" mode="inline" :defaultOpenKeys="['/stars', '/my', '/manual']" :selectedKeys="selectedKeys" :inlineIndent="15">
     <a-sub-menu key="/stars">
       <span slot="title">
         <svg :class="s.icon" height="16" viewBox="0 0 16 16" width="16">
@@ -77,6 +77,16 @@
     </a-menu-item>
   </a-menu>
 </template>
+
+<script>
+export default {
+  computed: {
+    selectedKeys() {
+      return [this.$route.path, this.$route.meta.sideKey].filter(k => !!k)
+    }
+  }
+}
+</script>
 
 <style lang="less" module="s">
 .menu {

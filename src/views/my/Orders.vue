@@ -20,7 +20,7 @@
           <img :class="s.avatar1" src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" style="z-index:1" />
         </div>
         <div :class="s.col5">待确认</div>
-        <div :class="s.col6"><a href="javascript:">查看详情</a></div>
+        <div :class="s.col6"><router-link to="/my/order/123">查看详情</router-link></div>
       </li>
     </ul>
   </div>

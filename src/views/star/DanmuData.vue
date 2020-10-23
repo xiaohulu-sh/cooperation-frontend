@@ -416,6 +416,7 @@ export default {
   text-align: right;
 }
 .rank1 {
+  color: #333;
   li {
     min-height: 60px;
   }
