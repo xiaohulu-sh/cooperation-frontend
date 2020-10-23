@@ -57,7 +57,8 @@ a {
   cursor: pointer;
   outline: none;
 }
-ul {
+ul,
+ol {
   list-style: none;
   margin: 0;
   padding: 0;

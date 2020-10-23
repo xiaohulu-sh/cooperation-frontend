@@ -12,7 +12,7 @@
       <div v-for="(_, index) in [, ,]" :key="index">
         <h3 :class="c.h3">10月 (2)场</h3>
         <ul :class="s.list1">
-          <li v-for="(_, index) in [, , ,]" :key="index" @click="goToDetail()">
+          <li v-for="(_, index) in [, , ,]" :key="index" @click="navToDetail()">
             <div :class="[c.ellipsis1, s.t1]">直播惊喜价！免单抽奖！</div>
             <div :class="s.content">
               <div :class="s.info">
@@ -53,7 +53,7 @@
 <script>
 export default {
   methods: {
-    goToDetail() {
+    navToDetail() {
       const { platform, room } = this.$route.params
       this.$router.replace(`/star/${platform}/${room}/records/123`)
     }

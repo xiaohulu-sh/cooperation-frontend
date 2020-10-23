@@ -15,7 +15,7 @@
           </text>
         </g>
       </svg>
-      <a-button type="primary" style="margin-left:30px">查看汇总报告</a-button>
+      <a-button type="primary" style="margin-left:30px" @click="navToSummary">查看汇总报告</a-button>
     </div>
     <div style="display:flex">
       <h3 :class="s.t1">订单进度</h3>
@@ -149,6 +149,11 @@ export default {
     return {
       cancelModal: false,
       cancelType: 1
+    }
+  },
+  methods: {
+    navToSummary() {
+      this.$router.push('/my/order/123/summary')
     }
   }
 }
