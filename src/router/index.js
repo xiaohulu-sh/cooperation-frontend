@@ -20,6 +20,7 @@ import MyOrders from '@/views/my/Orders'
 import Order from '@/views/my/Order'
 import OrderData from '@/views/my/OrderData'
 import OrderSummary from '@/views/my/OrderSummary'
+import Contact from '@/views/Contact'
 import View404 from '@/views/View404'
 
 // 解决路由访问重复时报错问题
@@ -72,6 +73,7 @@ const routes = [
   },
   { path: '/my/order/:id/data', component: OrderData },
   { path: '/my/order/:id/summary', component: OrderSummary },
+  { path: '/contact', component: Contact },
   { path: '*', component: View404 }
 ]
 

@@ -91,8 +91,10 @@
   text-align: center;
   width: 1200px;
   height: 133px;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
   background-size: contain;
-  background-image: url(../../assets/particle.png);
+  background-image: url(../../assets/particle.jpg);
   &::before,
   &::after {
     content: '';
@@ -120,7 +122,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
-    background-image: url(../../assets/particle@2x.png);
+    background-image: url(../../assets/particle@2x.jpg);
   }
 }
 .content {
