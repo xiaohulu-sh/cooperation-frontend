@@ -18,7 +18,7 @@
       <h3 :class="s.h3">红人销售额TOP3</h3>
       <ol :class="s.ol">
         <li v-for="(_, index) in new Array(3)" :key="index" :class="c[`no${index + 1}`]">
-          <img :class="s.avatar1" src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" />
+          <img :class="s.avatar1" src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" />
           <div :class="s.itemTxt">
             <div :class="c.ellipsis1">金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕金咕咕</div>
             <em>45.5%销售贡献</em>

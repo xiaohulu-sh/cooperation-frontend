@@ -16,6 +16,7 @@ import StarCommerceDetail from '@/views/star/CommerceDetail'
 import StarFans from '@/views/star/FansData'
 import GoodsData from '@/views/goods/GoodsData'
 import My from '@/views/my/My'
+import MyInfo from '@/views/my/Info'
 import MyOrders from '@/views/my/Orders'
 import Order from '@/views/my/Order'
 import OrderData from '@/views/my/OrderData'
@@ -64,9 +65,10 @@ const routes = [
   { path: '/goods/:id/data', component: GoodsData },
   {
     path: '/my',
-    redirect: '/my/orders',
+    redirect: '/my/info',
     component: My,
     children: [
+      { path: 'info', component: MyInfo },
       { path: 'orders', component: MyOrders },
       { path: 'order/:id', component: Order, meta: { sideKey: '/my/orders' } }
     ]
