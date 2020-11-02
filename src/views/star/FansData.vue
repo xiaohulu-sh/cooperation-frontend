@@ -336,19 +336,19 @@ export default {
 .title1 {
   width: 292px;
   height: 48px;
-  background-image: url(../../assets/fans-title1.png);
+  background-image: url(~@/assets/fans-title1.png);
 }
 .title2 {
   width: 292px;
   height: 48px;
-  background-image: url(../../assets/fans-title2.png);
+  background-image: url(~@/assets/fans-title2.png);
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
-    background-image: url(../../assets/fans-title1@2x.png);
+    background-image: url(~@/assets/fans-title1@2x.png);
   }
   .title2 {
-    background-image: url(../../assets/fans-title1@2x.png);
+    background-image: url(~@/assets/fans-title1@2x.png);
   }
 }
 .txtList {

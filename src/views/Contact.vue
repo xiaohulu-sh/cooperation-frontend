@@ -41,11 +41,11 @@
   overflow: hidden;
   color: transparent;
   text-indent: -100%;
-  background: url(../assets/banner1.jpg) no-repeat left top/cover;
+  background: url(~@/assets/banner1.jpg) no-repeat left top/cover;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .banner {
-    background-image: url(../assets/banner1@2x.jpg);
+    background-image: url(~@/assets/banner1@2x.jpg);
   }
 }
 .h2 {
@@ -81,11 +81,11 @@
 }
 .card1 {
   composes: card;
-  background-image: url(../assets/contact1.svg);
+  background-image: url(~@/assets/contact1.svg);
 }
 .card2 {
   composes: card;
-  background-image: url(../assets/contact2.svg);
+  background-image: url(~@/assets/contact2.svg);
 }
 .txtList {
   font-size: 12px;

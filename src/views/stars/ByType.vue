@@ -17,6 +17,6 @@ export default {
 
 <style module="s">
 .type {
-  background-image: url(../../assets/by-type.svg);
+  background-image: url(~@/assets/by-type.svg);
 }
 </style>

@@ -65,11 +65,11 @@ export default {
 .title1 {
   width: 292px;
   height: 60px;
-  background-image: url(../../assets/records-title1.png);
+  background-image: url(~@/assets/records-title1.png);
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
-    background-image: url(../../assets/records-title1@2x.png);
+    background-image: url(~@/assets/records-title1@2x.png);
   }
 }
 .list1 {
@@ -127,7 +127,7 @@ export default {
     padding-left: 16px;
     color: #ff5570;
     font-weight: bold;
-    background: url(../../assets/alert.svg) no-repeat left center;
+    background: url(~@/assets/alert.svg) no-repeat left center;
   }
 }
 </style>

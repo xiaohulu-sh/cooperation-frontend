@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     scrollToTop() {
-      window.scroll({ top: 0, left: window.pageXOffset, behavior: 'smooth' })
+      window.scroll({ top: 0, behavior: 'smooth' })
     }
   }
 }
@@ -61,9 +61,9 @@ export default {
   }
 }
 .cart {
-  background-image: url(../../assets/cart.svg);
+  background-image: url(~@/assets/cart.svg);
 }
 .backtop {
-  background-image: url(../../assets/up.svg);
+  background-image: url(~@/assets/up.svg);
 }
 </style>

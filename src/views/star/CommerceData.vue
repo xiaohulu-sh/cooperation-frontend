@@ -65,9 +65,9 @@
         <li>此价格是否含税<em>不含税</em></li>
         <li :class="c.qr">
           <a-popover>
-            <div style="cursor:pointer">联系Ta带货<img src="../../assets/qr.svg" width="24" height="24" alt="二维码" /></div>
+            <div style="cursor:pointer">联系Ta带货<img src="~@/assets/qr.svg" width="24" height="24" alt="二维码" /></div>
             <template #content>
-              <img src="../../assets/contact.png" width="180" height="180" alt="二维码" />
+              <img src="~@/assets/contact.png" width="180" height="180" alt="二维码" />
             </template>
           </a-popover>
         </li>
@@ -149,11 +149,11 @@ export default {
 .title1 {
   width: 292px;
   height: 60px;
-  background-image: url(../../assets/com-title1.png);
+  background-image: url(~@/assets/com-title1.png);
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
-    background-image: url(../../assets/com-title1@2x.png);
+    background-image: url(~@/assets/com-title1@2x.png);
   }
 }
 .tip {
@@ -163,10 +163,10 @@ export default {
   width: 230px;
   height: 52px;
   padding: 4px 0 0 8px;
-  background: url(../../assets/tip-bg.svg) no-repeat 0 0 / contain;
+  background: url(~@/assets/tip-bg.svg) no-repeat 0 0 / contain;
   em {
     display: block;
-    background: url(../../assets/broadcast.svg) no-repeat left center;
+    background: url(~@/assets/broadcast.svg) no-repeat left center;
     padding-left: 16px;
     font-weight: bold;
     color: #736af2;

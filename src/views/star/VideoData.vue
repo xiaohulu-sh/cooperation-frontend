@@ -282,35 +282,35 @@ export default {
 .title1 {
   width: 292px;
   height: 49px;
-  background-image: url(../../assets/video-title1.png);
+  background-image: url(~@/assets/video-title1.png);
 }
 .title2 {
   width: 292px;
   height: 59px;
-  background-image: url(../../assets/video-title2.png);
+  background-image: url(~@/assets/video-title2.png);
 }
 .title3 {
   width: 292px;
   height: 49px;
-  background-image: url(../../assets/video-title3.png);
+  background-image: url(~@/assets/video-title3.png);
 }
 .title4 {
   width: 292px;
   height: 49px;
-  background-image: url(../../assets/video-title4.png);
+  background-image: url(~@/assets/video-title4.png);
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
-    background-image: url(../../assets/video-title1@2x.png);
+    background-image: url(~@/assets/video-title1@2x.png);
   }
   .title2 {
-    background-image: url(../../assets/video-title2@2x.png);
+    background-image: url(~@/assets/video-title2@2x.png);
   }
   .title3 {
-    background-image: url(../../assets/video-title3@2x.png);
+    background-image: url(~@/assets/video-title3@2x.png);
   }
   .title4 {
-    background-image: url(../../assets/video-title4@2x.png);
+    background-image: url(~@/assets/video-title4@2x.png);
   }
 }
 .titleText {
@@ -347,7 +347,7 @@ export default {
     left: 50%;
     top: 50%;
     margin: -25px 0 0 -25px;
-    background: url(../../assets/play.svg) no-repeat 0 0 / contain;
+    background: url(~@/assets/play.svg) no-repeat 0 0 / contain;
   }
 }
 .videoContent {
@@ -376,10 +376,10 @@ export default {
   }
 }
 .digg::before {
-  background-image: url(../../assets/heart.svg);
+  background-image: url(~@/assets/heart.svg);
 }
 .comment::before {
-  background-image: url(../../assets/comment.svg);
+  background-image: url(~@/assets/comment.svg);
 }
 .videoInfo {
   font-size: 12px;

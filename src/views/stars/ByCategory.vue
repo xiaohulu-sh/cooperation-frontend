@@ -15,6 +15,6 @@ export default {
 
 <style module="s">
 .category {
-  background-image: url(../../assets/by-category.svg);
+  background-image: url(~@/assets/by-category.svg);
 }
 </style>

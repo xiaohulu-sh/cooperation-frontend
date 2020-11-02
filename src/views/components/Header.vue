@@ -1,7 +1,7 @@
 <template>
   <header :class="s.header">
     <h1 :class="s.h1">
-      <router-link to="/"><img :class="s.logo" src="../../assets/logo.svg" alt="京东智联云"/></router-link>
+      <router-link to="/"><img :class="s.logo" src="~@/assets/logo.svg" alt="京东智联云"/></router-link>
       <span :class="s.title">智慧直播营销服务平台</span>
     </h1>
     <a-dropdown>

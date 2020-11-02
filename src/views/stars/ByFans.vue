@@ -15,6 +15,6 @@ export default {
 
 <style module="s">
 .fans {
-  background-image: url(../../assets/by-fans.svg);
+  background-image: url(~@/assets/by-fans.svg);
 }
 </style>

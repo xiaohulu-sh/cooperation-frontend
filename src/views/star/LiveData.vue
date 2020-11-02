@@ -157,10 +157,10 @@ export default {
 .title1 {
   width: 292px;
   height: 60px;
-  background-image: url(../../assets/live-title1.png);
+  background-image: url(~@/assets/live-title1.png);
 }
 .summary1 {
-  background: url(../../assets/live-t1.png) no-repeat left top/380px 39px;
+  background: url(~@/assets/live-t1.png) no-repeat left top/380px 39px;
   width: 405px;
   padding-right: 25px;
   li {
@@ -171,7 +171,7 @@ export default {
   }
 }
 .summary2 {
-  background: url(../../assets/live-t2.png) no-repeat 25px top/238px 39px;
+  background: url(~@/assets/live-t2.png) no-repeat 25px top/238px 39px;
   width: 288px;
   padding-left: 25px;
   padding-right: 25px;
@@ -183,7 +183,7 @@ export default {
   }
 }
 .summary3 {
-  background: url(../../assets/live-t3.png) no-repeat 25px top/238px 39px;
+  background: url(~@/assets/live-t3.png) no-repeat 25px top/238px 39px;
   width: 263px;
   padding-left: 25px;
   li {
@@ -195,16 +195,16 @@ export default {
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
-    background-image: url(../../assets/live-title1@2x.png);
+    background-image: url(~@/assets/live-title1@2x.png);
   }
   .summary1 {
-    background-image: url(../../assets/live-t1@2x.png);
+    background-image: url(~@/assets/live-t1@2x.png);
   }
   .summary2 {
-    background-image: url(../../assets/live-t2@2x.png);
+    background-image: url(~@/assets/live-t2@2x.png);
   }
   .summary3 {
-    background-image: url(../../assets/live-t3@2x.png);
+    background-image: url(~@/assets/live-t3@2x.png);
   }
 }
 .summary {

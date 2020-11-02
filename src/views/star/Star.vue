@@ -156,7 +156,7 @@ export default {
     width: 16px;
     height: 16px;
     margin: -2px 5px 0 0;
-    background: url(../../assets/certified.svg) no-repeat 0 0 / contain;
+    background: url(~@/assets/certified.svg) no-repeat 0 0 / contain;
     vertical-align: middle;
   }
 }

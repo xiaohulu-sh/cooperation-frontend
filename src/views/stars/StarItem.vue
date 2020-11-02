@@ -94,7 +94,7 @@ export default {
     display: inline-block;
     width: 8px;
     height: 12px;
-    background: url(../../assets/location.svg) no-repeat 0 0 / contain;
+    background: url(~@/assets/location.svg) no-repeat 0 0 / contain;
     vertical-align: middle;
     margin: -2px 4px 0 0;
   }
@@ -142,6 +142,7 @@ export default {
 .data {
   display: flex;
   margin: 20px 0 25px;
+  white-space: nowrap;
 }
 .dataCol {
   flex: 1 1 100px;

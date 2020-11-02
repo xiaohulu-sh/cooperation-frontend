@@ -39,7 +39,7 @@
       <h2 :class="[c.imgTitle, s.title2]">互动数据-直播弹幕分析</h2>
       <DataTimeRange :preset.sync="preset" :presetList="presetList" :day.sync="day" :dayList="dayList" style="padding-left:130px" />
       <!-- <div :class="s.noData">
-        <img src="../../assets/no-data.svg" />
+        <img src="~@/assets/no-data.svg" />
         所选时段内未进行过直播，无弹幕数据可供分析
       </div> -->
       <ul :class="c.dataInfoList" style="margin-top:20px">
@@ -307,19 +307,19 @@ export default {
 .title1 {
   width: 341px;
   height: 48px;
-  background-image: url(../../assets/danmu-title1.png);
+  background-image: url(~@/assets/danmu-title1.png);
 }
 .title2 {
   width: 297px;
   height: 60px;
-  background-image: url(../../assets/danmu-title2.png);
+  background-image: url(~@/assets/danmu-title2.png);
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
-    background-image: url(../../assets/danmu-title1@2x.png);
+    background-image: url(~@/assets/danmu-title1@2x.png);
   }
   .title2 {
-    background-image: url(../../assets/danmu-title2@2x.png);
+    background-image: url(~@/assets/danmu-title2@2x.png);
   }
 }
 .container1 {

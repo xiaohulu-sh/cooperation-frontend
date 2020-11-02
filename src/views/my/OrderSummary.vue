@@ -94,13 +94,13 @@
   overflow: hidden;
   border-radius: 4px 4px 0 0;
   background-size: contain;
-  background-image: url(../../assets/particle.jpg);
+  background-image: url(~@/assets/particle.jpg);
   &::before,
   &::after {
     content: '';
     width: 33px;
     height: 64px;
-    background: url(../../assets/surround.svg) no-repeat left top/contain;
+    background: url(~@/assets/surround.svg) no-repeat left top/contain;
   }
   &::before {
     margin-right: 25px;
@@ -122,7 +122,7 @@
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
-    background-image: url(../../assets/particle@2x.jpg);
+    background-image: url(~@/assets/particle@2x.jpg);
   }
 }
 .content {
