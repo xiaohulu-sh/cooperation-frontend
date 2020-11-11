@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 import { startProgressBar, stopProgressBar } from '@/components/progress-bar'
 import Stars from '@/views/stars/Stars'
 import StarsByType from '@/views/stars/ByType'
@@ -23,6 +24,7 @@ import OrderData from '@/views/my/OrderData'
 import OrderSummary from '@/views/my/OrderSummary'
 import Contact from '@/views/Contact'
 import View404 from '@/views/View404'
+import qs from 'qs'
 
 // 解决路由访问重复时报错问题
 const originalPush = VueRouter.prototype.push
@@ -110,3 +112,11 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach(() => {
   stopProgressBar()
 })
+
+const token = qs.parse(location.search.substring(1))._t
+if (token) {
+  store.commit('user/token', token)
+  router.replace({ ...router.currentRoute.query, _t: null })
+} else if (!store.state.user.token) {
+  store.dispatch('user/navLogin')
+}

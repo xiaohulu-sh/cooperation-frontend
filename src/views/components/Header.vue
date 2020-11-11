@@ -6,18 +6,27 @@
     </h1>
     <a-dropdown>
       <div :class="s.user">
-        <img :class="s.avatar" src="https://via.placeholder.com/120/00ff00/ffffff?text=avatar" referrerpolicy="no-referrer" @error="onAvatarError" />
-        <span :class="s.nickname">拉尔夫</span>
+        <img :class="s.avatar" src="~@/assets/user.svg" referrerpolicy="no-referrer" @error="onAvatarError" />
+        <span :class="s.nickname">{{ name || '--' }}</span>
         <a-icon :class="s.arrow" type="down" />
       </div>
       <a-menu :class="s.menu" slot="overlay">
         <a-menu-item>
-          <a href="javascript:;">退出登录</a>
+          <a href="javascript:;" @click="logout">退出登录</a>
         </a-menu-item>
       </a-menu>
     </a-dropdown>
   </header>
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+
+export default {
+  computed: mapState('user', ['name']),
+  methods: mapActions('user', ['logout'])
+}
+</script>
 
 <style lang="less" module="s">
 header {

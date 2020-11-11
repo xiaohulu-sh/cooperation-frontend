@@ -1,3 +1,13 @@
+export function asyncHelper(promise, { errorHandler = () => false, slient = true } = {}) {
+  return promise.catch(function(err) {
+    if (!slient) {
+      // eslint-disable-next-line no-console
+      console.error(err)
+    }
+    return errorHandler(err)
+  })
+}
+
 export function fixNumber(n, fixed) {
   return Number(n.toFixed(fixed))
 }

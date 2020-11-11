@@ -92,6 +92,24 @@ module.exports = {
     })
   },
   devServer: {
-    port: 8081
+    port: 8081,
+    proxy: {
+      '/v1_front_user': {
+        target: 'https://superlive.matrix.jdcloud.com',
+        changeOrigin: true
+      },
+      '/v1_front_anchor': {
+        target: 'https://superlive.matrix.jdcloud.com',
+        changeOrigin: true
+      },
+      '/v1_front_order': {
+        target: 'https://superlive.matrix.jdcloud.com',
+        changeOrigin: true
+      },
+      '/v1_front_search': {
+        target: 'https://superlive.matrix.jdcloud.com',
+        changeOrigin: true
+      }
+    }
   }
 }
