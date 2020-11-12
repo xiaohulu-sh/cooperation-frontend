@@ -113,11 +113,13 @@ export function createFetchAction({
       this[loadingKey] = loading
     }
   },
+  loadingDelay = 500,
   maxAge = 30 * 1000,
   autoCancelKey
 }) {
   let lastReqConfig
   let dataTime
+  let loadingTimer
 
   return async function action(context, options) {
     if (!vuex) {
@@ -130,7 +132,10 @@ export function createFetchAction({
       return
     }
     const reqOptions = { autoCancelKey, ...(getReqOptions ? getReqOptions.call(context, options) : null) }
-    setLoading.call(context, true)
+    clearTimeout(loadingTimer)
+    loadingTimer = setTimeout(() => {
+      setLoading.call(context, true)
+    }, loadingDelay)
     lastReqConfig = reqConfig
     dataTime = null
     let data
@@ -142,6 +147,7 @@ export function createFetchAction({
     }
     // 判断请求是否过期
     if (isEqual(reqConfig, lastReqConfig)) {
+      clearTimeout(loadingTimer)
       if (!err) {
         dataTime = Date.now()
         setLoading.call(context, false)

@@ -54,8 +54,9 @@ const routes = [
     path: '/star/:platform/:room',
     redirect: { name: 'starVideo' },
     component: Star,
+    props: true,
     children: [
-      { name: 'starVideo', path: 'video', component: StarVideo, meta: { navKey: 'video' } },
+      { name: 'starVideo', path: 'video', component: StarVideo, props: true, meta: { navKey: 'video' } },
       { path: 'live', component: StarLive, meta: { navKey: 'live' } },
       { path: 'danmu', component: StarDanmu, meta: { navKey: 'danmu' } },
       { path: 'commerce', component: StarCommerce, meta: { navKey: 'commerce' } },

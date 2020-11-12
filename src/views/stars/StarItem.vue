@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/star/59/188888880" :class="s.item">
+  <router-link to="/star/201/4195355415549012" :class="s.item">
     <div :class="s.bg" :style="`background-image:url(${item.avatar})`">
       <span :class="s.area">内蒙古 克什克腾旗</span>
       <div :class="s.name">

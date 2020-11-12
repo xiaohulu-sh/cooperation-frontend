@@ -67,6 +67,8 @@ Vue.prototype.c = commonStyle
 /* common style end */
 
 /* custom components start */
+import DataBlock from '@/components/DataBlock'
+Vue.component('DataBlock', DataBlock)
 import Chart from '@/components/Chart'
 Vue.component('Chart', Chart)
 import LazyBlock from '@/components/LazyBlock'

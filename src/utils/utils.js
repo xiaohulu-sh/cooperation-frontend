@@ -15,6 +15,7 @@ export function fixNumber(n, fixed) {
 export function parseNumberUnit(n, fixed = 2) {
   let unit = ''
   if (n) {
+    n = Number(n)
     if (Math.abs(n) >= 10e7) {
       n = fixNumber(n / 10e7, fixed)
       unit = '亿'

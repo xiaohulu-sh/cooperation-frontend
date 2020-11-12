@@ -1,8 +1,8 @@
 <template>
   <div :class="s.container">
     <div ref="chart" :class="{ [s.chart]: true, [s.hidden]: isEmpty }"></div>
-    <a-empty v-if="isEmpty" />
-    <a-spin v-if="loading" />
+    <a-empty v-if="isEmpty" :class="s.center" />
+    <a-spin v-if="loading" :class="s.center" />
   </div>
 </template>
 
@@ -62,19 +62,17 @@ export default {
 <style lang="less" module="s">
 .container {
   position: relative;
-  :global {
-    .ant-empty,
-    .ant-spin {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
 }
 .chart {
   width: 100%;
   height: 100%;
+}
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
 }
 .hidden {
   visibility: hidden;
