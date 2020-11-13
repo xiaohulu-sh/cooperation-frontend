@@ -57,12 +57,12 @@ const routes = [
     props: true,
     children: [
       { name: 'starVideo', path: 'video', component: StarVideo, props: true, meta: { navKey: 'video' } },
-      { path: 'live', component: StarLive, meta: { navKey: 'live' } },
-      { path: 'danmu', component: StarDanmu, meta: { navKey: 'danmu' } },
-      { path: 'commerce', component: StarCommerce, meta: { navKey: 'commerce' } },
-      { path: 'records', component: StarRecords, meta: { navKey: 'records' } },
-      { path: 'records/:id', component: StarCommerceDetail, meta: { navKey: 'records' } },
-      { path: 'fans', component: StarFans, meta: { navKey: 'fans' } }
+      { path: 'live', component: StarLive, props: true, meta: { navKey: 'live' } },
+      { path: 'danmu', component: StarDanmu, props: true, meta: { navKey: 'danmu' } },
+      { path: 'commerce', component: StarCommerce, props: true, meta: { navKey: 'commerce' } },
+      { path: 'records', component: StarRecords, props: true, meta: { navKey: 'records' } },
+      { path: 'records/:id', component: StarCommerceDetail, props: true, meta: { navKey: 'records' } },
+      { path: 'fans', component: StarFans, props: true, meta: { navKey: 'fans' } }
     ]
   },
   { path: '/goods/:id/data', component: GoodsData },

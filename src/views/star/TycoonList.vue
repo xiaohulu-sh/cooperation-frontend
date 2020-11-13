@@ -6,14 +6,18 @@
       <div :class="s.colAmount">送礼金额</div>
     </div>
     <ul :class="[c.tbList, s.list]">
-      <li v-for="(item, index) in list" :key="index">
+      <li v-for="({ order, nickname, amount, lv }, index) in dataList" :key="index">
         <div :class="[c.colOrder, s.colOrder]">
-          <span v-if="index < 3" :class="c[`no${index + 1}`]">{{ index + 1 }}</span>
-          <span v-else>{{ index + 1 }}</span>
+          <span v-if="index < 3" :class="c[`no${order}`]">{{ order }}</span>
+          <span v-else>{{ order }}</span>
         </div>
-        <div :class="s.colName">菲利普达文西<span :class="s.tag">Lv.1</span></div>
+        <div :class="s.colName">
+          {{ nickname }}<span v-if="lv" :class="s.tag">Lv.{{ lv }}</span>
+        </div>
         <div :class="s.colAmount">
-          <em>9.35<span>万</span></em>
+          <em
+            >{{ amount.n }}<span v-if="amount.unit">{{ amount.unit }}</span></em
+          >
         </div>
       </li>
     </ul>
@@ -22,6 +26,8 @@
 </template>
 
 <script>
+import { parseNumberUnit } from '@/utils/utils'
+
 export default {
   props: {
     list: Array,
@@ -36,6 +42,19 @@ export default {
     pageSize: {
       type: Number,
       default: 10
+    }
+  },
+  computed: {
+    dataList() {
+      return (this.list || []).map(({ nickname, dyCoinOut, level }, index) => {
+        const amount = parseNumberUnit(dyCoinOut)
+        return {
+          order: (this.page - 1) * 10 + index + 1,
+          nickname,
+          amount,
+          lv: Number(level)
+        }
+      })
     }
   },
   methods: {

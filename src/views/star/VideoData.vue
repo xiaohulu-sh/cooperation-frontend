@@ -68,7 +68,7 @@
     <DataBlock :class="c.dataBlock" :req="frequencyReq" :handler="frequencyHandler" :showErr="false" :showEmpty="false">
       <template v-slot="{ data: { chart } }">
         <h2 :class="[c.imgTitle, s.title3]">作品发布频率</h2>
-        <div v-if="false" :class="s.titleText">xxx个/周</div>
+        <!-- <div :class="s.titleText">xxx个/周</div> -->
         <LazyBlock :data="chart" style="height:310px;padding-bottom:30px">
           <Chart :chartData="chart" style="height:280px"></Chart>
         </LazyBlock>

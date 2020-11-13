@@ -3,3 +3,4 @@ export { default as DownOutline } from '@ant-design/icons/lib/outline/DownOutlin
 export { default as CloseOutline } from '@ant-design/icons/lib/outline/CloseOutline'
 export { default as LeftOutline } from '@ant-design/icons/lib/outline/LeftOutline'
 export { default as RightOutline } from '@ant-design/icons/lib/outline/RightOutline'
+export { default as QuestionCircleOutline } from '@ant-design/icons/lib/outline/QuestionCircleOutline'

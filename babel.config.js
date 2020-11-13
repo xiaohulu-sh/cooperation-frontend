@@ -3,7 +3,7 @@ module.exports = {
     [
       '@vue/cli-plugin-babel/preset',
       {
-        polyfills: ['es.promise', 'es.object.assign', 'es.array.includes', 'es.array.find']
+        polyfills: ['es.promise', 'es.object.assign', 'es.array.includes', 'es.array.find', 'es.array.fill']
       }
     ]
   ],

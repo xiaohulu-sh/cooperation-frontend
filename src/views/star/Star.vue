@@ -14,9 +14,9 @@
               <span v-if="custom_verify" :class="s.certified">{{ custom_verify }}</span>
             </div>
             <div :class="s.baseInfo">
-              <span v-if="false">{{ platName }}号 ：暂无平台账号字段</span>
+              <!-- <span>{{ platName }}号 ：暂无平台账号字段</span> -->
               <span v-if="location_name">{{ location_name }}</span>
-              <span v-if="false">24岁</span>
+              <!-- <span v-if="false">24岁</span> -->
             </div>
             <div :class="s.tags">
               <span :class="s.tag1">{{ platName }}</span>

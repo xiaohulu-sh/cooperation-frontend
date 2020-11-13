@@ -5,24 +5,24 @@
 export default {
   data() {
     return {
-      preset: 3,
+      preset: 'recent_7',
       presetList: [
-        { value: 1, label: '今日' },
-        { value: 2, label: '昨日' },
-        { value: 3, label: '近7天' },
-        { value: 4, label: '近30天' }
+        { value: 'today', label: '今日' },
+        { value: 'yesterday', label: '昨日' },
+        { value: 'recent_7', label: '近7天' },
+        { value: 'recent_30', label: '近30天' }
       ],
       day: null,
-      dayList: [
-        { id: 0, value: '2020-10-13', start: '2020-10-13', end: '2020-10-13' },
-        { id: 1, value: '2020-10-12', start: '2020-10-12', end: '2020-10-12' },
-        { id: 2, value: '2020-10-11', start: '2020-10-11', end: '2020-10-11' },
-        { id: 3, value: '2020-10-10', start: '2020-10-10', end: '2020-10-10' },
-        { id: 4, value: '2020-10-09', start: '2020-10-09', end: '2020-10-09' },
-        { id: 5, value: '2020-10-08', start: '2020-10-08', end: '2020-10-08' },
-        { id: 6, value: '2020-10-07', start: '2020-10-07', end: '2020-10-07' },
-        { id: 7, value: '2020-10-06', start: '2020-10-06', end: '2020-10-06' }
-      ]
+      dayList: Array(8)
+        .fill(0)
+        .map((_, index) => {
+          const date = new Date(Date.now() - 86400000 * (index + 2))
+          const m = date.getMonth() + 1
+          const d = date.getDate()
+          return {
+            value: `${date.getFullYear()}-${m < 10 ? '0' + m : m}-${d < 10 ? '0' + d : d}`
+          }
+        })
     }
   },
   computed: {
@@ -34,13 +34,13 @@ export default {
       return ''
     },
     comparePrefix() {
-      if (this.preset === 1) {
+      if (this.preset === 'today') {
         return '比昨日'
       }
-      if (this.preset === 2 || this.day) {
+      if (this.preset === 'yesterday' || this.day) {
         return '比前日'
       }
-      if (this.preset === 3 || this.preset === 4) {
+      if (this.preset === 'recent_7' || this.preset === 'recent_30') {
         return '比上周期'
       }
     }
