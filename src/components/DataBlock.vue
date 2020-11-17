@@ -1,24 +1,27 @@
 <template>
   <component :is="tag" :class="s.container">
-    <slot v-if="showErr && err" name="err" :err="err">
-      <a-empty :class="s.center" :image="errImg">
-        <span slot="description" style="color:#999">加载失败</span>
-        <a-button :class="s.reload" type="primary" size="small" icon="reload" @click="onReloadClick">重试</a-button>
-      </a-empty>
-    </slot>
-    <slot v-else-if="showEmpty && empty" name="empty" :data="data">
-      <a-empty :class="s.center" />
-    </slot>
-    <slot v-else-if="data" :data="data" :err="err" :loading="loading"></slot>
-    <slot v-if="loading" name="loading" :loading="loading">
-      <a-spin :class="s.center" />
-    </slot>
+    <template v-if="!lazyRender || shouldRender">
+      <slot v-if="showErr && err" name="err" :err="err">
+        <a-empty :class="s.center" :image="errImg">
+          <span slot="description" style="color:#999">加载失败</span>
+          <a-button :class="s.reload" type="primary" size="small" icon="reload" @click="onReloadClick">重试</a-button>
+        </a-empty>
+      </slot>
+      <slot v-else-if="showEmpty && empty" name="empty" :data="data">
+        <a-empty :class="s.center" />
+      </slot>
+      <slot v-else-if="data" :data="data" :err="err" :loading="loading"></slot>
+      <slot v-if="showLoading && loading" name="loading" :loading="loading">
+        <a-spin :class="s.center" />
+      </slot>
+    </template>
   </component>
 </template>
 
 <script>
 import { Empty } from 'ant-design-vue'
 import { createFetchAction } from '@/utils/http'
+import lazy from '@/components/common/lazy'
 
 export default {
   props: {
@@ -50,16 +53,26 @@ export default {
     showEmpty: {
       type: Boolean,
       default: true
+    },
+    showLoading: {
+      type: Boolean,
+      default: true
+    },
+    lazyRender: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
+      ...lazy.data(),
       loading: false,
       resData: null,
       err: null
     }
   },
   computed: {
+    ...lazy.computed,
     data() {
       return this.handler(this.resData, this.req)
     },
@@ -72,22 +85,23 @@ export default {
       handler() {
         this.fetchData()
       },
-      deep: true,
-      immediate: true
+      deep: true
     },
     refresh() {
       this.fetchData({ refresh: true })
     },
-    data(data) {
-      this.$emit('update:data', data)
-    }
+    data(data, prevData) {
+      lazy.watch.data.call(this, data, prevData)
+      this.$emit('update:data', data, prevData)
+    },
+    visible: lazy.watch.visible
   },
   methods: {
     onReloadClick() {
       this.fetchData()
     }
   },
-  beforeCreate() {
+  created() {
     this.errImg = Empty.PRESENTED_IMAGE_SIMPLE
     this.fetchData = createFetchAction({
       key: 'resData',
@@ -103,6 +117,18 @@ export default {
         this.err = err
       }
     })
+    if (!this.lazyRender) {
+      this.fetchData()
+    }
+  },
+  mounted() {
+    if (this.lazyRender) {
+      lazy.mounted.call(this)
+      this.loading = true
+      setTimeout(() => {
+        this.fetchData()
+      }, 500)
+    }
   }
 }
 </script>

@@ -22,6 +22,7 @@ export async function request(reqConfig, { withToken = true, autoCancelKey = '',
   // clone一份再修改，不改变原有对象
   const config = { ...reqConfig }
   let { url } = config
+  if (!url) return
   delete config.url
   if (config.params) {
     url += qs.stringify(config.params, { addQueryPrefix: true })
