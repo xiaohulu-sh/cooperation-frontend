@@ -1,26 +1,26 @@
 <template>
   <main :class="c.main">
     <DataBlock :class="s.header" :req="baseInfoReq" :handler="dataHandler">
-      <template v-slot="{ data: { nickname, avatar, gender, custom_verify, location_name, tagName, description } }">
+      <template v-slot="{ data: { nickname, avatar, gender, isLive, certification, displayId, location, age, tags, description } }">
         <div style="display:flex">
-          <div :class="[s.avatarContainer].concat(gender == 1 ? [c.male, s.male] : gender == 2 ? [c.female, s.female] : [])">
-            <div :class="{ [s.avatar]: true, [s.live]: false }">
+          <div :class="[s.avatarContainer, c[gender], s[gender]]">
+            <div :class="{ [s.avatar]: true, [s.live]: isLive }">
               <img :src="avatar" referrerpolicy="no-referrer" @error="onAvatarError" alt="头像" />
             </div>
           </div>
           <div>
             <div>
-              <span :class="[c.ellipsis1, s.name]">{{ nickname }}</span>
-              <span v-if="custom_verify" :class="s.certified">{{ custom_verify }}</span>
+              <span :class="[c.ellipsis1, s.name]">{{ nickname || '未知' }}</span>
+              <span v-if="certification" :class="s.certified">{{ certification }}</span>
             </div>
             <div :class="s.baseInfo">
-              <!-- <span>{{ platName }}号 ：暂无平台账号字段</span> -->
-              <span v-if="location_name">{{ location_name }}</span>
-              <!-- <span v-if="false">24岁</span> -->
+              <span v-if="displayId">{{ platName }}号 ：{{ displayId }}</span>
+              <span v-if="location">{{ location }}</span>
+              <span v-if="age">{{ age }}岁</span>
             </div>
             <div :class="s.tags">
               <span :class="s.tag1">{{ platName }}</span>
-              <span v-for="name in tagName" :key="name" :class="s.tag2">#{{ name }}</span>
+              <span v-for="name in tags" :key="name" :class="s.tag2">#{{ name }}</span>
             </div>
             <div v-if="description" :class="s.intro">简介：{{ description }}</div>
           </div>
@@ -30,7 +30,7 @@
     </DataBlock>
     <div :class="s.body">
       <NavList :list="navList" :active="$route.meta.navKey" @itemClick="onNavChange"></NavList>
-      <router-view :class="s.content" :baseInfo="baseInfo"></router-view>
+      <router-view :class="s.content"></router-view>
     </div>
     <FixedNav></FixedNav>
   </main>
@@ -80,8 +80,7 @@ export default {
           svg:
             '<svg height="16" viewBox="0 0 16 16" width="16"><path d="m1.7685588 8.22873931c-.80713671-.34231365-1.0996494-1.13931531-.2800665-1.57160643.81919452-.43269227 2.57389504.0059985 3.13946163.67423116v-6.63553829c0-.38430314.30340538-.69582575.67682738-.69582575h.79352176c.373422 0 .67643901.31152261.67643901.69582575v3.561908c0 .17195688.12214017.31831966.28784674.3439145l3.93843518.61304648c.184802.02871162.3572544-.10203014.3851826-.29201999.0025249-.01717623.0037949-.03452267.0037994-.05189395v-3.62309268c0-.38470429.303017-.69582575.6768274-.69582575h.2567276c.373422 0 .676439.31112146.676439.69582575v14.05648619c0 .3843031-.303017.6958257-.6768274.6958257h-7.01838268-.00000003c-.37380126 0-.67682739-.311532-.67682739-.6958257v-3.6506858c-.56246689-1.71397142-1.51585995-2.85567864-2.85979626-3.42474863zm4.27101418 5.01273839h5.22674112c.186711 0 .3384137.155961.3384137.3479129v.9593604c0 .1919519-.1517027.3479129-.3384137.3479129h-5.22674112-.00000002c-.18690063 0-.33841369-.155766-.33841369-.3479129v-.9597597c0-.1919519.15170269-.3479128.33841369-.3479128z" fill="currentColor"/></svg>'
         }
-      ],
-      baseInfo: null
+      ]
     }
   },
   computed: {
@@ -105,8 +104,26 @@ export default {
       this.$router.replace(`/star/${platform}/${room}/${key}`)
     },
     dataHandler(data) {
-      this.baseInfo = data
-      return data
+      if (!data) return null
+      const { video_basic_data, live_basic_data } = data
+      let gender = ''
+      if (video_basic_data.sex == 1 || live_basic_data.sex == 1) {
+        gender = 'male'
+      } else if (video_basic_data.sex == 2 || live_basic_data.sex == 2) {
+        gender = 'female'
+      }
+      return {
+        avatar: `https://xhlcdn.xiaohulu.com/avatar/${this.platform}/${this.room}`,
+        nickname: video_basic_data.nickname || live_basic_data.nickname,
+        gender,
+        isLive: video_basic_data.is_live || live_basic_data.is_live,
+        certification: video_basic_data.certification,
+        location: video_basic_data.location || live_basic_data.location,
+        displayId: video_basic_data.display_id,
+        age: video_basic_data.age || live_basic_data.age,
+        tags: (video_basic_data.tagName || []).slice(0, 6),
+        description: video_basic_data.description || live_basic_data.description
+      }
     }
   }
 }
