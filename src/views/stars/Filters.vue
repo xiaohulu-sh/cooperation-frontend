@@ -29,7 +29,7 @@
               <a-select-option v-for="p in provinces" :key="p">{{ p }} </a-select-option>
             </a-select>
             <a-select v-model="city" size="small" :class="s.select" style="width:92px;margin-left:10px">
-              <a-select-option key="">城市</a-select-option>
+              <a-select-option key="">地区</a-select-option>
               <a-select-option v-for="c in cities" :key="c">{{ c }} </a-select-option>
             </a-select>
           </div>
@@ -55,6 +55,7 @@
             粉丝性别：
             <a-select v-model="gender" size="small" :class="s.select" style="width:92px">
               <a-select-option key="">不限</a-select-option>
+              <a-select-option v-for="{ label, value } in genders" :key="value">{{ label }} </a-select-option>
             </a-select>
           </div>
           <div v-else-if="key === 'thumbs'" :key="key" :class="s.filterItem">
@@ -116,6 +117,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex'
+
 export default {
   props: {
     fields: {
@@ -130,33 +133,10 @@ export default {
     }
     const initial = {
       platform: {
-        platform: '',
-        platforms: [
-          { label: '抖音', value: 1 },
-          { label: '快手', value: 2 }
-        ]
+        platform: ''
       },
       type: {
-        type: '',
-        types: [
-          { label: '母婴', value: 1 },
-          { label: '美妆', value: 2 },
-          { label: '游戏', value: 3 },
-          { label: '二次元', value: 4 },
-          { label: '泛娱乐', value: 5 },
-          { label: '汽车', value: 6 },
-          { label: '萌宠', value: 7 },
-          { label: '美食', value: 8 },
-          { label: '旅行', value: 9 },
-          { label: '科技数码', value: 10 },
-          { label: '教育培训', value: 11 },
-          { label: '运动健身', value: 12 },
-          { label: '家居家装', value: 13 },
-          { label: '财经投资', value: 14 },
-          { label: '三农', value: 15 },
-          { label: '园艺', value: 16 },
-          { label: '未分类', value: 17 }
-        ]
+        type: ''
       },
       category: {
         category: '',
@@ -180,29 +160,30 @@ export default {
         ]
       },
       area: {
-        cityData: {
-          上海市: ['上海市'],
-          江苏省: ['苏州市', '南京市', '南通市'],
-          浙江省: ['杭州市', '宁波市', '温州市']
-        },
         province: '',
         city: ''
       },
       frequency: { frequency: '' },
       broadcasted: { broadcasted: '' },
       grow: { grow: '' },
-      gender: { gender: '' },
+      gender: {
+        gender: '',
+        genders: [
+          { label: '男', value: 1 },
+          { label: '女', value: 2 }
+        ]
+      },
       thumbs: { thumbs: '' },
       purchase: { purchase: '' },
       occupation: { occupation: '' },
       loyalty: { loyalty: '' },
       age: {
         ages: [
-          { label: '18岁以下', value: 18 },
-          { label: '18-25岁', value: 25 },
-          { label: '26-32岁', value: 32 },
-          { label: '33-39岁', value: 39 },
-          { label: '40岁以上', value: 40 }
+          { label: '18岁以下', value: 1 },
+          { label: '18-25岁', value: 2 },
+          { label: '26-32岁', value: 3 },
+          { label: '33-39岁', value: 4 },
+          { label: '40岁以上', value: 5 }
         ],
         age: []
       },
@@ -224,14 +205,16 @@ export default {
     return data
   },
   computed: {
+    ...mapState('enum', { platforms: 'platforms', types: 'tags' }),
+    ...mapGetters('enum', ['areasHash']),
     otherFields() {
       return this.fields.filter(key => !['platform', 'type', 'category'].includes(key))
     },
     provinces() {
-      return Object.keys(this.cityData)
+      return Object.keys(this.areasHash)
     },
     cities() {
-      return this.cityData[this.province]
+      return this.areasHash[this.province]
     },
     selected() {
       const selected = {}
@@ -240,6 +223,7 @@ export default {
       if (this.category) selected.category = this.category
       if (this.province) selected.province = this.province
       if (this.city) selected.city = this.city
+      if (this.gender) selected.gender = this.gender
       if (this.age && this.age.length > 0) selected.age = this.age
       if (this.pop && (this.pop[0] !== '' || this.pop[1] !== '')) selected.pop = this.pop
       return selected
@@ -284,9 +268,16 @@ export default {
   watch: {
     province() {
       this.city = ''
+    },
+    selected: {
+      handler(selected) {
+        this.$emit('update:selected', selected)
+      },
+      immediate: true
     }
   },
   methods: {
+    ...mapActions('enum', ['fetchTags', 'fetchAreas']),
     reset(key) {
       const handlers = {
         area: () => {
@@ -308,6 +299,14 @@ export default {
     },
     resetAll() {
       this.selectedList.forEach(({ key }) => this.reset(key))
+    }
+  },
+  created() {
+    if (this.fields.includes('type')) {
+      this.fetchTags()
+    }
+    if (this.fields.includes('area')) {
+      this.fetchAreas()
     }
   }
 }

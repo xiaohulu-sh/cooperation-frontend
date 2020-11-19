@@ -4,8 +4,8 @@
       智选库中暂无数据，请减少部分条件
       <div>为您推荐可能感兴趣的KOL</div>
     </div>
-    <h3 v-else-if="list.length > 0">符合条件的红人(1931)</h3>
-    <RecycleScroller :class="s.list" v-infinite-scroll="loadMore" infinite-scroll-disabled="infDisabled" infinite-scroll-distance="120" page-mode :items="list" :itemSize="476" :buffer="1000">
+    <h3 v-else-if="list.length > 0">符合条件的红人({{ total }})</h3>
+    <RecycleScroller :class="s.list" v-infinite-scroll="loadMore" infinite-scroll-disabled="infDisabled" infinite-scroll-distance="120" page-mode :items="list" :itemSize="430" :buffer="1000">
       <template v-slot="{ item: arr }">
         <StarItem v-for="item in arr" :key="item.id" :item="item"></StarItem>
       </template>
@@ -17,6 +17,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { asyncHelper } from '@/utils/utils'
+import { request } from '@/utils/http'
 import StarItem from './StarItem'
 
 function pushItem(list, item) {
@@ -31,47 +34,85 @@ function pushItem(list, item) {
 
 export default {
   components: { StarItem },
+  props: {
+    req: Object
+  },
   data() {
     return {
       empty: false,
       list: [],
       infDisabled: false,
-      loading: true
+      loading: false,
+      page: 0,
+      total: 0
     }
   },
-  mounted() {
-    if (this.empty) {
+  computed: {
+    ...mapGetters('enum', ['platformLabels'])
+  },
+  watch: {
+    req() {
       this.infDisabled = true
-      this.loading = false
-      for (let i = 0; i < 6; i++) {
-        const gender = Math.random() > 0.5 ? 'male' : 'female'
-        pushItem(this.list, {
-          id: i,
-          gender,
-          avatar: gender === 'male' ? 'https://xhlcdn.xiaohulu.com/avatar/202/1270146631' : 'https://xhlcdn.xiaohulu.com/avatar/201/73838190950'
-        })
-      }
+      this.list = []
+      this.page = 0
+      this.loadMore()
     }
   },
   methods: {
-    loadMore() {
+    async loadMore() {
+      this.empty = false
       this.infDisabled = true
-      setTimeout(() => {
-        if (this.list.length > 300) {
-          this.infDisabled = true
-          this.loading = false
-          return
+      this.loading = true
+      const page = this.page + 1
+      const reqConfig = { ...this.req, params: { ...this.req.params, page, limit: 15 } }
+      this.reqConfig = reqConfig
+      const data = await asyncHelper(request(reqConfig))
+      if (this.reqConfig !== reqConfig) return
+      this.loading = false
+      if (!data) {
+        if (this.list.length === 0) {
+          this.empty = true
         }
-        for (let i = 0; i < 30; i++) {
-          const gender = Math.random() > 0.5 ? 'male' : 'female'
-          pushItem(this.list, {
-            id: i,
-            gender,
-            avatar: gender === 'male' ? 'https://xhlcdn.xiaohulu.com/avatar/202/1270146631' : 'https://xhlcdn.xiaohulu.com/avatar/201/73838190950'
-          })
+        return
+      }
+      const { current_page, last_page, list, total } = data
+      this.page = page
+      this.total = total
+      list.forEach(({ pid, rid, nickname, gender, LocationName, tags, guild, fansnum, new_fans_30, diggnum, videonum, price_1_20s, price_21_60s }) => {
+        let price = 0
+        let priceType = '1-20s报价'
+        if (price_1_20s) {
+          price = price_1_20s
+        } else if (price_21_60s) {
+          price = price_21_60s
+          priceType = '21-60s报价'
         }
+
+        pushItem(this.list, {
+          id: `${pid}/${rid}`,
+          name: nickname,
+          gender: gender == 1 ? 'male' : gender == 2 ? 'female' : '',
+          avatar: `https://xhlcdn.xiaohulu.com/avatar/${pid}/${rid}`,
+          plat: this.platformLabels[pid],
+          location: LocationName,
+          tags,
+          guild,
+          fans: fansnum,
+          newFans: new_fans_30,
+          likes: diggnum,
+          videos: videonum,
+          price,
+          priceType
+        })
+      })
+      if (current_page >= last_page) {
+        this.infDisabled = true
+        if (this.list.length === 0) {
+          this.empty = true
+        }
+      } else {
         this.infDisabled = false
-      }, 1000)
+      }
     }
   }
 }

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   props: ['platform', 'room'],
@@ -84,9 +84,9 @@ export default {
     }
   },
   computed: {
-    ...mapState('enum', ['platforms']),
+    ...mapGetters('enum', ['platformLabels']),
     platName() {
-      return this.platforms[this.platform]
+      return this.platformLabels[this.platform]
     },
     baseInfoReq() {
       return {

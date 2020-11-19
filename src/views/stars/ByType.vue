@@ -1,8 +1,8 @@
 <template>
   <div>
     <h2 :class="c.h2a"><i :class="[c.titleIcon, s.type]"></i>按创作类型筛选红人</h2>
-    <filters key="type" :fields="['platform', 'type', 'area', 'frequency', 'broadcasted', 'grow', 'gender', 'thumbs', 'age', 'pop']"></filters>
-    <StarList></StarList>
+    <filters key="type" :fields="['platform', 'type', 'area', 'gender', 'age', 'pop']" @update:selected="updateSelected"></filters>
+    <StarList :req="listReq"></StarList>
   </div>
 </template>
 
@@ -11,7 +11,34 @@ import Filters from './Filters'
 import StarList from './StarList'
 
 export default {
-  components: { Filters, StarList }
+  components: { Filters, StarList },
+  data() {
+    return {
+      selected: null
+    }
+  },
+  computed: {
+    listReq() {
+      const { platform, type, province, city, gender, age, pop } = this.selected || {}
+      return {
+        url: '/v1_front_search/anchorListByType',
+        params: {
+          plat_type: platform,
+          cate_type: type,
+          province,
+          region: city,
+          gender,
+          fans_age: age && age.join(','),
+          fansnum: pop && [pop[0] || 0, pop[1] || 0].join('-')
+        }
+      }
+    }
+  },
+  methods: {
+    updateSelected(selected) {
+      this.selected = selected
+    }
+  }
 }
 </script>
 

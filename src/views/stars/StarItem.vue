@@ -1,26 +1,33 @@
 <template>
-  <router-link to="/star/201/4195355415549012" :class="s.item">
+  <router-link :to="`/star/${item.id}`" target="_blank" :class="s.item">
     <div :class="s.bg" :style="`background-image:url(${item.avatar})`">
-      <span :class="s.area">内蒙古 克什克腾旗</span>
-      <div :class="s.name">
-        <span :class="[c.tag1, s.tag1]">快手</span>
-        <span :class="[c[item.gender], s[item.gender]]">狂鸟丶楚河-90327</span>
+      <span v-if="item.location" :class="s.area">{{ item.location }}</span>
+      <div :class="{ [s.name]: true, [s.onlyName]: item.tags.length === 0 }">
+        <span v-if="item.plat" :class="[c.tag1, s.tag1]">{{ item.plat }}</span>
+        <span :class="[c[item.gender], s[item.gender]]">{{ item.name || '未知' }}</span>
       </div>
       <div :class="s.tags">
-        <span :class="[c.tag2, s.tag2]">科技数码</span>
-        <span :class="[c.tag2, s.tag2]">旅行</span>
-        <span :class="[c.tag2, s.tag2]">美食</span>
-        <span :class="[c.tag3, s.tag3]">新动传媒</span>
+        <span v-for="tag in item.tags" :key="tag" :class="[c.tag2, s.tag2]">{{ tag }}</span>
+        <span v-if="item.guild" :class="[c.tag3, s.tag3]">{{ item.guild }}</span>
       </div>
     </div>
     <div :class="[c.ellipsis1, s.intro1]">男女粉丝比例：男粉居多，26-32岁粉丝居多</div>
-    <div :class="[c.ellipsis2, s.intro2]">
-      Redmi 10X 高性能处理器，性能比肩旗舰配置，带来流畅游戏体验，直播间购机享专属钜惠福利，性能比肩旗舰配置，带来流畅游戏体验，直播间购机享专属钜惠福利
-    </div>
     <div :class="s.data">
-      <div :class="s.dataCol">总粉丝数<br /><strong>172万</strong><span>30天涨粉64万</span></div>
-      <div :class="s.dataCol">总点赞数<br /><strong>172万</strong><span>作品137个</span></div>
-      <div :class="s.dataCol">星途报价<br /><strong>172万美元</strong><span>1-20s报价</span></div>
+      <div :class="s.dataCol">
+        总粉丝数<br />
+        <strong>{{ formatNumber(item.fans, { empty: '--' }) }}</strong>
+        <span>30天涨粉{{ formatNumber(item.newFans, { empty: '--' }) }}</span>
+      </div>
+      <div :class="s.dataCol">
+        总点赞数<br />
+        <strong>{{ formatNumber(item.likes, { empty: '--' }) }}</strong>
+        <span>作品数{{ formatNumber(item.videos, { empty: '--' }) }}</span>
+      </div>
+      <div :class="s.dataCol">
+        星途报价<br />
+        <strong>{{ formatNumber(item.price, { empty: '暂无' }) }}</strong>
+        <span>{{ item.priceType }}</span>
+      </div>
     </div>
     <div :class="s.btnWrap">
       <a-button @click.prevent="onAddClick"><i :class="c.plus"></i>添加红人</a-button>
@@ -29,11 +36,14 @@
 </template>
 
 <script>
+import { formatNumber } from '@/utils/utils'
+
 export default {
   props: {
     item: Object
   },
   methods: {
+    formatNumber,
     onAddClick() {
       // eslint-disable-next-line no-console
       console.log('add')
@@ -47,7 +57,7 @@ export default {
   display: inline-block;
   position: relative;
   width: 300px;
-  height: 446px;
+  height: 400px;
   border: 1px solid #d9d9d9;
   margin: 0 30px 30px 0;
   padding-top: 200px;
@@ -65,6 +75,7 @@ export default {
   right: -1px;
   top: -1px;
   height: 200px;
+  background-color: #666;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -124,6 +135,9 @@ export default {
     margin: -2px 0 0 4px;
   }
 }
+.onlyName {
+  top: 162px;
+}
 .tags {
   position: absolute;
   top: 162px;
@@ -132,11 +146,6 @@ export default {
 }
 .intro1 {
   font-size: 12px;
-  margin: 10px;
-}
-.intro2 {
-  font-size: 12px;
-  color: #999;
   margin: 10px;
 }
 .data {
