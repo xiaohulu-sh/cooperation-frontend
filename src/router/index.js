@@ -24,7 +24,6 @@ import OrderData from '@/views/my/OrderData'
 import OrderSummary from '@/views/my/OrderSummary'
 import Contact from '@/views/Contact'
 import View404 from '@/views/View404'
-import qs from 'qs'
 
 // 解决路由访问重复时报错问题
 const originalPush = VueRouter.prototype.push
@@ -98,6 +97,21 @@ const router = new VueRouter({
 export default router
 
 router.beforeEach(async (to, from, next) => {
+  if (to.query.error_msg) {
+    store.commit('err', to.query.error_msg)
+    return
+  } else if (to.query._t) {
+    store.commit('user/token', to.query._t)
+    store.commit('err', null)
+    const query = { ...to.query }
+    delete query._t
+    next({ path: to.path, query, replace: true })
+    return
+  } else if (!store.state.user.token) {
+    store.dispatch('user/navLogin')
+    return
+  }
+
   startProgressBar()
   const { preload } = to.meta
   if (preload) {
@@ -113,11 +127,3 @@ router.beforeEach(async (to, from, next) => {
 router.afterEach(() => {
   stopProgressBar()
 })
-
-const token = qs.parse(location.search.substring(1))._t
-if (token) {
-  store.commit('user/token', token)
-  router.replace({ ...router.currentRoute.query, _t: null })
-} else if (!store.state.user.token) {
-  store.dispatch('user/navLogin')
-}

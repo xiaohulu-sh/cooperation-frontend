@@ -90,6 +90,8 @@ export default {
 
         pushItem(this.list, {
           id: `${pid}/${rid}`,
+          pid,
+          rid,
           name: nickname,
           gender: gender == 1 ? 'male' : gender == 2 ? 'female' : '',
           avatar: `https://xhlcdn.xiaohulu.com/avatar/${pid}/${rid}`,

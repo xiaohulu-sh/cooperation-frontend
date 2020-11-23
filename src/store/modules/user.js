@@ -38,6 +38,7 @@ export default {
       await asyncHelper(request({ url: 'v1_front_user/logout', method: 'POST', body: JSON.stringify({}) }))
       await asyncHelper(jsonp({ url: 'https://login.jdcloud.com/logout' }))
       commit('token', null)
+      commit('name', null)
       dispatch('navLogin')
     },
     async fetchInfo({ commit }) {

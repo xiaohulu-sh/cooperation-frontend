@@ -22,9 +22,14 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 }, {})
 
 const store = new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    err: null
+  },
+  mutations: {
+    err(state, errMsg) {
+      state.err = errMsg
+    }
+  },
   modules
 })
 setStore(store)

@@ -4,10 +4,10 @@
       <router-link to="/"><img :class="s.logo" src="~@/assets/logo.svg" alt="京东智联云"/></router-link>
       <span :class="s.title">智慧直播营销服务平台</span>
     </h1>
-    <a-dropdown>
+    <a-dropdown placement="bottomCenter">
       <div :class="s.user">
         <img :class="s.avatar" src="~@/assets/user.svg" referrerpolicy="no-referrer" @error="onAvatarError" />
-        <span :class="s.nickname">{{ name || '--' }}</span>
+        <span :class="s.nickname">{{ name }}</span>
         <a-icon :class="s.arrow" type="down" />
       </div>
       <a-menu :class="s.menu" slot="overlay">

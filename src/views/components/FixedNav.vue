@@ -1,13 +1,16 @@
 <template>
   <div :class="s.container">
     <div :class="s.fixed">
-      <a :class="s.cart" href="javascript:"></a>
+      <a-badge :count="selectedList.length" :offset="[-2, 2]">
+        <router-link :class="s.cart" to="/stars/selected"></router-link>
+      </a-badge>
       <div :class="s.backtop" :style="{ visibility: showBackTop ? '' : 'hidden' }" @click="scrollToTop"></div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import throttle from 'lodash/throttle'
 
 export default {
@@ -16,6 +19,7 @@ export default {
       showBackTop: false
     }
   },
+  computed: { ...mapGetters('selected', { selectedList: 'list' }) },
   mounted() {
     const throttledScrollHandler = throttle(() => {
       this.showBackTop = window.pageYOffset > 200
@@ -40,7 +44,10 @@ export default {
 }
 .fixed {
   position: fixed;
-  bottom: 30px;
+  bottom: 20px;
+  :global .ant-badge-count {
+    opacity: 0.8;
+  }
 }
 @media screen and (max-width: 1360px) {
   .fixed {
@@ -55,7 +62,7 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
-  margin-top: 10px;
+  margin-bottom: 10px;
   &:hover {
     opacity: 0.8;
   }

@@ -30,24 +30,26 @@
       </div>
     </div>
     <div :class="s.btnWrap">
-      <a-button @click.prevent="onAddClick"><i :class="c.plus"></i>添加红人</a-button>
+      <a-button v-if="selected[item.id]" icon="check" @click.prevent="removeSelected(item.id)">已添加</a-button>
+      <a-button v-else @click.prevent="addSelected({ id: item.id })"><i :class="c.plus"></i>添加红人</a-button>
     </div>
   </router-link>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import { formatNumber } from '@/utils/utils'
 
 export default {
   props: {
     item: Object
   },
+  computed: {
+    ...mapState('selected', { selected: 'hash' })
+  },
   methods: {
-    formatNumber,
-    onAddClick() {
-      // eslint-disable-next-line no-console
-      console.log('add')
-    }
+    ...mapMutations('selected', { addSelected: 'add', removeSelected: 'remove' }),
+    formatNumber
   }
 }
 </script>

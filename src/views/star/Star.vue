@@ -25,7 +25,8 @@
             <div v-if="description" :class="s.intro">简介：{{ description }}</div>
           </div>
         </div>
-        <a-button :class="s.addBtn" type="primary"><i :class="c.plus"></i>添加红人</a-button>
+        <a-button v-if="selected[itemId]" :class="s.addBtn" icon="check" @click="removeSelected(itemId)">已添加</a-button>
+        <a-button v-else :class="s.addBtn" type="primary" @click="addSelected({ id: itemId })"><i :class="c.plus"></i>添加红人</a-button>
       </template>
     </DataBlock>
     <div :class="s.body">
@@ -37,7 +38,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: ['platform', 'room'],
@@ -84,7 +85,11 @@ export default {
     }
   },
   computed: {
+    ...mapState('selected', { selected: 'hash' }),
     ...mapGetters('enum', ['platformLabels']),
+    itemId() {
+      return `${this.platform}/${this.room}`
+    },
     platName() {
       return this.platformLabels[this.platform]
     },
@@ -99,6 +104,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('selected', { addSelected: 'add', removeSelected: 'remove' }),
     onNavChange(key) {
       const { platform, room } = this.$route.params
       this.$router.replace(`/star/${platform}/${room}/${key}`)

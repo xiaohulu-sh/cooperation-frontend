@@ -1,18 +1,16 @@
 <template>
   <component :is="tagName" style="display:flex">
     <div :class="[s.avatar, c.male, s.gender]">
-      <img src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" />
+      <img :src="info.avatar" referrerpolicy="no-referrer" @error="onAvatarError" />
     </div>
     <div :class="s.txtInfo">
       <div :class="s.r1">
-        <span :class="[c.tag1, s.tag]">快手</span>
-        <span :class="[c.ellipsis1, s.name]">一条小团团OvO</span>
-        <span :class="[c.tag3, s.tag]">新动传媒</span>
+        <span :class="[c.tag1, s.tag]">{{ info.plat }}</span>
+        <span :class="[c.ellipsis1, s.name]" :title="info.name">{{ info.name }}</span>
+        <span v-if="info.guild" :class="[c.tag3, s.tag]">{{ info.guild }}</span>
       </div>
       <div :class="s.r2">
-        <span :class="[c.tag2, s.tag]">旅行</span>
-        <span :class="[c.tag2, s.tag]">美食</span>
-        <span :class="[c.tag2, s.tag]">科技数码</span>
+        <span v-for="tag in info.tags" :key="tag" :class="[c.tag2, s.tag]">{{ tag }}</span>
       </div>
     </div>
   </component>
@@ -21,6 +19,7 @@
 <script>
 export default {
   props: {
+    info: Object,
     tagName: {
       type: String,
       default: 'div'

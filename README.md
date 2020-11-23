@@ -1,4 +1,4 @@
-# xhl-jd
+# cooperation-frontend
 
 ## Project setup
 ```
