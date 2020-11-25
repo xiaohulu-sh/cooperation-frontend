@@ -24,11 +24,11 @@
         <template v-for="key in fields">
           <div v-if="key === 'area'" :key="key" :class="s.filterItem">
             所在地：
-            <a-select v-model="province" size="small" :class="s.select" style="width:92px">
+            <a-select v-model="province" size="small" :class="s.select" style="width:120px">
               <a-select-option key="">省份</a-select-option>
               <a-select-option v-for="p in provinces" :key="p">{{ p }} </a-select-option>
             </a-select>
-            <a-select v-model="city" size="small" :class="s.select" style="width:92px;margin-left:10px">
+            <a-select v-model="city" size="small" :class="s.select" style="width:120px;margin-left:10px">
               <a-select-option key="">地区</a-select-option>
               <a-select-option v-for="c in cities" :key="c">{{ c }} </a-select-option>
             </a-select>
@@ -118,8 +118,10 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
+import CustomRange from '@/components/CustomRange'
 
 export default {
+  components: { CustomRange },
   props: {
     fields: {
       type: Array,

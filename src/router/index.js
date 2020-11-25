@@ -72,7 +72,7 @@ const routes = [
     children: [
       { path: 'info', component: MyInfo },
       { path: 'orders', component: MyOrders },
-      { path: 'order/:id', component: Order, meta: { sideKey: '/my/orders' } }
+      { path: 'order/:id', component: Order, props: true, meta: { sideKey: '/my/orders' } }
     ]
   },
   { path: '/my/order/:id/data', component: OrderData },

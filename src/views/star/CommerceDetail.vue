@@ -73,7 +73,7 @@
         </li>
       </ul>
     </div>
-    <a-pagination v-model="goodsPage" :total="goodsTotal" :pageSize="10" :hideOnSinglePage="true" style="text-align:center;margin-top:20px"></a-pagination>
+    <a-pagination :class="c.pagin1" v-model="goodsPage" :total="goodsTotal" :pageSize="10" :hideOnSinglePage="true"></a-pagination>
   </div>
 </template>
 

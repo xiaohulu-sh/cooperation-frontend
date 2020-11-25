@@ -2,7 +2,7 @@
   <div>
     <h2 :class="c.h2a"><i :class="[c.titleIcon, s.type]"></i>按创作类型筛选红人</h2>
     <filters key="type" :fields="['platform', 'type', 'area', 'gender', 'age', 'pop']" @update:selected="updateSelected"></filters>
-    <StarList :req="listReq"></StarList>
+    <StarList :req="listReq" />
   </div>
 </template>
 

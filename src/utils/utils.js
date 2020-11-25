@@ -30,7 +30,7 @@ export function parseNumberUnit(n, fixed = 2) {
 }
 
 export function formatNumber(n, { fixed, empty = '0' } = {}) {
-  if (!n) {
+  if (!n || !Number(n)) {
     return empty
   }
   const formatted = parseNumberUnit(Number(n), fixed)

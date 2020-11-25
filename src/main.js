@@ -34,6 +34,7 @@ Vue.use(Radio)
 Vue.use(Tooltip)
 Vue.use(Steps)
 Vue.use(Badge)
+Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
 /* ant-design-vue end */
 
@@ -77,8 +78,6 @@ import LazyBlock from '@/components/LazyBlock'
 Vue.component('LazyBlock', LazyBlock)
 import RadioList from '@/components/RadioList'
 Vue.component('RadioList', RadioList)
-import CustomRange from '@/components/CustomRange'
-Vue.component('CustomRange', CustomRange)
 import NavList from '@/components/NavList'
 Vue.component('NavList', NavList)
 import SideNav from '@/views/components/SideNav'

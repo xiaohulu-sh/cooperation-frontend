@@ -50,6 +50,9 @@ export default {
       })
       state.hash = hash
     },
+    clear(state) {
+      state.hash = {}
+    },
     sync(state) {
       const hash = parseStorage()
       if (JSON.stringify(hash) !== JSON.stringify(state.hash)) {

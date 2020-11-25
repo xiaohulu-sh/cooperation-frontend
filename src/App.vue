@@ -2,7 +2,7 @@
   <a-config-provider :locale="locale">
     <div id="app">
       <Header />
-      <a-result v-if="err" status="error" :title="err" style="margin-top:50px"></a-result>
+      <Err v-if="err" :err="err" />
       <router-view v-else />
     </div>
   </a-config-provider>
@@ -12,9 +12,10 @@
 import { mapState } from 'vuex'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import Header from '@/views/components/Header'
+import Err from '@/views/components/Error'
 
 export default {
-  components: { Header },
+  components: { Header, Err },
   data() {
     return {
       locale: zhCN

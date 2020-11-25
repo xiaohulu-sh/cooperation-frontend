@@ -32,7 +32,7 @@ export default {
   mutations,
   actions: {
     navLogin() {
-      location.href = `https://oauth2.jdcloud.com/authorize?response_type=code&redirect_uri=${encodeURIComponent(`http://${location.host}/v1_front_user/oauth`)}&client_id=9691604299493703&state=111`
+      location.href = `https://oauth2.jdcloud.com/authorize?response_type=code&redirect_uri=${encodeURIComponent(`http://${location.host}/v1_front_user/oauth`)}&client_id=9691604299493703&state=${Date.now()}`
     },
     async logout({ commit, dispatch }) {
       await asyncHelper(request({ url: 'v1_front_user/logout', method: 'POST', body: JSON.stringify({}) }))

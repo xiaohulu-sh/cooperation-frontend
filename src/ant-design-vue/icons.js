@@ -6,3 +6,4 @@ export { default as RightOutline } from '@ant-design/icons/lib/outline/RightOutl
 export { default as QuestionCircleOutline } from '@ant-design/icons/lib/outline/QuestionCircleOutline'
 export { default as CheckOutline } from '@ant-design/icons/lib/outline/CheckOutline'
 export { default as CloseCircleFill } from '@ant-design/icons/lib/fill/CloseCircleFill'
+export { default as CheckCircleFill } from '@ant-design/icons/lib/fill/CheckCircleFill'

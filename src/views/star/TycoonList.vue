@@ -21,7 +21,7 @@
         </div>
       </li>
     </ul>
-    <a-pagination :current="page" :total="total" :pageSize="pageSize" :hideOnSinglePage="true" @change="onPageChange" style="text-align:center;margin-top:20px"></a-pagination>
+    <a-pagination :class="c.pagin1" :current="page" :total="total" :pageSize="pageSize" :hideOnSinglePage="true" @change="onPageChange"></a-pagination>
   </div>
 </template>
 

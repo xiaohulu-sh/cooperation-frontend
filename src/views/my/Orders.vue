@@ -1,30 +1,63 @@
 <template>
   <div>
     <h2 :class="c.h2b">我的订单</h2>
-    <div :class="c.th1">
-      <div :class="s.col1">订单生成时间</div>
-      <div :class="s.col2">订单编号</div>
-      <div :class="s.col3">已选红人数</div>
-      <div :class="s.col4">红人头像</div>
-      <div :class="s.col5">状态</div>
-      <div :class="s.col6">操作</div>
-    </div>
-    <ul :class="[c.tbList1, s.list1]">
-      <li v-for="(_, index) in new Array(5)" :key="index">
-        <div :class="s.col1">2020-09-08 14:12</div>
-        <div :class="s.col2">20200908141255486</div>
-        <div :class="s.col3">10</div>
-        <div :class="s.col4">
-          <img :class="s.avatar1" src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" style="z-index:3" />
-          <img :class="s.avatar1" src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" style="z-index:2" />
-          <img :class="s.avatar1" src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" style="z-index:1" />
+    <DataBlock :req="listReq" :isEmpty="isEmpty">
+      <template v-slot="{ data: { list, total } }">
+        <div :class="c.th1">
+          <div :class="s.col1">订单生成时间</div>
+          <div :class="s.col2">订单编号</div>
+          <div :class="s.col3">已选红人数</div>
+          <div :class="s.col4">红人头像</div>
+          <div :class="s.col5">状态</div>
+          <div :class="s.col6">操作</div>
         </div>
-        <div :class="s.col5">待确认</div>
-        <div :class="s.col6"><router-link to="/my/order/123">查看详情</router-link></div>
-      </li>
-    </ul>
+        <ul :class="[c.tbList1, s.list1]">
+          <li v-for="{ order_id, create_time, count, avatars, progress } in list" :key="order_id">
+            <div :class="s.col1">{{ create_time }}</div>
+            <div :class="s.col2">{{ order_id }}</div>
+            <div :class="s.col3">{{ count }}</div>
+            <div :class="s.col4">
+              <img v-for="(url, index) in avatars" :key="url" :class="s.avatar1" :src="url" referrerpolicy="no-referrer" @error="onAvatarError" :style="{ zIndex: avatars.length - index }" />
+            </div>
+            <div :class="s.col5">{{ stateLabels[progress] }}</div>
+            <div :class="s.col6"><router-link :to="`/my/order/${order_id}`">查看详情</router-link></div>
+          </li>
+        </ul>
+        <a-pagination :class="c.pagin1" v-model="page" :total="total" :pageSize="pageSize" :hideOnSinglePage="true" />
+      </template>
+    </DataBlock>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  data() {
+    return {
+      page: 1,
+      pageSize: 10
+    }
+  },
+  computed: {
+    ...mapGetters('enum', ['stateLabels']),
+    listReq() {
+      return {
+        url: 'v1_front_order/agreementOrderList',
+        params: {
+          page: this.page,
+          limit: this.pageSize
+        }
+      }
+    }
+  },
+  methods: {
+    isEmpty(data) {
+      return (!data && data !== null) || (data && !data.total)
+    }
+  }
+}
+</script>
 
 <style lang="less" module="s">
 .avatar1 {

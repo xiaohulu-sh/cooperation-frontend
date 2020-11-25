@@ -7,7 +7,23 @@ const state = {
     { value: 202, label: '快手' }
   ],
   tags: [],
-  areas: []
+  areas: [],
+  states: [
+    { value: 1, label: '意向单' },
+    { value: 2, label: '合作修改确定' },
+    { value: 3, label: '方案已确定' },
+    { value: 4, label: '红人执行中' },
+    { value: 5, label: '执行完成' }
+  ],
+  coopTypes: [
+    { value: 1, label: '直播带货' },
+    { value: 2, label: '短视频带货' }
+  ],
+  isCoop: [
+    { value: 0, label: '待定' },
+    { value: 1, label: '是' },
+    { value: 2, label: '否' }
+  ]
 }
 
 const mutations = {}
@@ -34,6 +50,27 @@ export default {
         hash[name] = children
       })
       return hash
+    },
+    stateLabels({ states }) {
+      const hash = {}
+      states.forEach(({ value, label }) => {
+        hash[value] = label
+      })
+      return hash
+    },
+    coopTypeLabels({ coopTypes }) {
+      const hash = {}
+      coopTypes.forEach(({ value, label }) => {
+        hash[value] = label
+      })
+      return hash
+    },
+    isCoopLabels({ isCoop }) {
+      const hash = {}
+      isCoop.forEach(({ value, label }) => {
+        hash[value] = label
+      })
+      return hash
     }
   },
   mutations,
@@ -44,7 +81,7 @@ export default {
       }
       const data = await asyncHelper(request({ url: 'v1_front_search/tagsList' }))
       if (!data) return false
-      const tags = data.list.map(({ id, name }) => ({ value: id, label: name }))
+      const tags = data.map(name => ({ value: name, label: name }))
       commit('tags', tags)
       return tags
     },
