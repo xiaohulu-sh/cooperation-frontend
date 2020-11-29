@@ -2,10 +2,10 @@
   <div :class="s.container">
     <div v-if="empty" :class="s.emptyTitle">
       智选库中暂无数据，请减少部分条件
-      <div>为您推荐可能感兴趣的KOL</div>
+      <!-- <div>为您推荐可能感兴趣的KOL</div> -->
     </div>
     <h3 v-else-if="list.length > 0">符合条件的红人({{ total }})</h3>
-    <RecycleScroller :class="s.list" v-infinite-scroll="loadMore" infinite-scroll-disabled="infDisabled" infinite-scroll-distance="120" page-mode :items="list" :itemSize="430" :buffer="1000">
+    <RecycleScroller :class="s.list" v-infinite-scroll="loadMore" infinite-scroll-disabled="infDisabled" infinite-scroll-distance="400" page-mode :items="list" :itemSize="430" :buffer="1000">
       <template v-slot="{ item: arr }">
         <StarItem v-for="item in arr" :key="item.id" :item="item"></StarItem>
       </template>
@@ -141,6 +141,7 @@ export default {
   color: #333;
   text-align: center;
   margin: 20px 0 38px;
+  padding-bottom: 30px;
   & > div {
     font-size: 14px;
     font-weight: 400;

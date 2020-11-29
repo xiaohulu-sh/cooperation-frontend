@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
 import { startProgressBar, stopProgressBar } from '@/components/progress-bar'
-import Stars from '@/views/stars/Stars'
+import Layout from '@/views/Layout'
 import StarsByType from '@/views/stars/ByType'
 import StarsByCategory from '@/views/stars/ByCategory'
 import StarsByFans from '@/views/stars/ByFans'
@@ -16,13 +16,13 @@ import StarRecords from '@/views/star/Records'
 import StarCommerceDetail from '@/views/star/CommerceDetail'
 import StarFans from '@/views/star/FansData'
 import GoodsData from '@/views/goods/GoodsData'
-import My from '@/views/my/My'
 import MyInfo from '@/views/my/Info'
 import MyOrders from '@/views/my/Orders'
 import Order from '@/views/my/Order'
 import OrderData from '@/views/my/OrderData'
 import OrderSummary from '@/views/my/OrderSummary'
 import Contact from '@/views/Contact'
+import CommingSoon from '@/views/CommingSoon'
 import View404 from '@/views/View404'
 
 // 解决路由访问重复时报错问题
@@ -41,7 +41,7 @@ const routes = [
   {
     path: '/stars',
     redirect: '/stars/by-type',
-    component: Stars,
+    component: Layout,
     children: [
       { path: 'by-type', component: StarsByType },
       { path: 'by-category', component: StarsByCategory },
@@ -68,7 +68,7 @@ const routes = [
   {
     path: '/my',
     redirect: '/my/info',
-    component: My,
+    component: Layout,
     children: [
       { path: 'info', component: MyInfo },
       { path: 'orders', component: MyOrders },
@@ -78,6 +78,7 @@ const routes = [
   { path: '/my/order/:id/data', component: OrderData },
   { path: '/my/order/:id/summary', component: OrderSummary },
   { path: '/contact', component: Contact },
+  { path: '/manual', component: Layout, children: [{ path: '*', component: CommingSoon }] },
   { path: '*', component: View404 }
 ]
 
@@ -96,23 +97,36 @@ const router = new VueRouter({
 
 export default router
 
+let firstRun = true
 router.beforeEach(async (to, from, next) => {
+  startProgressBar()
+
   if (to.query.error_msg) {
+    store.dispatch('user/clear')
     store.commit('err', to.query.error_msg)
+    stopProgressBar()
     return
   } else if (to.query._t) {
     store.commit('user/token', to.query._t)
     store.commit('err', null)
     const query = { ...to.query }
     delete query._t
+    delete query.isOpt
+    await store.dispatch('user/fetchInfo', { checkDefaultBrand: true })
     next({ path: to.path, query, replace: true })
+    stopProgressBar()
     return
   } else if (!store.state.user.token) {
     store.dispatch('user/navLogin')
+    stopProgressBar()
     return
   }
 
-  startProgressBar()
+  await store.dispatch('user/fetchInfo', { cacheFirst: !firstRun, checkDefaultBrand: true })
+  if (firstRun) {
+    firstRun = false
+  }
+
   const { preload } = to.meta
   if (preload) {
     try {

@@ -78,6 +78,10 @@ export async function request(reqConfig, { withToken = true, autoCancelKey = '',
       store.dispatch('user/logout')
       return Promise.reject({ code, data, msg })
 
+    case 1005:
+      store.dispatch('user/navLogin')
+      return Promise.reject({ code, data, msg })
+
     default:
       if (!silent && msg) {
         Modal.error({ title: msg })

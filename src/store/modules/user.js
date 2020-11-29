@@ -4,7 +4,8 @@ import { jsonp } from '@/utils/jsonp'
 
 const state = {
   token: null,
-  name: null
+  name: null,
+  brands: []
 }
 
 Object.keys(state).forEach(key => {
@@ -29,22 +30,59 @@ for (const key of Object.keys(state)) {
 export default {
   namespaced: true,
   state,
+  getters: {
+    brandName({ brands }) {
+      return brands.find(({ isCurrent }) => isCurrent)?.name || ''
+    }
+  },
   mutations,
   actions: {
     navLogin() {
       location.href = `https://oauth2.jdcloud.com/authorize?response_type=code&redirect_uri=${encodeURIComponent(`http://${location.host}/v1_front_user/oauth`)}&client_id=9691604299493703&state=${Date.now()}`
     },
-    async logout({ commit, dispatch }) {
-      await asyncHelper(request({ url: 'v1_front_user/logout', method: 'POST', body: JSON.stringify({}) }))
-      await asyncHelper(jsonp({ url: 'https://login.jdcloud.com/logout' }))
+    clear({ commit }) {
       commit('token', null)
       commit('name', null)
+      commit('brands', [])
+    },
+    async logout({ dispatch }) {
+      await asyncHelper(request({ url: 'v1_front_user/logout', method: 'POST', body: JSON.stringify({}) }))
+      await asyncHelper(jsonp({ url: 'https://login.jdcloud.com/logout' }))
+      dispatch('clear')
       dispatch('navLogin')
     },
-    async fetchInfo({ commit }) {
-      const data = await asyncHelper(request({ url: 'v1_front_user/getUserInfo' }))
-      if (data === false) return
-      commit('name', data.name)
+    async fetchInfo({ state, getters, commit, dispatch }, { cacheFirst = false, checkDefaultBrand = false } = {}) {
+      if (!state.token) return false
+      if (!cacheFirst || state.brands.length === 0) {
+        const data = await asyncHelper(request({ url: 'v1_front_user/getUserInfo' }))
+        if (data === false) {
+          commit('clear')
+          return false
+        }
+        commit('name', data.name)
+        commit(
+          'brands',
+          data.list.map(({ externalid, isCurrentBrand, name }) => ({ id: externalid, name, isCurrent: isCurrentBrand }))
+        )
+      }
+      if (checkDefaultBrand && !getters.brandName) {
+        dispatch('setDefaultBrand')
+      }
+    },
+    async setDefaultBrand({ state: { brands }, dispatch }) {
+      if (brands.length === 0) return false
+      const data = await asyncHelper(
+        request({
+          url: 'v1_front_user/setCurrentBrand',
+          method: 'POST',
+          body: JSON.stringify({
+            externalid: brands[0].id
+          })
+        })
+      )
+      if (data === false) return false
+      await dispatch('fetchInfo')
+      return true
     }
   }
 }
@@ -62,13 +100,4 @@ export function init(store) {
       }
     )
   })
-  store.watch(
-    ({ user: { token } }) => token,
-    token => {
-      if (token) {
-        store.dispatch('user/fetchInfo')
-      }
-    },
-    { immediate: true }
-  )
 }

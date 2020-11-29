@@ -7,3 +7,4 @@ export { default as QuestionCircleOutline } from '@ant-design/icons/lib/outline/
 export { default as CheckOutline } from '@ant-design/icons/lib/outline/CheckOutline'
 export { default as CloseCircleFill } from '@ant-design/icons/lib/fill/CloseCircleFill'
 export { default as CheckCircleFill } from '@ant-design/icons/lib/fill/CheckCircleFill'
+export { default as SmileTwoTone } from '@ant-design/icons/lib/twotone/SmileTwoTone'

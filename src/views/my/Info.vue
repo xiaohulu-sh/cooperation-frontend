@@ -2,15 +2,23 @@
   <div :class="[c.content, s.content]">
     <h2 :class="c.h2b">基础信息</h2>
     <div :class="s.user">
-      <img :class="s.avatar" src="https://xhlcdn.xiaohulu.com/avatar/202/188888880" referrerpolicy="no-referrer" @error="onAvatarError" />
+      <img :class="s.avatar" src="~@/assets/user.svg" referrerpolicy="no-referrer" @error="onAvatarError" />
       <div>
-        <div :class="s.name">大块圣光碎片</div>
+        <div :class="s.name">{{ name }}</div>
         <span :class="s.tag1">京东智联云版</span>
       </div>
     </div>
     <div :class="s.version">软件系统版本：v0.0.1</div>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  computed: mapState('user', ['name'])
+}
+</script>
 
 <style lang="less" module="s">
 .content {
