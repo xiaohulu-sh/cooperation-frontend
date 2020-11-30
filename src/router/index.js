@@ -121,7 +121,7 @@ router.beforeEach(async (to, from, next) => {
     return
   }
 
-  await store.dispatch('user/fetchInfo', { cacheFirst: true, checkDefaultBrand: true })
+  await store.dispatch('user/fetchInfo', { checkDefaultBrand: true })
 
   const { preload } = to.meta
   if (preload) {

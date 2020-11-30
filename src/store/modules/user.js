@@ -27,6 +27,8 @@ for (const key of Object.keys(state)) {
   }
 }
 
+let firstFetch = true
+
 export default {
   namespaced: true,
   state,
@@ -51,14 +53,15 @@ export default {
       dispatch('clear')
       dispatch('navLogin')
     },
-    async fetchInfo({ state, getters, commit, dispatch }, { cacheFirst = false, checkDefaultBrand = false } = {}) {
+    async fetchInfo({ state, getters, commit, dispatch }, { refresh = false, checkDefaultBrand = false } = {}) {
       if (!state.token) return false
-      if (!cacheFirst || state.brands.length === 0) {
+      if (refresh || firstFetch || state.brands.length === 0) {
         const data = await asyncHelper(request({ url: 'v1_front_user/getUserInfo' }))
         if (data === false) {
           commit('clear')
           return false
         }
+        firstFetch = false
         commit('name', data.name)
         commit(
           'brands',

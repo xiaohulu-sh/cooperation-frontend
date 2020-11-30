@@ -1,12 +1,13 @@
 <template>
   <a-result :class="[c.main, s.result]" status="error" :title="err">
-    <div>
-      <h3>商务联系方式</h3>
-      <ul>
-        <li>电话：18812345678</li>
-        <li>微信：xxx</li>
-        <li>邮箱：xxx@xiaohulu.com</li>
-      </ul>
+    <h3>商务联系方式</h3>
+    <ul>
+      <li>电话：18812345678</li>
+      <li>微信：xxx</li>
+      <li>邮箱：xxx@xiaohulu.com</li>
+    </ul>
+    <div :class="s.ft1">
+      <router-link to="/" replace><a-button type="primary" size="large">重新尝试</a-button></router-link>
     </div>
   </a-result>
 </template>
@@ -33,5 +34,9 @@ export default {
     font-weight: bold;
     margin: 0 0 10px;
   }
+}
+.ft1 {
+  margin-top: 20px;
+  text-align: center;
 }
 </style>
