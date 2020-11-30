@@ -178,7 +178,7 @@ export default {
     },
     trendHandler(data) {
       if (!data) return { chart: null }
-      return { chart: createLine1((data.list || []).map(({ date, count }) => [date, count])) }
+      return { chart: createLine1((data.list || []).map(({ date, count }) => [date, count]).sort((a, b) => (a[0] > b[0] ? 1 : -1))) }
     },
     frequencyHandler(data) {
       if (!data) return { chart: null }

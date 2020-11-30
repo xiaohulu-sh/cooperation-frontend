@@ -396,7 +396,7 @@ export default {
           ({ income: incomes, views: online_viewer }[this.chartType1] || [])
             .filter(item => item)
             .map(({ time, value }) => [time, value])
-            .reverse()
+            .sort((a, b) => (a[0] > b[0] ? 1 : -1))
         ),
         records: data.live_record || [],
         recordsTotal: data.live_total || 0
@@ -417,7 +417,12 @@ export default {
           viewer: parseNumberUnit(maxViewCount),
           follow: parseNumberUnit(new_followNumber)
         },
-        chartLines: createLine1(({ viewer: max_view, duration: airtime, follow }[this.chartType2] || []).filter(item => item).map(({ time, value }) => [time, value]))
+        chartLines: createLine1(
+          ({ viewer: max_view, duration: airtime, follow }[this.chartType2] || [])
+            .filter(item => item)
+            .map(({ time, value }) => [time, value])
+            .sort((a, b) => (a[0] > b[0] ? 1 : -1))
+        )
       }
     },
     isEmpty2(data) {

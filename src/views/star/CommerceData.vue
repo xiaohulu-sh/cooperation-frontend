@@ -147,7 +147,7 @@ export default {
     handler1(data) {
       if (!data) return null
       const { goods_num, order_num, total_income, compare_goods_num, compare_order_num, compare_total_income } = data.overview_data || {}
-      const { sales_number = [], sales_price = [] } = data.data_detail
+      const { sales_number = [], sales_price = [] } = data.data_detail || {}
       return {
         overview: {
           goods: parseNumberUnit(goods_num),
