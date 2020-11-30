@@ -97,7 +97,6 @@ const router = new VueRouter({
 
 export default router
 
-let firstRun = true
 router.beforeEach(async (to, from, next) => {
   startProgressBar()
 
@@ -122,10 +121,7 @@ router.beforeEach(async (to, from, next) => {
     return
   }
 
-  await store.dispatch('user/fetchInfo', { cacheFirst: !firstRun, checkDefaultBrand: true })
-  if (firstRun) {
-    firstRun = false
-  }
+  await store.dispatch('user/fetchInfo', { cacheFirst: true, checkDefaultBrand: true })
 
   const { preload } = to.meta
   if (preload) {
