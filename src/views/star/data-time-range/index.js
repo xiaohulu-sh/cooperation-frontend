@@ -43,6 +43,12 @@ export default {
       if (this.preset === 'recent_7' || this.preset === 'recent_30') {
         return '比上周期'
       }
+    },
+    timeType() {
+      return this.preset ? 'recent_time' : 'day'
+    },
+    time() {
+      return this.preset || this.day
     }
   }
 }

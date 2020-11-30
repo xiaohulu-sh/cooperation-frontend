@@ -1,27 +1,5 @@
 <template>
   <div>
-    <!-- <div :class="[c.dataBlock, s.summary]">
-      <ul :class="s.summary1">
-        <li><em>6080.10万</em>粉丝数</li>
-        <li><em>0.06</em>成长指数</li>
-        <li><em>2.29</em>人均送礼</li>
-        <li><em>5.2h</em>日均开播时间</li>
-        <li><em>14.71%</em>观众互动率</li>
-        <li><em>2.6%</em>观众付费率</li>
-      </ul>
-      <ul :class="s.summary2">
-        <li><em>3900.02</em>小葫芦指数(月)</li>
-        <li><em>0</em>主播段位</li>
-        <li><em>第6名</em>全网排名</li>
-        <li><em>第5名</em>分类排名</li>
-      </ul>
-      <ul :class="s.summary3">
-        <li><em>47.54万人</em>互动人数</li>
-        <li><em>64.77万条</em>弹幕数量</li>
-        <li><em>442.76万元</em>收到贡献值</li>
-        <li><em>14.36万人</em>送礼人数</li>
-      </ul>
-    </div> -->
     <div :class="c.dataBlock">
       <h2 :class="[c.imgTitle, s.title1]">直播数据分析</h2>
       <DataTimeRange :preset.sync="preset" :presetList="presetList" :day.sync="day" :dayList="dayList" />
@@ -337,12 +315,6 @@ export default {
   },
   computed: {
     ...useDataTimeRange.computed,
-    timeType() {
-      return this.preset ? 'recent_time' : 'day'
-    },
-    time() {
-      return this.preset || this.day
-    },
     dataReq1() {
       return {
         url: 'v1_front_anchor/overview',
@@ -466,86 +438,9 @@ export default {
   height: 60px;
   background-image: url(~@/assets/live-title1.png);
 }
-.summary1 {
-  background: url(~@/assets/live-t1.png) no-repeat left top/380px 39px;
-  width: 405px;
-  padding-right: 25px;
-  li {
-    width: 33.33%;
-  }
-  em {
-    color: #736af2;
-  }
-}
-.summary2 {
-  background: url(~@/assets/live-t2.png) no-repeat 25px top/238px 39px;
-  width: 288px;
-  padding-left: 25px;
-  padding-right: 25px;
-  li {
-    width: 50%;
-  }
-  em {
-    color: #ff7b00;
-  }
-}
-.summary3 {
-  background: url(~@/assets/live-t3.png) no-repeat 25px top/238px 39px;
-  width: 263px;
-  padding-left: 25px;
-  li {
-    width: 50%;
-  }
-  em {
-    color: #ff5e66;
-  }
-}
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
     background-image: url(~@/assets/live-title1@2x.png);
-  }
-  .summary1 {
-    background-image: url(~@/assets/live-t1@2x.png);
-  }
-  .summary2 {
-    background-image: url(~@/assets/live-t2@2x.png);
-  }
-  .summary3 {
-    background-image: url(~@/assets/live-t3@2x.png);
-  }
-}
-.summary {
-  display: flex;
-  justify-content: space-between;
-  padding: 30px;
-  text-align: center;
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    position: relative;
-    padding-top: 39px;
-    &::after {
-      content: '';
-      width: 1px;
-      height: 150px;
-      background: #f3f6f8;
-      position: absolute;
-      right: 0;
-      top: 8px;
-    }
-  }
-  .summary3::after {
-    content: none;
-  }
-  li {
-    margin-top: 20px;
-    color: #999;
-  }
-  em {
-    display: block;
-    font-weight: bold;
-    font-size: 18px;
   }
 }
 .list > li {

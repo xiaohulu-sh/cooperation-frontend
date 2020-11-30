@@ -260,6 +260,12 @@
     }
   }
 }
+.up {
+  color: #ff3535;
+}
+.down {
+  color: #00a300;
+}
 .dataInfoList {
   display: flex;
   justify-content: center;
@@ -311,12 +317,6 @@
     font-size: 12px;
     color: #666;
   }
-  .up {
-    color: #ff3535;
-  }
-  .down {
-    color: #00a300;
-  }
 }
 .dataPlainList {
   display: flex;
@@ -344,30 +344,6 @@
   .subTxt {
     font-size: 12px;
     color: #666;
-  }
-}
-.dataPlainList1 {
-  composes: dataPlainList;
-  em {
-    color: #ee7a30;
-  }
-}
-.dataPlainList2 {
-  composes: dataPlainList;
-  em {
-    color: #333;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 32px;
-  }
-  .qr {
-    color: #666;
-    font-size: 16px;
-    padding-top: 26px;
-    img {
-      vertical-align: middle;
-      margin: -4px 0 0 8px;
-    }
   }
 }
 .tbList {
@@ -466,18 +442,6 @@
 .tShop {
   color: #736af2;
   background: url(~@/assets/shop.svg) no-repeat left center;
-  padding-left: 20px;
-  font-weight: bold;
-}
-.tPeople {
-  color: #ee7a30;
-  background: url(~@/assets/people.svg) no-repeat left center;
-  padding-left: 20px;
-  font-weight: bold;
-}
-.tMoney {
-  color: #333;
-  background: url(~@/assets/money1.svg) no-repeat left center;
   padding-left: 20px;
   font-weight: bold;
 }
