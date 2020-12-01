@@ -84,7 +84,7 @@ export default {
         })
       )
       if (data === false) return false
-      await dispatch('fetchInfo')
+      await dispatch('fetchInfo', { refresh: true })
       return true
     }
   }

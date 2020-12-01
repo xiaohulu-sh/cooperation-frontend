@@ -111,7 +111,7 @@ router.beforeEach(async (to, from, next) => {
     const query = { ...to.query }
     delete query._t
     delete query.isOpt
-    await store.dispatch('user/fetchInfo', { checkDefaultBrand: true })
+    await store.dispatch('user/fetchInfo', { refresh: true, checkDefaultBrand: true })
     next({ path: to.path, query, replace: true })
     stopProgressBar()
     return

@@ -51,7 +51,7 @@ export default {
         })
       )
       if (data === false) return
-      this.fetchInfo()
+      this.fetchInfo({ refresh: true })
       this.$message.success('品牌切换成功')
     },
     onLogout() {
