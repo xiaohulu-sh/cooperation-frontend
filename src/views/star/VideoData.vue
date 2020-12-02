@@ -11,6 +11,10 @@
                 <span v-if="fans.unit">{{ fans.unit }}</span>
               </em>
               总粉丝数
+              <a-tooltip placement="bottom">
+                <template slot="title">主播或红人在该平台的总粉丝数量</template>
+                <a-icon type="question-circle" />
+              </a-tooltip>
             </li>
             <li>
               <em>
@@ -18,6 +22,10 @@
                 <span v-if="likes.unit">{{ likes.unit }}</span>
               </em>
               总获赞数
+              <a-tooltip placement="bottom">
+                <template slot="title">主播或红人在该平台的总共获得点赞数</template>
+                <a-icon type="question-circle" />
+              </a-tooltip>
             </li>
             <li>
               <em>
@@ -25,6 +33,10 @@
                 <span v-if="videos.unit">{{ videos.unit }}</span>
               </em>
               作品数
+              <a-tooltip placement="bottom">
+                <template slot="title">主播或红人在该平台发的所有作品的数量</template>
+                <a-icon type="question-circle" />
+              </a-tooltip>
             </li>
             <li>
               <em>
@@ -32,6 +44,10 @@
                 <span v-if="aComments.unit">{{ aComments.unit }}</span>
               </em>
               作品平均评论
+              <a-tooltip placement="bottom">
+                <template slot="title">作品平均评论=总评论数/总作品数量</template>
+                <a-icon type="question-circle" />
+              </a-tooltip>
             </li>
             <li>
               <em>
@@ -39,6 +55,10 @@
                 <span v-if="aLikes.unit">{{ aLikes.unit }}</span>
               </em>
               作品平均获赞
+              <a-tooltip placement="bottom">
+                <template slot="title">作品平均获赞=总获赞数/总作品数量</template>
+                <a-icon type="question-circle" />
+              </a-tooltip>
             </li>
             <li>
               <em>
@@ -46,6 +66,10 @@
                 <span v-if="aShares.unit">{{ aShares.unit }}</span>
               </em>
               作品平均分享
+              <a-tooltip placement="bottom">
+                <template slot="title">作品平均分享=总分享数/总作品数量</template>
+                <a-icon type="question-circle" />
+              </a-tooltip>
             </li>
           </ul>
         </template>
@@ -54,6 +78,17 @@
     <DataBlock :class="c.dataBlock" :req="trendReq" :handler="trendHandler" :showErr="false" :showEmpty="false">
       <template v-slot="{ data: { chart } }">
         <h2 :class="[c.imgTitle, s.title2]">趋势表现</h2>
+        <div :class="c.rtTip">
+          <a-tooltip placement="bottom">
+            <template slot="title">
+              <div>点赞数：周期内按天显示当天的点赞数</div>
+              <div>粉丝数：周期内按天显示当天的粉丝数</div>
+              <div>评论数：周期内按天显示当天的评论数</div>
+            </template>
+            数据说明
+            <a-icon type="question-circle" />
+          </a-tooltip>
+        </div>
         <ul :class="[c.dataTabs, c.dataTab1]">
           <li v-for="{ label, value } in trendRanges" :key="value" :class="{ [c.dataTabActive]: value === trendRange }" @click="trendRange = value">{{ label }}</li>
         </ul>
@@ -68,6 +103,13 @@
     <DataBlock :class="c.dataBlock" :req="frequencyReq" :handler="frequencyHandler" :showErr="false" :showEmpty="false">
       <template v-slot="{ data: { chart } }">
         <h2 :class="[c.imgTitle, s.title3]">作品发布频率</h2>
+        <div :class="c.rtTip">
+          <a-tooltip placement="bottom">
+            <template slot="title">作品发布频率</template>
+            数据说明
+            <a-icon type="question-circle" />
+          </a-tooltip>
+        </div>
         <!-- <div :class="s.titleText">xxx个/周</div> -->
         <LazyBlock :data="chart" style="height:310px;padding-bottom:30px">
           <Chart :chartData="chart" style="height:280px"></Chart>
@@ -76,6 +118,13 @@
     </DataBlock>
     <div :class="c.dataBlock" style="min-height:200px">
       <h2 :class="[c.imgTitle, s.title4]">作品列表</h2>
+      <div :class="c.rtTip">
+        <a-tooltip placement="bottom">
+          <template slot="title">周期内显示主播或红人发布的视频/点赞数量/评论以及发布时间</template>
+          数据说明
+          <a-icon type="question-circle" />
+        </a-tooltip>
+      </div>
       <DataBlock :req="videoListReq" :handler="videoListHandler">
         <template v-slot="{ data: list }">
           <ul :class="s.videoList">

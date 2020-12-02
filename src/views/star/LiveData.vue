@@ -14,9 +14,7 @@
                 <li>
                   礼物收入
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计显示直播期间粉丝送给主播的礼物价值</span>
-                    </template>
+                    <template slot="title">周期内统计显示直播期间粉丝送给主播的礼物价值</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -30,9 +28,7 @@
                 <li>
                   送礼人数
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计的粉丝送礼物给主播的人数</span>
-                    </template>
+                    <template slot="title">周期内统计的粉丝送礼物给主播的人数</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -46,9 +42,7 @@
                 <li>
                   直播时长
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计的主播直播的总时长</span>
-                    </template>
+                    <template slot="title">周期内统计的主播直播的总时长</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em> {{ duration.n }}{{ duration.unit }}h </em>
@@ -60,9 +54,7 @@
                 <li>
                   总观看数
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计的主播直播总观看人数</span>
-                    </template>
+                    <template slot="title">周期内统计的主播直播总观看人数</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -76,9 +68,7 @@
                 <li>
                   峰值在线
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计的主播的单场时段最高观看人数</span>
-                    </template>
+                    <template slot="title">周期内统计的主播的单场时段最高观看人数</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -97,10 +87,24 @@
             <LazyBlock :class="c.block1" :data="chartLines" style="height:338px">
               <Chart :chartData="chartLines" style="height:308px"></Chart>
             </LazyBlock>
-            <div :class="c.block1">
+            <div :class="c.block1" style="position:relative">
               <h3 :class="c.h3">
                 <em> {{ range }} </em>直播记录
               </h3>
+              <div :class="c.rtTip" style="top:5px;right:30px">
+                <a-tooltip placement="bottom">
+                  <template slot="title">
+                    <div>观看数：单场直播主播直播期间观看人数</div>
+                    <div>峰值在线：单场直播主播直播期间最高观看人数</div>
+                    <div>收到贡献值：单场直播主播收到粉丝礼物的金额</div>
+                    <div>送礼人数：单场直播时间段粉丝给主播送礼的人数</div>
+                    <div>销售额：单场直播时间段粉丝购买的商品的总金额</div>
+                    <div>订单数：单场直播时间段粉丝购买的商品订单数量</div>
+                  </template>
+                  数据说明
+                  <a-icon type="question-circle" />
+                </a-tooltip>
+              </div>
               <ul :class="s.list">
                 <li v-for="{ live_id, live_img, is_shopping, is_live, title, start_time, end_time, live_airtime_time, total_viewer_sum, total_viewer_max, total_income, order_num, virtual_coin, tycoon_count_sum } in records" :key="live_id">
                   <div :class="s.avatar"><img :src="live_img" referrerpolicy="no-referrer" @error="onAvatarError" alt="头像" /></div>
@@ -170,9 +174,7 @@
                 <li>
                   收到贡献值
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计直播期间粉丝送礼的总金额</span>
-                    </template>
+                    <template slot="title">周期内统计直播期间粉丝送礼的总金额</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -182,9 +184,7 @@
                 <li>
                   弹幕数
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计直播期间粉丝的总弹幕数量</span>
-                    </template>
+                    <template slot="title">周期内统计直播期间粉丝的总弹幕数量</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -194,9 +194,7 @@
                 <li>
                   总送礼人数
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计直播期间粉丝送礼的总人数</span>
-                    </template>
+                    <template slot="title">周期内统计直播期间粉丝送礼的总人数</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -206,9 +204,7 @@
                 <li>
                   人气峰值
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计直播期间最多的在线人数</span>
-                    </template>
+                    <template slot="title">周期内统计直播期间最多的在线人数</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -218,9 +214,7 @@
                 <li>
                   粉丝增量
                   <a-tooltip placement="bottom">
-                    <template slot="title">
-                      <span>周期内统计主播增长的粉丝数量</span>
-                    </template>
+                    <template slot="title">周期内统计主播增长的粉丝数量</template>
                     <a-icon type="question-circle" />
                   </a-tooltip>
                   <em>
@@ -229,12 +223,25 @@
                 </li>
               </ul>
             </div>
-            <ul :class="c.dataTabs" style="padding: 30px 30px 0">
-              <li v-for="{ label, value } in chartTypes2" :key="value" :class="{ [c.dataTabActive]: value === chartType2 }" @click="chartType2 = value">{{ label }}</li>
-            </ul>
-            <LazyBlock :class="c.block1" :data="chartLines" style="height:338px">
-              <Chart :chartData="chartLines" style="height:308px"></Chart>
-            </LazyBlock>
+            <div style="position:relative">
+              <div :class="c.rtTip" style="top:20px;right:30px">
+                <a-tooltip placement="bottom">
+                  <template slot="title">
+                    <div>人气峰值：周期内统计直播期间最多的在线人数</div>
+                    <div>直播时长：周期内按天显示当天的直播时长</div>
+                    <div>粉丝关注：周期内按天显示当天增长的粉丝关注</div>
+                  </template>
+                  数据说明
+                  <a-icon type="question-circle" />
+                </a-tooltip>
+              </div>
+              <ul :class="c.dataTabs" style="padding: 10px 30px 0">
+                <li v-for="{ label, value } in chartTypes2" :key="value" :class="{ [c.dataTabActive]: value === chartType2 }" @click="chartType2 = value">{{ label }}</li>
+              </ul>
+              <LazyBlock :class="c.block1" :data="chartLines" style="height:338px">
+                <Chart :chartData="chartLines" style="height:308px"></Chart>
+              </LazyBlock>
+            </div>
           </template>
           <template #empty>
             <div :class="c.noData">
@@ -248,6 +255,19 @@
             <h3 :class="c.h3">
               <em> {{ range }} </em>直播记录
             </h3>
+            <div :class="c.rtTip" style="top:5px;right:30px">
+              <a-tooltip placement="bottom">
+                <template slot="title">
+                  <div>峰值人气：主播或红人直播的单场最高观看人数</div>
+                  <div>收到贡献值：主播或红人直播的单场收到礼物价值</div>
+                  <div>送礼人数：主播或红人直播的单场送礼物人数</div>
+                  <div>弹幕条数：主播或红人直播的单场弹幕的总数</div>
+                  <div>弹幕人数：主播或红人直播的单场发送弹幕的人数</div>
+                </template>
+                数据说明
+                <a-icon type="question-circle" />
+              </a-tooltip>
+            </div>
             <template v-if="list.length > 0">
               <ul :class="s.list">
                 <li v-for="{ task_id, live_pic_url, live_status, title, live_start_time, live_end_time, airtime, max_hot, all_gift_price, charge_gift_sender, msg_count, msg_sender } in list" :key="task_id">

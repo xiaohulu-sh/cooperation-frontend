@@ -2,6 +2,13 @@
   <div :class="c.dataBlock">
     <template v-if="hasOverview">
       <h2 :class="[c.imgTitle, s.title1]">粉丝数据概览</h2>
+      <div :class="c.rtTip">
+        <a-tooltip placement="bottom">
+          <template slot="title">您可以看到他的粉丝性别比例，年龄分层，活跃时间段以及粉丝占比最高的地区</template>
+          数据说明
+          <a-icon type="question-circle" />
+        </a-tooltip>
+      </div>
       <ul :class="s.txtList">
         <li v-if="overview.gender1 && overview.gender2">
           Ta的粉丝中，<em>{{ overview.gender1 }}</em> 居多，占 <em>{{ overview.gender2 }}</em>
@@ -20,7 +27,13 @@
     <h2 :class="[c.imgTitle, s.title2]">粉丝画像</h2>
     <div :class="s.block1">
       <div>
-        <h3 :class="c.h3">性别分布</h3>
+        <h3 :class="c.h3">
+          性别分布
+          <a-tooltip placement="bottom">
+            <template slot="title">您可以通过饼状图了解红人粉丝男女占比</template>
+            <a-icon type="question-circle" :class="s.tipIcon" />
+          </a-tooltip>
+        </h3>
         <DataBlock :class="s.b1" :req="genderReq" :handler="genderHandler" :lazyRender="true">
           <template v-slot="{ data }">
             <Chart :class="s.chart1" :chartData="data"></Chart>
@@ -28,7 +41,13 @@
         </DataBlock>
       </div>
       <div>
-        <h3 :class="c.h3">星座分布</h3>
+        <h3 :class="c.h3">
+          星座分布
+          <a-tooltip placement="bottom">
+            <template slot="title">您可以通过饼状图了解红人粉丝星座占比</template>
+            <a-icon type="question-circle" :class="s.tipIcon" />
+          </a-tooltip>
+        </h3>
         <DataBlock :class="s.b1" :req="constellReq" :handler="constellHandler" :lazyRender="true">
           <template v-slot="{ data }">
             <Chart :class="s.chart1" :chartData="data"></Chart>
@@ -36,7 +55,13 @@
         </DataBlock>
       </div>
       <div>
-        <h3 :class="c.h3">粉丝活跃时间分布 — 按天</h3>
+        <h3 :class="c.h3">
+          粉丝活跃时间分布 — 按天
+          <a-tooltip placement="bottom">
+            <template slot="title">您可以通过柱状图按天了解到粉丝最活跃的时间段</template>
+            <a-icon type="question-circle" :class="s.tipIcon" />
+          </a-tooltip>
+        </h3>
         <DataBlock :class="s.b1" :req="dayReq" :handler="dayHandler" :lazyRender="true">
           <template v-slot="{ data }">
             <Chart :class="s.chart1" :chartData="data"></Chart>
@@ -44,7 +69,13 @@
         </DataBlock>
       </div>
       <div>
-        <h3 :class="c.h3">粉丝活跃时间分布 — 按周</h3>
+        <h3 :class="c.h3">
+          粉丝活跃时间分布 — 按周
+          <a-tooltip placement="bottom">
+            <template slot="title">您可以通过柱状图按周了解到粉丝最活跃的时间段</template>
+            <a-icon type="question-circle" :class="s.tipIcon" />
+          </a-tooltip>
+        </h3>
         <DataBlock :class="s.b1" :req="weekReq" :handler="weekHandler" :lazyRender="true">
           <template v-slot="{ data }">
             <Chart :class="s.chart1" :chartData="data"></Chart>
@@ -52,7 +83,13 @@
         </DataBlock>
       </div>
       <div>
-        <h3 :class="c.h3">年龄分布</h3>
+        <h3 :class="c.h3">
+          年龄分布
+          <a-tooltip placement="bottom">
+            <template slot="title">您可以通过柱状图了解到粉丝的年龄分层</template>
+            <a-icon type="question-circle" :class="s.tipIcon" />
+          </a-tooltip>
+        </h3>
         <DataBlock :class="s.b1" :req="ageReq" :handler="ageHandler" :lazyRender="true">
           <template v-slot="{ data }">
             <Chart :class="s.chart1" :chartData="data"></Chart>
@@ -60,7 +97,13 @@
         </DataBlock>
       </div>
       <div>
-        <h3 :class="c.h3">地域分布</h3>
+        <h3 :class="c.h3">
+          地域分布
+          <a-tooltip placement="bottom">
+            <template slot="title">您可以通过地图了解到红人粉丝的地域分布和占比</template>
+            <a-icon type="question-circle" :class="s.tipIcon" />
+          </a-tooltip>
+        </h3>
         <DataBlock :class="[s.b1, s.mapBlock]" :req="areaReq" :handler="areaHandler" :lazyRender="true">
           <template v-slot="{ data: { chart, list } }">
             <Chart :class="s.chart1" :chartData="chart"></Chart>
@@ -301,5 +344,11 @@ export default {
   font-size: 18px;
   font-weight: 600;
   margin: 10px 0 10px 30px;
+}
+.tipIcon {
+  font-size: 14px;
+  color: #999;
+  vertical-align: middle;
+  margin-top: -2px;
 }
 </style>
