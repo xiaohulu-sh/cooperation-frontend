@@ -25,8 +25,8 @@ export default {
         params: {
           plat_type: platform,
           cate_type: type,
-          province: province ? encodeURIComponent(province) : undefined,
-          region: city ? encodeURIComponent(city) : undefined,
+          province: province || undefined,
+          region: city || undefined,
           gender,
           fans_age: age && age.join(','),
           fansnum: pop && [pop[0] || 0, pop[1] || 0].join('-')
