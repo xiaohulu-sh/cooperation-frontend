@@ -38,8 +38,8 @@
     <div :class="c.dataBlock">
       <h2 :class="[c.imgTitle, s.title2]">互动数据-直播弹幕分析</h2>
       <DataTimeRange :preset.sync="preset" :presetList="presetList" :day.sync="day" :dayList="dayList" style="padding-left:130px" />
-      <!-- <div :class="s.noData">
-        <img src="~@/assets/no-data.svg" />
+      <!-- <div :class="c.noData">
+        <img src="~@/assets/no-danmu.svg" />
         所选时段内未进行过直播，无弹幕数据可供分析
       </div> -->
       <ul :class="c.dataInfoList" style="margin-top:20px">
@@ -385,20 +385,6 @@ export default {
     font-size: 12px;
     color: #999;
     text-align: right;
-  }
-}
-.noData {
-  padding: 100px 0;
-  text-align: center;
-  background: #fff;
-  font-size: 18px;
-  color: #999;
-  img {
-    display: block;
-    margin: auto;
-    width: 128px;
-    height: 128px;
-    margin-bottom: 16px;
   }
 }
 .colOrder {

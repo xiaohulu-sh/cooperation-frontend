@@ -78,6 +78,12 @@
             </template>
           </DataBlock>
         </template>
+        <template #empty>
+          <div :class="c.noData">
+            <img src="~@/assets/no-goods.svg" />
+            所选时段内未监测到带货直播
+          </div>
+        </template>
       </DataBlock>
     </div>
   </div>

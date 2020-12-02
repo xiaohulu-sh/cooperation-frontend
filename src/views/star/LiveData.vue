@@ -151,6 +151,12 @@
               </template>
             </DataBlock>
           </template>
+          <template #empty>
+            <div :class="c.noData">
+              <img src="~@/assets/no-live.svg" />
+              所选时段内未监测到直播数据
+            </div>
+          </template>
         </DataBlock>
       </template>
       <template v-else-if="platform == 202">
@@ -229,6 +235,12 @@
             <LazyBlock :class="c.block1" :data="chartLines" style="height:338px">
               <Chart :chartData="chartLines" style="height:308px"></Chart>
             </LazyBlock>
+          </template>
+          <template #empty>
+            <div :class="c.noData">
+              <img src="~@/assets/no-live.svg" />
+              所选时段内未监测到直播数据
+            </div>
           </template>
         </DataBlock>
         <DataBlock v-show="recordsTotal2 > 0" :class="c.block1" :req="recordsReq2" :handler="recordsHandler2" :showEmpty="false" :showErr="false">
