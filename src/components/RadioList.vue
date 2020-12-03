@@ -54,7 +54,7 @@ export default {
   li {
     display: inline-block;
     padding: 0 6px;
-    margin: 0 10px 5px 0;
+    margin: 0 5px 5px 0;
     white-space: nowrap;
     cursor: pointer;
 

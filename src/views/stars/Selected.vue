@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="c.content">
     <h2 :class="c.h2b">已选红人</h2>
     <DataBlock v-if="list.length > 0" :req="infoReq" :handler="infoHandler">
       <template #default>
@@ -163,7 +163,7 @@ export default {
         onOk: async () => {
           const data = await asyncHelper(
             request({
-              url: '/v1_front_order/genAgreementOrder',
+              url: 'v1_front_order/genAgreementOrder',
               method: 'POST',
               body: JSON.stringify({ list: JSON.stringify(this.list.map(({ pid, rid, coopType }) => ({ pid: Number(pid), rid: Number(rid), mode: coopType }))) })
             })

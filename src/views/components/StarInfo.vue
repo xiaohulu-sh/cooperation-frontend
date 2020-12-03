@@ -1,6 +1,6 @@
 <template>
   <component :is="tagName" style="display:flex">
-    <div :class="[s.avatar, c.male, s.gender]">
+    <div :class="[s.avatar, c[info.gender], s.gender]">
       <img :src="info.avatar" referrerpolicy="no-referrer" @error="onAvatarError" />
     </div>
     <div :class="s.txtInfo">

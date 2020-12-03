@@ -202,7 +202,7 @@ export default {
     },
     videoListReq() {
       return {
-        url: '/v1_front_anchor/videoList',
+        url: 'v1_front_anchor/videoList',
         params: {
           platform: this.platform,
           roomid: this.room,

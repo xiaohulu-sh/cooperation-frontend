@@ -106,7 +106,7 @@ export default {
 
 <style lang="less" module="s">
 .range {
-  margin-left: 20px;
+  margin-left: 10px;
   display: inline-block;
 
   input {

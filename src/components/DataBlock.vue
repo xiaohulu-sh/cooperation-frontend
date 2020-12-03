@@ -11,9 +11,12 @@
         <a-empty :class="s.center" />
       </slot>
       <slot v-else-if="data" :data="data" :err="err" :loading="loading"></slot>
-      <slot v-if="showLoading && loading" name="loading" :loading="loading">
-        <a-spin :class="s.center" />
-      </slot>
+      <transition name="loading">
+        <slot v-if="showLoading && loading" name="loading" :loading="loading" :data="data">
+          <div v-if="loadingMask" :class="s.mask"><a-spin :class="s.center" /></div>
+          <a-spin v-else :class="s.center" />
+        </slot>
+      </transition>
     </template>
   </component>
 </template>
@@ -59,6 +62,10 @@ export default {
       default: true
     },
     lazyRender: {
+      type: Boolean,
+      default: false
+    },
+    loadingMask: {
       type: Boolean,
       default: false
     }
@@ -133,6 +140,16 @@ export default {
 }
 </script>
 
+<style scoped>
+.loading-enter-active,
+.loading-leave-active {
+  transition: opacity 0.3s;
+}
+.loading-enter,
+.loading-leave-to {
+  opacity: 0;
+}
+</style>
 <style lang="less" module="s">
 .container {
   position: relative;
@@ -144,6 +161,15 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
+}
+.mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.62);
+  z-index: 100;
 }
 .reload {
   font-size: 12px;

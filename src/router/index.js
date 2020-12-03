@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import store from '@/store'
 import { startProgressBar, stopProgressBar } from '@/components/progress-bar'
 import Layout from '@/views/Layout'
+import Stars from '@/views/stars/Stars'
 import StarsByType from '@/views/stars/ByType'
 import StarsByCategory from '@/views/stars/ByCategory'
 import StarsByFans from '@/views/stars/ByFans'
@@ -41,7 +42,7 @@ const routes = [
   {
     path: '/stars',
     redirect: '/stars/by-type',
-    component: Layout,
+    component: Stars,
     children: [
       { path: 'by-type', component: StarsByType },
       { path: 'by-category', component: StarsByCategory },

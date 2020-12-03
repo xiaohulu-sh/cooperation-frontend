@@ -51,4 +51,7 @@ ol {
 em {
   font-style: normal;
 }
+.ant-input:focus {
+  box-shadow: none;
+}
 </style>

@@ -8,6 +8,11 @@ export function asyncHelper(promise, { errorHandler = () => false, slient = true
   })
 }
 
+const intlNumberFormat = new Intl.NumberFormat()
+export function intlFormatNumber(number) {
+  return intlNumberFormat.format(number)
+}
+
 export function fixNumber(n, fixed) {
   return Number(n.toFixed(fixed))
 }

@@ -8,3 +8,5 @@ export { default as CheckOutline } from '@ant-design/icons/lib/outline/CheckOutl
 export { default as CloseCircleFill } from '@ant-design/icons/lib/fill/CloseCircleFill'
 export { default as CheckCircleFill } from '@ant-design/icons/lib/fill/CheckCircleFill'
 export { default as SmileTwoTone } from '@ant-design/icons/lib/twotone/SmileTwoTone'
+export { default as CaretUpOutline } from '@ant-design/icons/lib/outline/CaretUpOutline'
+export { default as CaretDownOutline } from '@ant-design/icons/lib/outline/CaretDownOutline'

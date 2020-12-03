@@ -1,24 +1,45 @@
 <template>
-  <div>
-    <div v-if="fields.includes('platform')" :class="s.filterRow">
-      <div :class="s.rowTitle">平台类型：</div>
-      <div :class="s.rowContent">
-        <radio-list :list="platforms" v-model="platform"></radio-list>
+  <div :class="[c.block, s.container]">
+    <a-input-search v-if="fields.includes('search')" :class="s.search" size="small" placeholder="输入红人昵称查询" enter-button="搜索" @search="onSearch" />
+    <div :class="s.table">
+      <div v-if="fields.includes('platform')" :class="s.filterRow">
+        <div :class="s.rowTitle">红人所属平台：</div>
+        <div :class="s.rowContent">
+          <radio-list :list="platforms" v-model="platform"></radio-list>
+        </div>
       </div>
-    </div>
-    <div v-if="fields.includes('type')" :class="s.filterRow">
-      <div :class="s.rowTitle">创作类型：</div>
-      <div :class="s.rowContent">
-        <radio-list :list="types" v-model="type"></radio-list>
+      <div v-if="fields.includes('type')" :class="s.filterRow">
+        <div :class="s.rowTitle">红人内容类型：</div>
+        <div :class="s.rowContent">
+          <CategoryPicker :list="types" v-model="type" />
+        </div>
       </div>
-    </div>
-    <div v-if="fields.includes('category')" :class="s.filterRow">
-      <div :class="s.rowTitle">带货品类：</div>
-      <div :class="s.rowContent">
-        <radio-list :list="categorys" v-model="category"></radio-list>
+      <div v-if="fields.includes('category')" :class="s.filterRow">
+        <div :class="s.rowTitle">带货品类：</div>
+        <div :class="s.rowContent">
+          <radio-list :list="categorys" v-model="category"></radio-list>
+        </div>
       </div>
-    </div>
-    <div v-if="otherFields.length > 0" :class="s.filterRow">
+      <div v-if="fields.includes('pop')" :class="s.filterRow">
+        <div :class="s.rowTitle">红人粉丝数：</div>
+        <div :class="s.rowContent">
+          <radio-list :list="pops" :allValue="allRange" v-model="pop"></radio-list>
+          <custom-range v-model="pop" :min="50000"></custom-range>
+        </div>
+      </div>
+      <div v-if="fields.includes('age')" :class="s.filterRow">
+        <div :class="s.rowTitle">粉丝主要年龄：</div>
+        <div :class="s.rowContent">
+          <a-checkbox-group v-model="age" :options="ages"></a-checkbox-group>
+        </div>
+      </div>
+      <div v-if="fields.includes('gender')" :class="s.filterRow">
+        <div :class="s.rowTitle">粉丝主要性别：</div>
+        <div :class="s.rowContent">
+          <radio-list :list="genders" v-model="gender"></radio-list>
+        </div>
+      </div>
+      <!-- <div :class="s.filterRow">
       <div :class="s.rowTitle" style="line-height:25px">其他选项：</div>
       <div :class="s.rowContent">
         <template v-for="key in fields">
@@ -51,13 +72,6 @@
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'gender'" :key="key" :class="s.filterItem">
-            粉丝性别：
-            <a-select v-model="gender" size="small" :class="s.select" style="width:92px">
-              <a-select-option key="">不限</a-select-option>
-              <a-select-option v-for="{ label, value } in genders" :key="value">{{ label }} </a-select-option>
-            </a-select>
-          </div>
           <div v-else-if="key === 'thumbs'" :key="key" :class="s.filterItem">
             历史作品总点赞：
             <a-select v-model="thumbs" size="small" :class="s.select" style="width:92px">
@@ -82,36 +96,9 @@
               <a-select-option key="">不限</a-select-option>
             </a-select>
           </div>
-          <div v-else-if="key === 'age'" :key="key" :class="s.filterItem">
-            粉丝年龄：
-            <a-checkbox-group v-model="age" :options="ages"></a-checkbox-group>
-          </div>
-          <div v-else-if="key === 'pop'" :key="key" :class="s.filterItem">
-            粉丝数：
-            <radio-list :list="pops" :allValue="allRange" v-model="pop"></radio-list>
-            <custom-range v-model="pop"></custom-range>
-          </div>
         </template>
       </div>
-    </div>
-    <div v-if="selectedList.length > 0" :class="s.selectedFilters">
-      <div :class="s.selectedTitle">已选：</div>
-      <div :class="s.selectedContent">
-        <div v-for="{ key, label, text } in selectedList" :key="key" :class="s.selectedItem">
-          {{ label }}: <a-tag closable @close="e => (e.preventDefault(), reset(key))">{{ text }}</a-tag>
-        </div>
-      </div>
-      <button :class="s.selectedReset" @click="resetAll">
-        <svg height="12" viewBox="0 0 12 12" width="12">
-          <path
-            d="m9.89688244 8.37578681c-1.33357225 2.20306849-4.19297107 2.90330759-6.38665103 1.56403979-2.19367995-1.3392796-2.89093497-4.21091602-1.55737449-6.41398444 1.3335722-2.20306842 4.19297103-2.90330754 6.38665098-1.56403972.42472123.25929918.80528246.58533032 1.12718575.96567348l-1.56538461 1.54809226 4.09869096.26401511-.2748395-4.11623245-1.3263948 1.34407326c-2.21785082-2.45374003-5.99644223-2.63727704-8.43972571-.4099447-2.44328348 2.22734293-2.62603834 6.02210588-.40819788 8.4758461 1.11072222 1.2288606 2.67863769 1.9408306 4.33100766 1.9667608 2.12035742.0045757 4.08820617-1.1065125 5.18609583-2.92826017.1909526-.32482392.0840365-.7435823-.238991-.93605295-.3234479-.19177007-.7404217-.0843965-.93207216.24001363z"
-            fill="currentColor"
-            fill-rule="evenodd"
-            transform="matrix(-1 0 0 1 12 0)"
-          />
-        </svg>
-        重置
-      </button>
+    </div> -->
     </div>
   </div>
 </template>
@@ -119,9 +106,10 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import CustomRange from '@/components/CustomRange'
+import CategoryPicker from '@/components/CategoryPicker'
 
 export default {
-  components: { CustomRange },
+  components: { CustomRange, CategoryPicker },
   props: {
     fields: {
       type: Array,
@@ -134,6 +122,9 @@ export default {
       allRange
     }
     const initial = {
+      search: {
+        search: ''
+      },
       platform: {
         platform: ''
       },
@@ -171,8 +162,8 @@ export default {
       gender: {
         gender: '',
         genders: [
-          { label: '男', value: 1 },
-          { label: '女', value: 2 }
+          { label: '男性粉丝较多', value: 1 },
+          { label: '女性粉丝较多', value: 2 }
         ]
       },
       thumbs: { thumbs: '' },
@@ -191,10 +182,12 @@ export default {
       },
       pop: {
         pops: [
-          { label: '10万以上', value: [100000, ''] },
-          { label: '5万-10万', value: [50000, 100000] },
-          { label: '1万-5万', value: [10000, 50000] },
-          { label: '1万以下', value: ['', 10000] }
+          { label: '5-20万', value: [50000, 200000] },
+          { label: '20-50万', value: [200000, 500000] },
+          { label: '50-100万', value: [500000, 1000000] },
+          { label: '100-200万', value: [1000000, 2000000] },
+          { label: '200-500万', value: [2000000, 5000000] },
+          { label: '500万以上', value: [5000000, ''] }
         ],
         pop: allRange
       }
@@ -209,98 +202,41 @@ export default {
   computed: {
     ...mapState('enum', { platforms: 'platforms', types: 'tags' }),
     ...mapGetters('enum', ['areasHash']),
-    otherFields() {
-      return this.fields.filter(key => !['platform', 'type', 'category'].includes(key))
-    },
     provinces() {
       return Object.keys(this.areasHash)
     },
     cities() {
       return this.areasHash[this.province]
     },
-    selected() {
-      const selected = {}
-      if (this.platform) selected.platform = this.platform
-      if (this.type) selected.type = this.type
-      if (this.category) selected.category = this.category
-      if (this.province) selected.province = this.province
-      if (this.city) selected.city = this.city
-      if (this.gender) selected.gender = this.gender
-      if (this.age && this.age.length > 0) selected.age = this.age
-      if (this.pop && (this.pop[0] !== '' || this.pop[1] !== '')) selected.pop = this.pop
-      return selected
-    },
-    selectedList() {
-      const list = []
-      if (this.platform) {
-        const item = this.platforms.find(({ value }) => value === this.platform)
-        if (item) list.push({ key: 'platform', label: '平台类型', text: item.label })
-      }
-      if (this.type) {
-        const item = this.types.find(({ value }) => value === this.type)
-        if (item) list.push({ key: 'type', label: '创作类型', text: item.label })
-      }
-      if (this.category) {
-        const item = this.categorys.find(({ value }) => value === this.category)
-        if (item) list.push({ key: 'category', label: '带货品类', text: item.label })
-      }
-      if (this.province || this.city) {
-        list.push({ key: 'area', label: '所在地', text: [this.province, this.city].filter(v => v).join(' ') })
-      }
-      if (this.age && this.age.length > 0) {
-        list.push({ key: 'age', label: '粉丝年龄', text: this.age.map(v => this.ages.find(({ value }) => v === value).label).join('、') })
-      }
-      if (this.pop) {
-        const [popMin, popMax] = this.pop
-        let popText = ''
-        if (popMin !== '' && popMax === '') {
-          popText = popMin + '以上'
-        } else if (popMin !== '' && popMax !== '') {
-          popText = `${popMin}-${popMax}`
-        } else if (popMin === '' && popMax !== '') {
-          popText = popMax + '以下'
-        }
-        if (popText) {
-          list.push({ key: 'pop', label: '粉丝数', text: popText })
-        }
-      }
-      return list
+    filters() {
+      const filters = {}
+      if (this.search) filters.search = this.search
+      if (this.platform) filters.platform = this.platform
+      if (this.type) filters.type = this.type.split('|')
+      if (this.category) filters.category = this.category
+      if (this.province) filters.province = this.province
+      if (this.city) filters.city = this.city
+      if (this.gender) filters.gender = this.gender
+      if (this.age && this.age.length > 0) filters.age = this.age
+      if (this.pop && (this.pop[0] !== '' || this.pop[1] !== '')) filters.pop = this.pop
+      return filters
     }
   },
   watch: {
     province() {
       this.city = ''
     },
-    selected: {
-      handler(selected) {
-        this.$emit('update:selected', selected)
+    filters: {
+      handler(filters) {
+        this.$emit('update:filters', filters)
       },
       immediate: true
     }
   },
   methods: {
     ...mapActions('enum', ['fetchTags', 'fetchAreas']),
-    reset(key) {
-      const handlers = {
-        area: () => {
-          this.province = ''
-          this.city = ''
-        },
-        age: () => {
-          this.age = []
-        },
-        pop: () => {
-          this.pop = this.allRange
-        }
-      }
-      if (handlers[key]) {
-        handlers[key]()
-      } else {
-        this[key] = ''
-      }
-    },
-    resetAll() {
-      this.selectedList.forEach(({ key }) => this.reset(key))
+    onSearch(value) {
+      this.search = value.trim()
     }
   },
   created() {
@@ -315,17 +251,30 @@ export default {
 </script>
 
 <style lang="less" module="s">
+.container {
+  padding: 30px 30px 20px;
+}
+.search {
+  width: 300px;
+  margin-bottom: 20px;
+}
+.table {
+  display: table;
+}
 .filterRow {
-  display: flex;
-  margin-bottom: 10px;
+  display: table-row;
 }
 .rowTitle {
+  display: table-cell;
+  white-space: nowrap;
   min-width: 80px;
   color: #333;
   font-weight: 600;
+  padding: 0 10px 10px 0;
 }
 .rowContent {
-  flex: 1 1 auto;
+  display: table-cell;
+  padding-bottom: 10px;
 }
 .select {
   :global {
@@ -344,41 +293,5 @@ export default {
   display: inline-block;
   min-width: 273px;
   margin: 0 20px 10px 0;
-}
-.selectedFilters {
-  display: flex;
-  border-top: 1px solid #e3e4eb;
-  padding: 20px 0;
-}
-.selectedTitle {
-  min-width: 50px;
-  color: #333;
-  font-weight: 600;
-}
-.selectedContent {
-  flex: 1 1 auto;
-}
-.selectedItem {
-  display: inline-block;
-  margin: 0 25px 8px 0;
-  :global .ant-tag {
-    vertical-align: middle;
-    margin-top: -2px;
-  }
-}
-.selectedReset {
-  border: 0;
-  background: none;
-  color: #736af2;
-  white-space: nowrap;
-  margin-top: -10px;
-  transition: all 0.3s;
-  &:hover {
-    color: #a399ff;
-  }
-  svg {
-    vertical-align: middle;
-    margin: -2px 4px 0 0;
-  }
 }
 </style>

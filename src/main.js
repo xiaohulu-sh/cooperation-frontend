@@ -53,17 +53,6 @@ import 'echarts-wordcloud'
 Vue.prototype.echarts = echarts
 /* echarts end */
 
-/* vue-virtual-scroller start */
-import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
-import { RecycleScroller } from 'vue-virtual-scroller'
-Vue.component('RecycleScroller', RecycleScroller)
-/* vue-virtual-scroller end */
-
-/* vue-infinite-scroll start */
-import infiniteScroll from 'vue-infinite-scroll'
-Vue.use(infiniteScroll)
-/* vue-infinite-scroll end */
-
 /* common style start */
 import commonStyle from '@/styles/common.module.less'
 Vue.prototype.c = commonStyle

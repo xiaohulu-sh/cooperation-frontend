@@ -1,5 +1,6 @@
 import { asyncHelper } from '@/utils/utils'
 import { request } from '@/utils/http'
+import uniq from 'lodash/uniq'
 
 const state = {
   platforms: [
@@ -79,9 +80,16 @@ export default {
       if (!refresh && state.tags.length > 0) {
         return state.tags
       }
-      const data = await asyncHelper(request({ url: 'v1_front_search/tagsList' }))
+      const data = await asyncHelper(request({ url: 'v1_front_search/tagsList', params: { ver: 2 } }))
       if (!data) return false
-      const tags = data.map(name => ({ value: name, label: name }))
+      const { lv1: list = [], lv2: hash = {} } = data
+      const tags = uniq(list).map(name => {
+        const item = { value: name, label: name }
+        if (hash[name]) {
+          item.children = uniq(hash[name]).map(s => ({ value: s === name ? s : `${name}|${s}`, label: s }))
+        }
+        return item
+      })
       commit('tags', tags)
       return tags
     },
@@ -89,7 +97,7 @@ export default {
       if (!refresh && state.areas.length > 0) {
         return state.areas
       }
-      const data = await asyncHelper(request({ url: '/v1_front_search/areaList' }))
+      const data = await asyncHelper(request({ url: 'v1_front_search/areaList' }))
       if (!data) return false
       const areas = data.list.map(({ name, sons }) => ({ name, children: sons }))
       commit('areas', areas)
