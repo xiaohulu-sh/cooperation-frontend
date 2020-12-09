@@ -1,13 +1,14 @@
 <template>
   <component :is="tagName" :class="s.container">
-    <img :class="s.avatar" :src="info.avatar" referrerpolicy="no-referrer" @error="onAvatarError" />
+    <img :class="s.avatar" :width="avatarSize" :height="avatarSize" :src="info.avatar" referrerpolicy="no-referrer" @error="onAvatarError" />
     <div :class="s.txtInfo">
       <div :class="[s.r1, c[info.gender]]">
         <span :class="[c.ellipsis1, s.name]" :title="info.name">{{ info.name }}</span>
       </div>
       <div :class="s.r2">
         <span :class="s.tag">{{ info.plat }}</span>
-        <span :class="s.location" :title="info.location">{{ info.location }}</span>
+        <span :class="s.sub" :style="info.subTxtStyle" :title="info.subTxt">{{ info.subTxt }}</span>
+        <slot name="extra"></slot>
       </div>
     </div>
   </component>
@@ -20,6 +21,10 @@ export default {
     tagName: {
       type: String,
       default: 'div'
+    },
+    avatarSize: {
+      type: Number,
+      default: 40
     }
   }
 }
@@ -32,8 +37,6 @@ export default {
 }
 .avatar {
   position: relative;
-  width: 40px;
-  height: 40px;
   margin-right: 10px;
   border-radius: 50%;
 }
@@ -66,7 +69,7 @@ export default {
   padding: 0 4px;
   line-height: 18px;
 }
-.location {
+.sub {
   display: inline-block;
   vertical-align: middle;
   margin: -2px 0 0 5px;

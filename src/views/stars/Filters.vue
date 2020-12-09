@@ -5,7 +5,7 @@
       <div v-if="fields.includes('platform')" :class="s.filterRow">
         <div :class="s.rowTitle">红人所属平台：</div>
         <div :class="s.rowContent">
-          <radio-list :list="platforms" v-model="platform"></radio-list>
+          <RadioList :list="platforms" v-model="platform" />
         </div>
       </div>
       <div v-if="fields.includes('type')" :class="s.filterRow">
@@ -14,17 +14,65 @@
           <CategoryPicker :list="types" v-model="type" />
         </div>
       </div>
-      <div v-if="fields.includes('category')" :class="s.filterRow">
-        <div :class="s.rowTitle">带货品类：</div>
-        <div :class="s.rowContent">
-          <radio-list :list="categorys" v-model="category"></radio-list>
+      <template v-if="fields.includes('category')">
+        <div :class="s.filterRow">
+          <div :class="s.rowTitle">红人所属平台：</div>
+          <div :class="s.rowContent">
+            <MultipleSelection :list="platforms" v-model="platform" />
+          </div>
         </div>
-      </div>
+        <div :class="s.filterRow">
+          <div :class="s.rowTitle">带过的品类：</div>
+          <div :class="s.rowContent">
+            <MultipleSelection :list="categories" v-model="category" />
+            <div :class="s.extra1">
+              <span :class="s.label1">以上所选品类</span>
+              <label :class="s.label2">30日直播销售额 &gt;<a-input :class="s.input1" allow-clear size="small" @change="onCategAmountChange" />元</label>
+              <label :class="s.label2">场均订单数 &gt;<a-input :class="s.input1" allow-clear size="small" @change="onCateOrdersChange" />单</label>
+            </div>
+          </div>
+        </div>
+        <div :class="s.filterRow">
+          <div :class="s.rowTitle">场均销售额：</div>
+          <div :class="s.rowContent">
+            <radio-list :list="avgAmounts" :allValue="allRange" v-model="avgAmount"></radio-list>
+            <custom-range v-model="avgAmount"></custom-range>
+          </div>
+        </div>
+        <div :class="s.filterRow">
+          <div :class="s.rowTitle">场均订单数：</div>
+          <div :class="s.rowContent">
+            <radio-list :list="avgOrders" :allValue="allRange" v-model="avgOrder"></radio-list>
+            <custom-range v-model="avgOrder"></custom-range>
+          </div>
+        </div>
+        <div :class="s.filterRow">
+          <div :class="s.rowTitle">商品客单价：</div>
+          <div :class="s.rowContent">
+            <radio-list :list="unitPrices" :allValue="allRange" v-model="unitPrice"></radio-list>
+            <custom-range v-model="unitPrice"></custom-range>
+          </div>
+        </div>
+        <div :class="s.filterRow">
+          <div :class="s.rowTitle">直播场次数：</div>
+          <div :class="s.rowContent">
+            <radio-list :list="liveCounts" :allValue="allRange" v-model="liveCount"></radio-list>
+            <custom-range v-model="liveCount"></custom-range>
+          </div>
+        </div>
+      </template>
       <div v-if="fields.includes('pop')" :class="s.filterRow">
         <div :class="s.rowTitle">红人粉丝数：</div>
         <div :class="s.rowContent">
           <radio-list :list="pops" :allValue="allRange" v-model="pop"></radio-list>
           <custom-range v-model="pop" :min="50000"></custom-range>
+        </div>
+      </div>
+      <div v-if="fields.includes('audience')" :class="s.filterRow">
+        <div :class="s.rowTitle">最高观众数：</div>
+        <div :class="s.rowContent">
+          <radio-list :list="audiences" :allValue="allRange" v-model="audience"></radio-list>
+          <custom-range v-model="audience" :min="50000"></custom-range>
         </div>
       </div>
       <div v-if="fields.includes('age')" :class="s.filterRow">
@@ -105,11 +153,13 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
+import MultipleSelection from '@/components/MultipleSelection'
 import CustomRange from '@/components/CustomRange'
 import CategoryPicker from '@/components/CategoryPicker'
+import throttle from 'lodash/throttle'
 
 export default {
-  components: { CustomRange, CategoryPicker },
+  components: { MultipleSelection, CustomRange, CategoryPicker },
   props: {
     fields: {
       type: Array,
@@ -132,25 +182,41 @@ export default {
         type: ''
       },
       category: {
-        category: '',
-        categorys: [
-          { label: '女装', value: 1 },
-          { label: '男装', value: 2 },
-          { label: '内衣', value: 3 },
-          { label: '箱包', value: 4 },
-          { label: '美妆', value: 5 },
-          { label: '个人护理', value: 6 },
-          { label: '腕表', value: 7 },
-          { label: '眼镜', value: 8 },
-          { label: '珠宝首饰', value: 9 },
-          { label: '手机', value: 10 },
-          { label: '进口食品', value: 11 },
-          { label: '茶酒零食', value: 12 },
-          { label: '母婴玩具', value: 13 },
-          { label: '电脑办公', value: 14 },
-          { label: '数码', value: 15 },
-          { label: '未分类', value: 16 }
-        ]
+        platform: [],
+        category: [],
+        minAmount: '',
+        minOrders: '',
+        avgAmounts: [
+          { label: '10万以下', value: ['', 100000] },
+          { label: '10-50万', value: [100000, 500000] },
+          { label: '50-100万', value: [500000, 1000000] },
+          { label: '100-200万', value: [1000000, 2000000] },
+          { label: '200-500万', value: [2000000, 5000000] },
+          { label: '500万以上', value: [5000000, ''] }
+        ],
+        avgAmount: allRange,
+        avgOrders: [
+          { label: '1万以下', value: ['', 10000] },
+          { label: '1-10万', value: [10000, 100000] },
+          { label: '10-50万', value: [100000, 500000] },
+          { label: '50-100万', value: [500000, 1000000] },
+          { label: '100万以上', value: [1000000, ''] }
+        ],
+        avgOrder: allRange,
+        unitPrices: [
+          { label: '50以下', value: ['', 50] },
+          { label: '50-100', value: [50, 100] },
+          { label: '100-200', value: [100, 200] },
+          { label: '200-500', value: [200, 500] },
+          { label: '500以上', value: [500, ''] }
+        ],
+        unitPrice: allRange,
+        liveCounts: [
+          { label: '8场以下', value: ['', 8] },
+          { label: '8-30', value: [8, 30] },
+          { label: '30场以上', value: [30, ''] }
+        ],
+        liveCount: allRange
       },
       area: {
         province: '',
@@ -190,6 +256,16 @@ export default {
           { label: '500万以上', value: [5000000, ''] }
         ],
         pop: allRange
+      },
+      audience: {
+        audiences: [
+          { label: '5000以下', value: ['', 5000] },
+          { label: '5000-1万', value: [5000, 10000] },
+          { label: '1-5万', value: [10000, 50000] },
+          { label: '5-10万', value: [50000, 100000] },
+          { label: '10万以上', value: [100000, ''] }
+        ],
+        audience: allRange
       }
     }
     this.fields.forEach(key => {
@@ -200,7 +276,7 @@ export default {
     return data
   },
   computed: {
-    ...mapState('enum', { platforms: 'platforms', types: 'tags' }),
+    ...mapState('enum', { platforms: 'platforms', types: 'tags', categories: 'categories' }),
     ...mapGetters('enum', ['areasHash']),
     provinces() {
       return Object.keys(this.areasHash)
@@ -213,12 +289,19 @@ export default {
       if (this.search) filters.search = this.search
       if (this.platform) filters.platform = this.platform
       if (this.type) filters.type = this.type.split('|')
-      if (this.category) filters.category = this.category
+      if (this.category && this.category.length > 0) filters.category = this.category
+      if (this.minAmount) filters.minAmount = this.minAmount
+      if (this.minOrders) filters.minOrders = this.minOrders
+      if (this.avgAmount && (this.avgAmount[0] || this.avgAmount[1])) filters.avgAmount = this.avgAmount
+      if (this.avgOrder && (this.avgOrder[0] || this.avgOrder[1])) filters.avgOrder = this.avgOrder
+      if (this.unitPirce && (this.unitPrice[0] || this.unitPrice[1])) filters.unitPrice = this.unitPrice
+      if (this.liveCount && (this.liveCount[0] || this.liveCount[1])) filters.liveCount = this.liveCount
       if (this.province) filters.province = this.province
       if (this.city) filters.city = this.city
       if (this.gender) filters.gender = this.gender
       if (this.age && this.age.length > 0) filters.age = this.age
-      if (this.pop && (this.pop[0] !== '' || this.pop[1] !== '')) filters.pop = this.pop
+      if (this.pop && (this.pop[0] || this.pop[1])) filters.pop = this.pop
+      if (this.audience && (this.audience[0] || this.audience[1])) filters.audience = this.audience
       return filters
     }
   },
@@ -234,14 +317,25 @@ export default {
     }
   },
   methods: {
-    ...mapActions('enum', ['fetchTags', 'fetchAreas']),
+    ...mapActions('enum', ['fetchTags', 'fetchCategories', 'fetchAreas']),
     onSearch(value) {
       this.search = value.trim()
-    }
+    },
+    onCategAmountChange: throttle(function(e) {
+      const amount = Number(e.target.value.trim())
+      this.minAmount = amount >= 0 ? amount : ''
+    }, 1000),
+    onCateOrdersChange: throttle(function(e) {
+      const orders = Number(e.target.value.trim())
+      this.minOrders = orders >= 0 ? orders : ''
+    }, 1000)
   },
   created() {
     if (this.fields.includes('type')) {
       this.fetchTags()
+    }
+    if (this.fields.includes('category')) {
+      this.fetchCategories()
     }
     if (this.fields.includes('area')) {
       this.fetchAreas()
@@ -266,6 +360,7 @@ export default {
 }
 .rowTitle {
   display: table-cell;
+  vertical-align: top;
   white-space: nowrap;
   min-width: 80px;
   color: #333;
@@ -274,6 +369,7 @@ export default {
 }
 .rowContent {
   display: table-cell;
+  vertical-align: top;
   padding-bottom: 10px;
 }
 .select {
@@ -289,9 +385,23 @@ export default {
     }
   }
 }
-.filterItem {
-  display: inline-block;
-  min-width: 273px;
-  margin: 0 20px 10px 0;
+.extra1 {
+  margin: 8px 0;
 }
+.input1 {
+  width: 90px;
+  margin: 0 2px;
+}
+.label1 {
+  font-weight: bold;
+  color: #333;
+}
+.label2 {
+  margin: 0 10px 0 20px;
+}
+// .filterItem {
+//   display: inline-block;
+//   min-width: 273px;
+//   margin: 0 20px 10px 0;
+// }
 </style>

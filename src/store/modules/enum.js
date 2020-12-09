@@ -8,6 +8,7 @@ const state = {
     { value: 202, label: '快手' }
   ],
   tags: [],
+  categories: [],
   areas: [],
   states: [
     { value: 1, label: '意向单' },
@@ -92,6 +93,23 @@ export default {
       })
       commit('tags', tags)
       return tags
+    },
+    async fetchCategories({ commit, state }, { refresh = false } = {}) {
+      if (!refresh && state.categories.length > 0) {
+        return state.categories
+      }
+      const data = await asyncHelper(request({ url: 'v1_front_search/jd_tagsList' }))
+      if (!data) return false
+      const { lv1: list = [], lv2: hash = {} } = data
+      const categories = uniq(list).map(name => {
+        const item = { value: name, label: name }
+        if (hash[name]) {
+          item.children = uniq(hash[name]).map(s => ({ value: s === name ? s : `${name}|${s}`, label: s }))
+        }
+        return item
+      })
+      commit('categories', categories)
+      return categories
     },
     async fetchAreas({ commit, state }, { refresh = false } = {}) {
       if (!refresh && state.areas.length > 0) {
