@@ -1,4 +1,4 @@
-import { valueOfUnit, findMaxIndexes, fixNumber } from '@/utils/utils'
+import { valueOfUnit, fixNumber, formatNumber } from '@/utils/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import { getWidth } from 'zrender/lib/contain/text'
 
@@ -46,7 +46,7 @@ function getEchartsFontString({ fontStyle = 'normal', fontWeight = 'normal', fon
 }
 
 // 自动设置底部距离和文字倾斜
-function handleXAuto(chart, dataset, encode, grid, xAxisLabel, { bottomOffset = 0, yLabelWidth = 0, rotate = 30 } = {}) {
+function handleXAuto(chart, dataset, encode, grid, xAxisLabel, { bottomOffset = 0, yLabelWidth = 0, rotate = -45 } = {}) {
   if (!dataset.length || dataset.length < 2) return
   const categoryIndex = dataset[0].indexOf(encode.x)
   if (categoryIndex === -1) return
@@ -58,17 +58,17 @@ function handleXAuto(chart, dataset, encode, grid, xAxisLabel, { bottomOffset = 
   }
 }
 
-const tooltipStyles = {
-  backgroundColor: 'rgba(255,255,255,0.95)',
-  padding: [6, 20],
-  textStyle: {
-    color: '#666',
-    fontSize: 12
-  },
-  extraCssText: 'line-height:30px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);'
-}
+// const tooltipStyles = {
+//   backgroundColor: 'rgba(255,255,255,0.95)',
+//   padding: [6, 20],
+//   textStyle: {
+//     color: '#666',
+//     fontSize: 12
+//   },
+//   extraCssText: 'line-height:30px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);'
+// }
 
-export function createMixedChartData(
+export function createMixed1(
   dataset,
   encodeList,
   {
@@ -81,7 +81,7 @@ export function createMixedChartData(
       bottom: showLegend ? 60 : 20,
       containLabel: true
     },
-    xAuto = { bottomOffset: -20 },
+    xAuto = {},
     xAxisLabel: xLabelOrigin = { color: '#666' },
     yAxisLabel = { color: '#666' },
     yAxisFormatters = [],
@@ -143,7 +143,7 @@ export function createMixedChartData(
         type: 'value',
         axisLine: { show: false },
         axisTick: { show: false },
-        splitLine: { show: true, lineStyle: { color: '#F2F3F7' } },
+        splitLine: { show: true, lineStyle: { color: '#f2f3f7' } },
         axisLabel: {
           ...yAxisLabel,
           formatter:
@@ -173,7 +173,7 @@ export function createMixedChartData(
         source: dataset
       },
       grid,
-      color: ['#E4E4FF', '#FF5E66'],
+      color: ['#ff5e66', '#e4e4ff'],
       legend: showLegend
         ? {
             left: 'center',
@@ -194,7 +194,7 @@ export function createMixedChartData(
       },
       yAxis,
       tooltip: {
-        ...tooltipStyles,
+        // ...tooltipStyles,
         trigger: 'axis',
         axisPointer: {
           type: 'shadow',
@@ -224,32 +224,114 @@ export function createMixedChartData(
             encode,
             name: fieldNames[encode.y] || encode.y,
             yAxisIndex: index,
-            smooth: true,
-            symbol: 'circle',
-            symbolSize: 8,
-            itemStyle: {
-              color: '#FF5E66',
-              borderColor: '#fff'
+            symbol: 'none',
+            lineStyle: {
+              color: '#ff5e66',
+              width: 5
             }
           }
         }
 
-        const fieldIndex = dataset[0].indexOf(encode.y)
-        const maxIndexes = findMaxIndexes(dataset.slice(1).map(a => a[fieldIndex]))
         return {
           type,
           encode,
           name: fieldNames[encode.y] || encode.y,
           yAxisIndex: index,
-          barWidth: 10,
+          barWidth: 18,
           itemStyle: {
-            barBorderRadius: [5, 5, 0, 0],
-            color(params) {
-              return maxIndexes.includes(params.dataIndex) ? '#9F94F1' : '#E4E4FF'
-            }
+            color: '#736af2'
           }
         }
       })
+    }
+  }
+}
+
+export function createHBarChart1(
+  dataset,
+  encode,
+  {
+    fieldNames = {},
+    grid = {
+      left: 0,
+      right: 0,
+      top: 10,
+      bottom: 10,
+      containLabel: true
+    },
+    yAxisLabel = { color: '#666' },
+    seriesLabel = {
+      show: true,
+      position: 'right',
+      color: '#333'
+    },
+    unit,
+    fixed
+  } = {}
+) {
+  dataset = removeEmptyData(dataset, [encode.x], { unit, fixed })
+  const ret = checkDataset(dataset)
+  if (ret !== true) return ret
+
+  if (unit != null || fixed != null) {
+    dataset = datasetWithUnit(dataset, [encode.x], [{ unit, fixed }])
+  }
+
+  dataset = sortDataset(dataset, encode.x)
+
+  if (seriesLabel.show && seriesLabel.position === 'right') {
+    // 右边加上最长的文字宽度和间距
+    const fieldIndex = dataset[0].indexOf(encode.x)
+    if (fieldIndex !== -1) {
+      const fontString = getEchartsFontString(seriesLabel)
+      grid.right += fixNumber(Math.max(...dataset.slice(1).map(a => getWidth(a[fieldIndex] || '', fontString)))) + 8
+    }
+  }
+
+  return {
+    dataset: {
+      source: dataset
+    },
+    grid,
+    xAxis: {
+      type: 'value',
+      show: false,
+      axisLine: { show: false },
+      axisTick: { show: false },
+      splitLine: { show: false }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      axisLabel: yAxisLabel,
+      axisLine: { lineStyle: { color: '#c4c6cf' } },
+      axisTick: { show: false },
+      splitLine: { show: false }
+    },
+    tooltip: {
+      // ...tooltipStyles,
+      formatter({ name, color, value, encode, dimensionNames }) {
+        return `${name}<br><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};"></span> ${fieldNames[dimensionNames[encode.x[0]]] || dimensionNames[encode.x[0]]}<span style="margin-left:20px;font-weight:bold;">${formatNumber(value[encode.x[0]])}</span>`
+      }
+    },
+    series: {
+      type: 'bar',
+      encode,
+      barWidth: 15,
+      label: {
+        formatter({ value, encode }) {
+          return formatNumber(value[encode.x[0]])
+        },
+        ...seriesLabel
+      },
+      itemStyle: {
+        color: '#736af2'
+      },
+      emphasis: {
+        itemStyle: {
+          color: '#5148d0'
+        }
+      }
     }
   }
 }

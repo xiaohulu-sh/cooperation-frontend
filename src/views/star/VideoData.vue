@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="c.dataBlock">
-      <h2 :class="[c.imgTitle, s.title1]">作品数据概览</h2>
+      <h2 id="overview" data-anchor="数据概览" :class="[c.imgTitle, s.title1]">作品数据概览</h2>
       <DataBlock :req="summaryReq" :handler="summaryHandler" style="min-height:0">
         <template v-slot="{ data: { fans, likes, videos, aComments, aLikes, aShares } }">
           <ul :class="c.dataList" style="padding:10px 30px 0;">
@@ -77,7 +77,7 @@
     </div>
     <DataBlock :class="c.dataBlock" :req="trendReq" :handler="trendHandler" :showErr="false" :showEmpty="false">
       <template v-slot="{ data: { chart } }">
-        <h2 :class="[c.imgTitle, s.title2]">趋势表现</h2>
+        <h2 id="trends" data-anchor="趋势表现" :class="[c.imgTitle, s.title2]">趋势表现</h2>
         <div :class="c.rtTip">
           <a-tooltip placement="bottom">
             <template slot="title">
@@ -102,7 +102,7 @@
     </DataBlock>
     <DataBlock :class="c.dataBlock" :req="frequencyReq" :handler="frequencyHandler" :showErr="false" :showEmpty="false">
       <template v-slot="{ data: { chart } }">
-        <h2 :class="[c.imgTitle, s.title3]">作品发布频率</h2>
+        <h2 id="frequency" data-anchor="发布频率" :class="[c.imgTitle, s.title3]">作品发布频率</h2>
         <div :class="c.rtTip">
           <a-tooltip placement="bottom">
             <template slot="title">作品发布频率</template>
@@ -117,7 +117,7 @@
       </template>
     </DataBlock>
     <div :class="c.dataBlock" style="min-height:200px">
-      <h2 :class="[c.imgTitle, s.title4]">作品列表</h2>
+      <h2 id="videos" data-anchor="作品列表" :class="[c.imgTitle, s.title4]">作品列表</h2>
       <div :class="c.rtTip">
         <a-tooltip placement="bottom">
           <template slot="title">周期内显示主播或红人发布的视频/点赞数量/评论以及发布时间</template>

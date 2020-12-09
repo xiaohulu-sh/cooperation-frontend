@@ -7,7 +7,7 @@
         <DataBlock :req="dataReq1" :handler="handler1" :isEmpty="isEmpty1" style="min-height:300px">
           <template v-slot="{ data: { total, overview: { gift, giftDelta, tycoon, tycoonDelta, duration, durationDelta, viewer, viewerDelta, onlineMax, onlineMaxDelta }, chartLines, records, recordsTotal } }">
             <div :class="c.block1">
-              <h3 :class="c.h3">
+              <h3 id="overview" data-anchor="数据概览" :class="c.h3">
                 <em> {{ range }} </em>共进行过<em> {{ total }} </em>场直播
               </h3>
               <ul :class="c.dataInfoList">
@@ -88,7 +88,7 @@
               <Chart :chartData="chartLines" style="height:308px"></Chart>
             </LazyBlock>
             <div :class="c.block1" style="position:relative">
-              <h3 :class="c.h3">
+              <h3 id="records" data-anchor="直播记录" :class="c.h3">
                 <em> {{ range }} </em>直播记录
               </h3>
               <div :class="c.rtTip" style="top:5px;right:30px">
@@ -147,7 +147,7 @@
             </div>
             <DataBlock :class="c.block1" :req="tycoonsReq" :showEmpty="false" :showErr="false">
               <template v-slot="{ data: { list } }">
-                <h3 :class="c.h3">
+                <h3 id="tycoons" data-anchor="送礼土豪" :class="c.h3">
                   <em> {{ range }} </em>送礼土豪
                 </h3>
                 <TycoonList v-if="list && list.length > 0" :list="list" :page.sync="tycoonsPage" :pageSize="tycoonsPageSize" :total="tycoonsTotal"></TycoonList>
@@ -167,7 +167,7 @@
         <DataBlock :req="dataReq2" :handler="handler2" :isEmpty="isEmpty2" style="min-height:300px">
           <template v-slot="{ data: { overview: { gift, msg, sender, viewer, follow }, chartLines } }">
             <div :class="c.block1">
-              <h3 :class="c.h3">
+              <h3 id="overview" data-anchor="数据概览" :class="c.h3">
                 <em> {{ range }} </em>共进行过<em> {{ recordsTotal2 || '--' }} </em>场直播
               </h3>
               <ul :class="c.dataInfoList">
@@ -252,7 +252,7 @@
         </DataBlock>
         <DataBlock v-show="recordsTotal2 > 0" :class="c.block1" :req="recordsReq2" :handler="recordsHandler2" :showEmpty="false" :showErr="false">
           <template v-slot="{ data: { total, list } }">
-            <h3 :class="c.h3">
+            <h3 id="records" data-anchor="直播记录" :class="c.h3">
               <em> {{ range }} </em>直播记录
             </h3>
             <div :class="c.rtTip" style="top:5px;right:30px">

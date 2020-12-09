@@ -71,6 +71,9 @@ export function findMaxIndexes(array) {
 export function arraysToDataset(arrays, rowKey, { rowKeyFormatter = val => val } = {}) {
   const dataset = []
   const rowIndexMap = new Map()
+  if (!Array.isArray(arrays[0])) {
+    arrays = [arrays]
+  }
   for (const array of arrays) {
     if (!array || !array.length) continue
     const keys = Object.keys(array[0])

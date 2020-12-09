@@ -26,12 +26,15 @@ export default {
     },
     allValue: {
       default: ''
+    },
+    allLabel: {
+      default: '全部'
     }
   },
   computed: {
     dataList() {
       if (this.showAllBtn) {
-        return [{ label: '全部', value: this.allValue }, ...this.list]
+        return [{ label: this.allLabel, value: this.allValue }, ...this.list]
       }
       return this.list
     }

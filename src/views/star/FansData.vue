@@ -1,7 +1,7 @@
 <template>
   <div :class="c.dataBlock">
     <template v-if="hasOverview">
-      <h2 :class="[c.imgTitle, s.title1]">粉丝数据概览</h2>
+      <h2 id="overview" data-anchor="数据概览" :class="[c.imgTitle, s.title1]">粉丝数据概览</h2>
       <div :class="c.rtTip">
         <a-tooltip placement="bottom">
           <template slot="title">您可以看到他的粉丝性别比例，年龄分层，活跃时间段以及粉丝占比最高的地区</template>
@@ -24,7 +24,7 @@
         </li>
       </ul>
     </template>
-    <h2 :class="[c.imgTitle, s.title2]">粉丝画像</h2>
+    <h2 id="portrait" data-anchor="粉丝画像" :class="[c.imgTitle, s.title2]">粉丝画像</h2>
     <div :class="s.block1">
       <div>
         <h3 :class="c.h3">
