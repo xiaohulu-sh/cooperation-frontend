@@ -163,7 +163,7 @@ export default {
         { label: '粉丝数', value: 2 },
         { label: '评论数', value: 1 }
       ],
-      trendRange: 7,
+      trendRange: 30,
       trendRanges: [
         { label: '近7天', value: 7 },
         { label: '近30天', value: 30 }

@@ -5,7 +5,7 @@
 export default {
   data() {
     return {
-      preset: 'recent_7',
+      preset: 'recent_30',
       presetList: [
         { value: 'today', label: '今日' },
         { value: 'yesterday', label: '昨日' },

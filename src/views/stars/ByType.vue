@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 :class="c.h2a"><i :class="[c.titleIcon, s.type]"></i>按创作类型筛选<span>通过红人发布视频内容的类型来定位您的合作对象,进行品宣视频合作或者橱窗带货合作等</span></h2>
-    <filters key="type" :fields="['search', 'platform', 'type', 'area', 'gender', 'age', 'pop']" @update:filters="updateFilters"></filters>
+    <filters key="type" :fields="['search', 'platform', 'type', 'area', 'age', 'pop']" @update:filters="updateFilters"></filters>
     <DataBlock :class="[c.block, s.result]" :req="listReq" :handler="dataHandler" :isEmpty="isEmpty" :loadingMask="true">
       <template v-slot="{ data: { list, total } }">
         <div :class="s.t1" style="margin-bottom:20px">找到以下符合条件的红人 ({{ total }})</div>
