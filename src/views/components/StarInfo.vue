@@ -1,12 +1,12 @@
 <template>
   <component :is="tagName" style="display:flex">
     <div :class="[s.avatar, c[info.gender], s.gender]">
-      <img :src="info.avatar" referrerpolicy="no-referrer" @error="onAvatarError" />
+      <img :src="info.avatar" referrerpolicy="no-referrer" @error="onAvatarError" @click="navToStarDetail(info.id)" />
     </div>
     <div :class="s.txtInfo">
       <div :class="s.r1">
         <span :class="[c.tag1, s.tag]">{{ info.plat }}</span>
-        <span :class="[c.ellipsis1, s.name]" :title="info.name">{{ info.name }}</span>
+        <span :class="[c.ellipsis1, s.name]" :title="info.name" @click="navToStarDetail(info.id)">{{ info.name }}</span>
         <span v-if="info.guild" :class="[c.tag3, s.tag]">{{ info.guild }}</span>
       </div>
       <div :class="s.r2">
@@ -24,6 +24,11 @@ export default {
       type: String,
       default: 'div'
     }
+  },
+  methods: {
+    navToStarDetail(id) {
+      window.open(`/star/${id}`, '_blank')
+    }
   }
 }
 </script>
@@ -34,6 +39,7 @@ export default {
   width: 56px;
   height: 56px;
   margin-right: 10px;
+  cursor: pointer;
   img {
     width: 100%;
     height: 100%;
@@ -62,6 +68,7 @@ export default {
   font-weight: 600;
   color: #333;
   margin-right: 10px;
+  cursor: pointer;
 }
 .tag {
   margin-right: 10px;
