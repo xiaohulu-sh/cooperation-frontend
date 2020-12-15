@@ -16,11 +16,23 @@
       </div>
       <template v-if="fields.includes('category')">
         <div :class="s.filterRow">
-          <div :class="s.rowTitle">带过的品类：</div>
+          <div :class="s.rowTitle">
+            <a-tooltip placement="bottom">
+              <template slot="title">红人在近30日直播带货销售过程中所有上架商品的所属品类.</template>
+              <a-icon type="question-circle" />
+            </a-tooltip>
+            带过的品类：
+          </div>
           <div :class="s.rowContent">
             <MultipleSelection :list="categories" v-model="category" />
             <div :class="s.extra1">
-              <span :class="s.label1">以上所选品类</span>
+              <span :class="s.label1">
+                <a-tooltip placement="bottom">
+                  <template slot="title">可以对已经选中的品类进行*场均*销售额和*场均*订单数的筛选</template>
+                  <a-icon type="question-circle" />
+                </a-tooltip>
+                以上所选品类
+              </span>
               <label :class="s.label2">30日直播销售额 &gt;<a-input :class="s.input1" allow-clear size="small" @change="onCategAmountChange" />元</label>
               <label :class="s.label2">场均订单数 &gt;<a-input :class="s.input1" allow-clear size="small" @change="onCateOrdersChange" />单</label>
             </div>
@@ -63,7 +75,13 @@
         </div>
       </div>
       <div v-if="fields.includes('audience')" :class="s.filterRow">
-        <div :class="s.rowTitle">最高观众数：</div>
+        <div :class="s.rowTitle">
+          <a-tooltip placement="bottom">
+            <template slot="title">抖音/快手平台为30日带货直播中的单场最高在线数峰值.</template>
+            <a-icon type="question-circle" />
+          </a-tooltip>
+          最高观众数：
+        </div>
         <div :class="s.rowContent">
           <radio-list :list="audiences" :allValue="allRange" v-model="audience"></radio-list>
           <custom-range v-model="audience" :min="50000"></custom-range>
@@ -340,6 +358,11 @@ export default {
 <style lang="less" module="s">
 .container {
   padding: 30px 30px 20px;
+  :global {
+    .anticon-question-circle {
+      color: #736af2;
+    }
+  }
 }
 .search {
   width: 300px;
@@ -359,6 +382,7 @@ export default {
   color: #333;
   font-weight: 600;
   padding: 0 10px 10px 0;
+  text-align: right;
 }
 .rowContent {
   display: table-cell;

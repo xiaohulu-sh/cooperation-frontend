@@ -5,6 +5,18 @@
     <DataBlock :class="[c.block, s.result]" :req="listReq" :handler="dataHandler" :isEmpty="isEmpty" :loadingMask="true">
       <template v-slot="{ data: { list, total } }">
         <div :class="s.t1" style="margin-bottom:20px">找到以下符合条件的红人 ({{ total }})</div>
+        <div :class="s.rtTip">
+          <a-tooltip placement="bottom">
+            <template slot="title">
+              <div>销售额:近30日红人直播带货的总销售额/场均销售额</div>
+              <div>订单数:近30日红人直播带货的总订单数/场均订单数</div>
+              <div>客单价:近30日红人直播中所售商品的平均客单价</div>
+              <div>*带货品类TOP3(场均):在近30日红人带货直播中,场均销售额最高的前三品类.</div>
+            </template>
+            <a-icon type="question-circle" />
+            数据说明
+          </a-tooltip>
+        </div>
         <span :class="s.t1" style="margin-right:10px">排序</span>
         <SortBtns :list="sortList" :sortKey.sync="sortKey" :sortValue.sync="sortValue" :asc="2" :desc="1" />
         <table v-if="list.length > 0" ref="table" :class="[c.dataTable, s.dataTable]">
@@ -264,6 +276,19 @@ export default {
   margin: 4px 0;
   span {
     color: #999;
+  }
+}
+.rtTip {
+  position: absolute;
+  right: 30px;
+  top: 32px;
+  font-size: 12px;
+  color: #736af2;
+  z-index: 1;
+  :global {
+    .anticon-question-circle {
+      font-size: 14px;
+    }
   }
 }
 </style>
