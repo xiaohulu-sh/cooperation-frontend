@@ -1,12 +1,12 @@
 <template>
   <div>
     <h2 :class="c.h2a"><i :class="[c.titleIcon, s.category]"></i>按带货品类筛选红人<span>通过红人30日内直播带货的数据表现来定位您的合作对象,进行带货合作</span></h2>
-    <filters key="type" :fields="['category', 'pop', 'audience']" @update:filters="updateFilters"></filters>
+    <filters key="type" :fields="['platform', 'category', 'pop', 'audience']" @update:filters="updateFilters"></filters>
     <DataBlock :class="[c.block, s.result]" :req="listReq" :handler="dataHandler" :isEmpty="isEmpty" :loadingMask="true">
       <template v-slot="{ data: { list, total } }">
         <div :class="s.t1" style="margin-bottom:20px">找到以下符合条件的红人 ({{ total }})</div>
         <span :class="s.t1" style="margin-right:10px">排序</span>
-        <SortBtns :list="sortList" :sortKey.sync="sortKey" :sortValue.sync="sortValue" />
+        <SortBtns :list="sortList" :sortKey.sync="sortKey" :sortValue.sync="sortValue" :asc="2" :desc="1" />
         <table v-if="list.length > 0" ref="table" :class="[c.dataTable, s.dataTable]">
           <colgroup>
             <col style="width:266px" />
@@ -100,7 +100,7 @@ export default {
         { value: 6, label: '粉丝数' }
       ],
       sortKey: 3,
-      sortValue: 2,
+      sortValue: 1,
       page: 1,
       pageSize: 20
     }
@@ -109,13 +109,14 @@ export default {
     ...mapState('selected', { selected: 'hash' }),
     ...mapGetters('enum', ['platformLabels']),
     reqParams() {
-      const { platform, category, minAmount, minOrders, avgAmount, unitPrice, liveCount, pop, audience } = this.filters || {}
+      const { platform, category, minAmount, minOrders, avgAmount, avgOrder, unitPrice, liveCount, pop, audience } = this.filters || {}
       return {
-        plat_type: (platform && platform.join(',')) || undefined,
+        plat_type: platform,
         cate_type: (category && category.join(',')) || undefined,
         avg_live_sale: minAmount || 0,
         avg_live_order: minOrders || 0,
         single_live_agv_sale: avgAmount && [avgAmount[0] || 0, avgAmount[1] || 0].join('-'),
+        single_live_agv_order: avgOrder && [avgOrder[0] || 0, avgOrder[1] || 0].join('-'),
         goods_agv_sale: unitPrice && [unitPrice[0] || 0, unitPrice[1] || 0].join('-'),
         live_count: liveCount && [liveCount[0] || 0, liveCount[1] || 0].join('-'),
         fans_count: pop && [pop[0] || 0, pop[1] || 0].join('-'),

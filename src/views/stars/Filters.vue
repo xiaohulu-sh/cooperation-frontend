@@ -16,12 +16,6 @@
       </div>
       <template v-if="fields.includes('category')">
         <div :class="s.filterRow">
-          <div :class="s.rowTitle">红人所属平台：</div>
-          <div :class="s.rowContent">
-            <MultipleSelection :list="platforms" v-model="platform" />
-          </div>
-        </div>
-        <div :class="s.filterRow">
           <div :class="s.rowTitle">带过的品类：</div>
           <div :class="s.rowContent">
             <MultipleSelection :list="categories" v-model="category" />
@@ -182,7 +176,6 @@ export default {
         type: ''
       },
       category: {
-        platform: [],
         category: [],
         minAmount: '',
         minOrders: '',
@@ -294,7 +287,7 @@ export default {
       if (this.minOrders) filters.minOrders = this.minOrders
       if (this.avgAmount && (this.avgAmount[0] || this.avgAmount[1])) filters.avgAmount = this.avgAmount
       if (this.avgOrder && (this.avgOrder[0] || this.avgOrder[1])) filters.avgOrder = this.avgOrder
-      if (this.unitPirce && (this.unitPrice[0] || this.unitPrice[1])) filters.unitPrice = this.unitPrice
+      if (this.unitPrice && (this.unitPrice[0] || this.unitPrice[1])) filters.unitPrice = this.unitPrice
       if (this.liveCount && (this.liveCount[0] || this.liveCount[1])) filters.liveCount = this.liveCount
       if (this.province) filters.province = this.province
       if (this.city) filters.city = this.city

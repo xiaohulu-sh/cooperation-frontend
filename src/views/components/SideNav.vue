@@ -14,10 +14,10 @@
       <a-menu-item key="/stars/by-type">
         <router-link to="/stars/by-type">按创作类型筛选</router-link>
       </a-menu-item>
-      <!-- <a-menu-item key="/stars/by-category">
+      <a-menu-item key="/stars/by-category">
         <router-link to="/stars/by-category">按带货品类筛选</router-link>
       </a-menu-item>
-      <a-menu-item key="/stars/by-fans">
+      <!-- <a-menu-item key="/stars/by-fans">
         <router-link to="/stars/by-fans">按人群画像筛选</router-link>
       </a-menu-item> -->
       <a-menu-item key="/stars/selected">
