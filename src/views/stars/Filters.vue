@@ -35,7 +35,8 @@
               </span>
               <label :class="s.label2">30日直播销售额 &gt;<a-input v-model.trim="minAmountInput" @pressEnter="onMinConfirm" :class="s.input1" size="small" />元</label>
               <label :class="s.label2">场均订单数 &gt;<a-input v-model.trim="minOrdersInput" @pressEnter="onMinConfirm" :class="s.input1" size="small" />单</label>
-              <button :class="c.smBtn" style="margin-left:20px" @click="onMinConfirm">确定</button>
+              <button :class="c.smBtn" style="margin-left:20px" @click="onMinConfirm">提交</button>
+              <a-icon v-if="minAmount !== '' || minOrders !== ''" type="close-circle" :class="[c.resetBtn1, s.reset]" title="清除" @click="clearMinInput" />
             </div>
           </div>
         </div>
@@ -43,28 +44,28 @@
           <div :class="s.rowTitle">场均销售额：</div>
           <div :class="s.rowContent">
             <radio-list :list="avgAmounts" :allValue="allRange" v-model="avgAmount"></radio-list>
-            <custom-range v-model="avgAmount"></custom-range>
+            <custom-range :class="s.alRight" v-model="avgAmount"></custom-range>
           </div>
         </div>
         <div :class="s.filterRow">
           <div :class="s.rowTitle">场均订单数：</div>
           <div :class="s.rowContent">
             <radio-list :list="avgOrders" :allValue="allRange" v-model="avgOrder"></radio-list>
-            <custom-range v-model="avgOrder"></custom-range>
+            <custom-range :class="s.alRight" v-model="avgOrder"></custom-range>
           </div>
         </div>
         <div :class="s.filterRow">
           <div :class="s.rowTitle">商品客单价：</div>
           <div :class="s.rowContent">
             <radio-list :list="unitPrices" :allValue="allRange" v-model="unitPrice"></radio-list>
-            <custom-range v-model="unitPrice"></custom-range>
+            <custom-range :class="s.alRight" v-model="unitPrice"></custom-range>
           </div>
         </div>
         <div :class="s.filterRow">
           <div :class="s.rowTitle">直播场次数：</div>
           <div :class="s.rowContent">
             <radio-list :list="liveCounts" :allValue="allRange" v-model="liveCount"></radio-list>
-            <custom-range v-model="liveCount"></custom-range>
+            <custom-range :class="s.alRight" v-model="liveCount"></custom-range>
           </div>
         </div>
       </template>
@@ -72,7 +73,7 @@
         <div :class="s.rowTitle">红人粉丝数：</div>
         <div :class="s.rowContent">
           <radio-list :list="pops" :allValue="allRange" v-model="pop"></radio-list>
-          <custom-range v-model="pop" :min="50000"></custom-range>
+          <custom-range :class="s.alRight" v-model="pop" :min="50000"></custom-range>
         </div>
       </div>
       <div v-if="fields.includes('audience')" :class="s.filterRow">
@@ -85,7 +86,7 @@
         </div>
         <div :class="s.rowContent">
           <radio-list :list="audiences" :allValue="allRange" v-model="audience"></radio-list>
-          <custom-range v-model="audience" :min="50000"></custom-range>
+          <custom-range :class="s.alRight" v-model="audience" :min="50000"></custom-range>
         </div>
       </div>
       <div v-if="fields.includes('age')" :class="s.filterRow">
@@ -341,6 +342,10 @@ export default {
       const orders = Number(this.minOrdersInput)
       this.minOrders = orders > 0 ? orders : ''
       this.minOrdersInput = this.minOrders
+    },
+    clearMinInput() {
+      this.minAmountInput = this.minOrdersInput = ''
+      this.onMinConfirm()
     }
   },
   created() {
@@ -372,6 +377,7 @@ export default {
 }
 .table {
   display: table;
+  width: 100%;
 }
 .filterRow {
   display: table-row;
@@ -417,6 +423,14 @@ export default {
 }
 .label2 {
   margin: 0 10px 0 20px;
+}
+.reset {
+  margin-left: 6px;
+}
+.alRight {
+  float: right;
+  margin-right: 16px;
+  margin-top: -1px;
 }
 // .filterItem {
 //   display: inline-block;

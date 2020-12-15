@@ -2,13 +2,14 @@
   <div :class="s.range">
     <label>
       {{ label1 }}
-      <input ref="min" type="text" v-model="minValue" :placeholder="placeholder1" />
+      <input ref="min" type="text" v-model="minValue" :placeholder="placeholder1" @keyup.enter="onConfirm" />
     </label>
     <label>
       {{ label2 }}
-      <input ref="max" type="text" v-model="maxValue" :placeholder="placeholder2" />
+      <input ref="max" type="text" v-model="maxValue" :placeholder="placeholder2" @keyup.enter="onConfirm" />
     </label>
-    <button @click="onConfirm">确定</button>
+    <button @click="onConfirm">提交</button>
+    <a-icon v-if="value[0] !== '' || value[1] !== ''" type="close-circle" :class="s.reset" title="清除" @click="clear" />
   </div>
 </template>
 
@@ -17,7 +18,7 @@ export default {
   props: {
     label1: {
       type: String,
-      default: '自定义:'
+      default: ''
     },
     label2: {
       type: String,
@@ -99,6 +100,9 @@ export default {
       this.minValue = minValue
       this.maxValue = maxValue
       this.$emit('input', [minValue, maxValue])
+    },
+    clear() {
+      this.$emit('input', ['', ''])
     }
   }
 }
@@ -106,6 +110,7 @@ export default {
 
 <style lang="less" module="s">
 .range {
+  position: relative;
   margin-left: 10px;
   display: inline-block;
 
@@ -142,6 +147,19 @@ export default {
     &:focus {
       border-color: #a399ff;
     }
+  }
+}
+.reset {
+  position: absolute;
+  right: -25px;
+  top: 1px;
+  color: #ff5d6a;
+  font-size: 14px;
+  padding: 4px;
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
   }
 }
 </style>
