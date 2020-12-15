@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import isEqual from 'lodash/isEqual'
-
 export default {
   props: {
     list: {
@@ -40,7 +38,6 @@ export default {
     }
   },
   methods: {
-    isEqual,
     itemClick(item) {
       if (item.value === this.allValue) {
         this.$emit('input', [], item)

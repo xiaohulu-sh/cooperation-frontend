@@ -33,8 +33,9 @@
                 </a-tooltip>
                 以上所选品类
               </span>
-              <label :class="s.label2">30日直播销售额 &gt;<a-input :class="s.input1" allow-clear size="small" @change="onCategAmountChange" />元</label>
-              <label :class="s.label2">场均订单数 &gt;<a-input :class="s.input1" allow-clear size="small" @change="onCateOrdersChange" />单</label>
+              <label :class="s.label2">30日直播销售额 &gt;<a-input v-model.trim="minAmountInput" @pressEnter="onMinConfirm" :class="s.input1" size="small" />元</label>
+              <label :class="s.label2">场均订单数 &gt;<a-input v-model.trim="minOrdersInput" @pressEnter="onMinConfirm" :class="s.input1" size="small" />单</label>
+              <button :class="c.smBtn" style="margin-left:20px" @click="onMinConfirm">确定</button>
             </div>
           </div>
         </div>
@@ -168,7 +169,6 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 import MultipleSelection from '@/components/MultipleSelection'
 import CustomRange from '@/components/CustomRange'
 import CategoryPicker from '@/components/CategoryPicker'
-import throttle from 'lodash/throttle'
 
 export default {
   components: { MultipleSelection, CustomRange, CategoryPicker },
@@ -195,7 +195,9 @@ export default {
       },
       category: {
         category: [],
+        minAmountInput: '',
         minAmount: '',
+        minOrdersInput: '',
         minOrders: '',
         avgAmounts: [
           { label: '10万以下', value: ['', 100000] },
@@ -332,14 +334,14 @@ export default {
     onSearch(value) {
       this.search = value.trim()
     },
-    onCategAmountChange: throttle(function(e) {
-      const amount = Number(e.target.value.trim())
-      this.minAmount = amount >= 0 ? amount : ''
-    }, 1000),
-    onCateOrdersChange: throttle(function(e) {
-      const orders = Number(e.target.value.trim())
-      this.minOrders = orders >= 0 ? orders : ''
-    }, 1000)
+    onMinConfirm() {
+      const amount = Number(this.minAmountInput)
+      this.minAmount = amount > 0 ? amount : ''
+      this.minAmountInput = this.minAmount
+      const orders = Number(this.minOrdersInput)
+      this.minOrders = orders > 0 ? orders : ''
+      this.minOrdersInput = this.minOrders
+    }
   },
   created() {
     if (this.fields.includes('type')) {
