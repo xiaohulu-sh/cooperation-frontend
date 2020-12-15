@@ -24,7 +24,7 @@
             带过的品类：
           </div>
           <div :class="s.rowContent">
-            <MultipleSelection :list="categories" v-model="category" />
+            <RadioList :list="categories" v-model="category" />
             <div :class="s.extra1">
               <span :class="s.label1">
                 <a-tooltip placement="bottom">
@@ -33,8 +33,8 @@
                 </a-tooltip>
                 以上所选品类
               </span>
-              <label :class="s.label2">30日直播销售额 &gt;<a-input v-model.trim="minAmountInput" @pressEnter="onMinConfirm" :class="s.input1" size="small" />元</label>
-              <label :class="s.label2">场均订单数 &gt;<a-input v-model.trim="minOrdersInput" @pressEnter="onMinConfirm" :class="s.input1" size="small" />单</label>
+              <label :class="s.label2">30日直播销售额 &gt; <a-input v-model.trim="minAmountInput" @pressEnter="onMinConfirm" :class="s.input1" size="small" />元</label>
+              <label :class="s.label2">场均订单数 &gt; <a-input v-model.trim="minOrdersInput" @pressEnter="onMinConfirm" :class="s.input1" size="small" />单</label>
               <button :class="c.smBtn" style="margin-left:20px" @click="onMinConfirm">提交</button>
               <a-icon v-if="minAmount !== '' || minOrders !== ''" type="close-circle" :class="[c.resetBtn1, s.reset]" title="清除" @click="clearMinInput" />
             </div>
@@ -167,12 +167,11 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
-import MultipleSelection from '@/components/MultipleSelection'
 import CustomRange from '@/components/CustomRange'
 import CategoryPicker from '@/components/CategoryPicker'
 
 export default {
-  components: { MultipleSelection, CustomRange, CategoryPicker },
+  components: { CustomRange, CategoryPicker },
   props: {
     fields: {
       type: Array,
@@ -195,7 +194,7 @@ export default {
         type: ''
       },
       category: {
-        category: [],
+        category: '',
         minAmountInput: '',
         minAmount: '',
         minOrdersInput: '',
@@ -303,7 +302,7 @@ export default {
       if (this.search) filters.search = this.search
       if (this.platform) filters.platform = this.platform
       if (this.type) filters.type = this.type.split('|')
-      if (this.category && this.category.length > 0) filters.category = this.category
+      if (this.category) filters.category = this.category
       if (this.minAmount) filters.minAmount = this.minAmount
       if (this.minOrders) filters.minOrders = this.minOrders
       if (this.avgAmount && (this.avgAmount[0] || this.avgAmount[1])) filters.avgAmount = this.avgAmount

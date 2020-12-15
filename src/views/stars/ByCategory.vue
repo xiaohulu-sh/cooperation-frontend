@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 :class="c.h2a"><i :class="[c.titleIcon, s.category]"></i>按带货品类筛选红人<span>通过红人30日内直播带货的数据表现来定位您的合作对象,进行带货合作</span></h2>
-    <filters key="type" :fields="['platform', 'category', 'pop', 'audience']" @update:filters="updateFilters"></filters>
+    <filters key="category" :fields="['platform', 'category', 'pop', 'audience']" @update:filters="updateFilters"></filters>
     <DataBlock :class="[c.block, s.result]" :req="listReq" :handler="dataHandler" :isEmpty="isEmpty" :loadingMask="true">
       <template v-slot="{ data: { list, total } }">
         <div :class="s.t1" style="margin-bottom:20px">找到以下符合条件的红人 ({{ total }})</div>
@@ -22,9 +22,9 @@
         <table v-if="list.length > 0" ref="table" :class="[c.dataTable, s.dataTable]">
           <colgroup>
             <col style="width:266px" />
-            <col style="width:128px" />
-            <col style="width:108px" />
-            <col style="width:142px" />
+            <col style="width:135px" />
+            <col style="width:115px" />
+            <col style="width:148px" />
             <col />
             <col style="width:136px" />
           </colgroup>
@@ -71,7 +71,7 @@
                 <div :class="s.subTxt">场均上架{{ item.avgGoods }}款</div>
               </td>
               <td>
-                <div v-for="{ name, amount } in item.top3List" :key="name" :class="s.txt1">
+                <div v-for="({ name, amount }, index) in item.top3List" :key="index" :class="s.txt1">
                   {{ name }}：<span>{{ amount }}</span>
                 </div>
               </td>
@@ -124,7 +124,7 @@ export default {
       const { platform, category, minAmount, minOrders, avgAmount, avgOrder, unitPrice, liveCount, pop, audience } = this.filters || {}
       return {
         plat_type: platform,
-        cate_type: (category && category.join(',')) || undefined,
+        cate_type: category,
         avg_live_sale: minAmount || 0,
         avg_live_order: minOrders || 0,
         single_live_agv_sale: avgAmount && [avgAmount[0] || 0, avgAmount[1] || 0].join('-'),
@@ -214,7 +214,7 @@ export default {
   margin-top: 20px;
   :global {
     .ant-pagination + div .ant-spin {
-      top: 240px;
+      top: 200px;
     }
   }
 }

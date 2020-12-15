@@ -182,7 +182,7 @@ export default {
   margin-top: 20px;
   :global {
     .ant-pagination + div .ant-spin {
-      top: 240px;
+      top: 200px;
     }
   }
 }
