@@ -21,12 +21,11 @@
         <SortBtns :list="sortList" :sortKey.sync="sortKey" :sortValue.sync="sortValue" :asc="2" :desc="1" />
         <table v-if="list.length > 0" ref="table" :class="[c.dataTable, s.dataTable]">
           <colgroup>
-            <col style="width:266px" />
-            <col style="width:135px" />
-            <col style="width:115px" />
-            <col style="width:148px" />
             <col />
-            <col style="width:136px" />
+            <col style="width:168px" />
+            <col style="width:148px" />
+            <col style="width:168px" />
+            <col style="width:158px" />
           </colgroup>
           <thead>
             <tr>
@@ -34,7 +33,6 @@
               <th>销售额(元)</th>
               <th>订单数(笔)</th>
               <th>上架商品</th>
-              <th>带货品类TOP3(场均)</th>
               <th :class="s.colCenter">操作</th>
             </tr>
           </thead>
@@ -69,11 +67,6 @@
                   >{{ item.avgPrice.unit }}元
                 </div>
                 <div :class="s.subTxt">场均上架{{ item.avgGoods }}款</div>
-              </td>
-              <td>
-                <div v-for="({ name, amount }, index) in item.top3List" :key="index" :class="s.txt1">
-                  {{ name }}：<span>{{ amount }}</span>
-                </div>
               </td>
               <td :class="s.colCenter">
                 <a-button v-if="selected[item.id]" @click.stop="removeSelected(item.id)">已添加</a-button>
@@ -163,7 +156,7 @@ export default {
       if (!resData) return null
       const { list = [], total = 0 } = resData || {}
       return {
-        list: list.map(({ platform_id, room_id, nickname, gender, fansCount, live_count, live_avg_price, avg_live_sales_number, unit_avg_price, live_avg_good_count, goodat }) => {
+        list: list.map(({ platform_id, room_id, nickname, gender, fansCount, live_count, live_avg_price, avg_live_sales_number, unit_avg_price, live_avg_good_count }) => {
           return {
             id: `${platform_id}/${room_id}`,
             pid: platform_id,
@@ -180,8 +173,7 @@ export default {
             avgOrders: formatNumber(avg_live_sales_number),
             orders: parseNumberUnit(avg_live_sales_number * live_count),
             avgPrice: parseNumberUnit(unit_avg_price / 100),
-            avgGoods: formatNumber(live_avg_good_count),
-            top3List: (goodat || []).map(({ tag_name, avg_live_sales_price }) => ({ name: tag_name, amount: formatNumber(avg_live_sales_price / 100) }))
+            avgGoods: formatNumber(live_avg_good_count)
           }
         }),
         total
