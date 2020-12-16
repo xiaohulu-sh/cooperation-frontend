@@ -1,5 +1,4 @@
-import 'event-target-polyfill'
-import 'yet-another-abortcontroller-polyfill'
+import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
 import { fetch as fetchPolyfill } from 'whatwg-fetch'
 import qs from 'qs'
 import { Modal } from 'ant-design-vue'
