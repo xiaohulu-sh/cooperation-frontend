@@ -1,3 +1,4 @@
+import 'event-target-polyfill'
 import 'yet-another-abortcontroller-polyfill'
 import { fetch as fetchPolyfill } from 'whatwg-fetch'
 import qs from 'qs'

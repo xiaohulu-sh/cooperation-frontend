@@ -10,6 +10,7 @@
     "core-js": "^3.6.5",
     "echarts": "^4.9.0",
     "echarts-wordcloud": "^1.1.3",
+    "event-target-polyfill": "0.0.2",
     "intersection-observer": "^0.11.0",
     "lodash": "^4.17.20",
     "nprogress": "^0.2.0",
