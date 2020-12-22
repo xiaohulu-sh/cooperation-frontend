@@ -151,7 +151,7 @@
                   <em> {{ range }} </em>送礼土豪
                 </h3>
                 <TycoonList v-if="list && list.length > 0" :list="list" :page.sync="tycoonsPage" :pageSize="tycoonsPageSize" :total="tycoonsTotal"></TycoonList>
-                <a-empty v-else />
+                <a-empty :image="emptyImage" v-else />
               </template>
             </DataBlock>
           </template>
@@ -305,7 +305,7 @@
               </ul>
               <a-pagination v-model="recordsPage" :total="total" :pageSize="recordsPageSize" :hideOnSinglePage="true" style="text-align:center"></a-pagination>
             </template>
-            <a-empty v-else />
+            <a-empty :image="emptyImage" v-else />
           </template>
         </DataBlock>
       </template>

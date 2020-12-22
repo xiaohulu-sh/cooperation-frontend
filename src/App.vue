@@ -54,4 +54,7 @@ em {
 .ant-input:focus {
   box-shadow: none;
 }
+.ant-empty-image {
+  height: 78px;
+}
 </style>

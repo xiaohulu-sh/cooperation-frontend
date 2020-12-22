@@ -28,11 +28,11 @@
             <li><span :class="[c.ellipsis1, s.comment]">惠子，姐姐我好喜欢你啊</span><span :class="s.time">2019-09-11</span></li>
           </ul>
           <a-pagination size="small" :total="50" :show-total="total => `共 ${total} 条`" show-quick-jumper :hideOnSinglePage="true" style="margin-top:20px" />
-          <!-- <a-empty style="padding:60px 0" /> -->
+          <!-- <a-empty :image="emptyImage" style="padding:60px 0" /> -->
           <!-- <a-spin :class="c.posCenter" /> -->
         </div>
       </div>
-      <!-- <a-empty style="padding:50px 0 80px" /> -->
+      <!-- <a-empty :image="emptyImage" style="padding:50px 0 80px" /> -->
       <!-- <a-spin :class="c.posCenter" /> -->
     </div>
     <div :class="c.dataBlock">
@@ -89,13 +89,13 @@
               </div>
             </li>
           </ul>
-          <!-- <a-empty style="padding:120px 0" /> -->
+          <!-- <a-empty :image="emptyImage" style="padding:120px 0" /> -->
         </div>
       </div>
       <div :class="c.block1">
         <h3 :class="c.h3">近期弹幕热词</h3>
         <HotWords :words="hotWords" />
-        <!-- <a-empty /> -->
+        <!-- <a-empty :image="emptyImage" /> -->
       </div>
     </div>
   </div>

@@ -2,13 +2,13 @@
   <component :is="tag" :class="s.container">
     <template v-if="!lazyRender || shouldRender">
       <slot v-if="showErr && err" name="err" :err="err">
-        <a-empty :class="s.center" :image="errImg">
+        <a-empty :image="errImg" :class="s.center">
           <span slot="description" style="color:#999">加载失败</span>
           <a-button :class="s.reload" type="primary" size="small" icon="reload" @click="onReloadClick">重试</a-button>
         </a-empty>
       </slot>
       <slot v-else-if="showEmpty && empty" name="empty" :data="data">
-        <a-empty :class="s.center" />
+        <a-empty :image="emptyImage" :class="s.center" />
       </slot>
       <slot v-else-if="data" :data="data" :err="err" :loading="loading"></slot>
       <transition name="loading">
@@ -153,7 +153,7 @@ export default {
 <style lang="less" module="s">
 .container {
   position: relative;
-  min-height: 130px;
+  min-height: 128px;
 }
 .center {
   position: absolute;

@@ -11,3 +11,4 @@ export { default as CheckCircleFill } from '@ant-design/icons/lib/fill/CheckCirc
 export { default as SmileTwoTone } from '@ant-design/icons/lib/twotone/SmileTwoTone'
 export { default as CaretUpOutline } from '@ant-design/icons/lib/outline/CaretUpOutline'
 export { default as CaretDownOutline } from '@ant-design/icons/lib/outline/CaretDownOutline'
+export { default as ReloadOutline } from '@ant-design/icons/lib/outline/ReloadOutline'

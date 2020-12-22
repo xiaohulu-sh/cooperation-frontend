@@ -42,7 +42,7 @@
             </li>
           </ul>
           <h3 id="categories" data-anchor="品类统计" :class="c.h3" style="margin-top:40px">带货品类统计 <em>(近30日)</em></h3>
-          <DataBlock :req="recent30Req" :handler="recent30Handler" :isEmpty="isRecent30Empty">
+          <DataBlock :req="recent30Req" :handler="recent30Handler" :isEmpty="isRecent30Empty" style="min-height:356px">
             <template v-slot="{ data: { categories, brands, sources } }">
               <div :class="s.flex1">
                 <div>
@@ -58,19 +58,17 @@
                   </LazyBlock>
                 </div>
               </div>
+              <h3 id="goods" data-anchor="商品统计" :class="c.h3">
+                <em>近30天</em> 总共上架了<em>{{ goodsTotal }}款</em>商品
+              </h3>
+              <div style="margin-bottom:25px">
+                <div :class="s.filterRow"><label :class="s.label1">商品品类：</label><RadioList :class="s.radioList" :list="categories" v-model="categFilter" /></div>
+                <ViewMore :class="s.filterRow" :maxHeight="54"><label :class="s.label1">商品品牌：</label><RadioList :class="s.radioList" :list="brands" v-model="brandFilter"/></ViewMore>
+                <div :class="s.filterRow"><label :class="s.label1">商品价格：</label><RadioList :class="s.radioList" :list="priceFilters" v-model="priceFilter" /></div>
+                <div :class="s.filterRow"><label :class="s.label1">商品来源：</label><RadioList :class="s.radioList" :list="sources" v-model="sourceFilter" /></div>
+              </div>
               <DataBlock :req="goodsListReq" :handler="goodsHandler" :showEmpty="false" :showErr="false">
                 <template v-slot="{ data: { list, total } }">
-                  <h3 id="goods" data-anchor="商品统计" :class="c.h3">
-                    <em>近30天</em> 总共上架了<em>{{ goodsTotal }}款</em>商品
-                  </h3>
-                  <div style="margin-bottom:25px">
-                    <div :class="s.filterRow"><label :class="s.label1">商品品类：</label><RadioList :class="s.radioList" :list="categories" v-model="categFilter" /></div>
-                    <div :class="{ [s.filterRow]: true, [s.moreList]: true, [s.collapsed]: brands.length > 30 && collapsed1 }">
-                      <label :class="s.label1">商品品牌：</label><RadioList :class="s.radioList" :list="brands" v-model="brandFilter" /><button v-if="brands.length > 30" :class="s.moreBtn" @click="collapsed1 = !collapsed1">{{ collapsed1 ? '更多' : '收起' }}</button>
-                    </div>
-                    <div :class="s.filterRow"><label :class="s.label1">商品价格：</label><RadioList :class="s.radioList" :list="priceFilters" v-model="priceFilter" /></div>
-                    <div :class="s.filterRow"><label :class="s.label1">商品来源：</label><RadioList :class="s.radioList" :list="sources" v-model="sourceFilter" /></div>
-                  </div>
                   <div v-if="total > 0" :class="c.itemList1">
                     <div :class="c.th">
                       <div :class="c.col1">商品名称</div>
@@ -81,7 +79,7 @@
                     </div>
                     <ul :class="c.tbList">
                       <li v-for="({ cover, title, platform_label, min_price, dyScene_sales_number, price_add }, index) in list" :key="index">
-                        <div :class="[c.col1, c.ellipsis1]"><img :src="cover" referrerpolicy="no-referrer" />{{ title }}</div>
+                        <div :class="[c.col1, c.ellipsis1]"><img :src="cover || defaultImage" referrerpolicy="no-referrer" @error="onImageError" />{{ title }}</div>
                         <div :class="c.col2">{{ platform_label }}</div>
                         <div :class="c.colVal">￥{{ formatNumber(min_price / 100) }}</div>
                         <div :class="c.colVal">{{ formatNumber(dyScene_sales_number) }}</div>
@@ -89,7 +87,7 @@
                       </li>
                     </ul>
                   </div>
-                  <a-empty v-else />
+                  <a-empty :image="emptyImage" v-else />
                   <a-pagination :class="c.pagin1" v-model="goodsPage" :total="total" :pageSize="10" :hideOnSinglePage="true"></a-pagination>
                 </template>
               </DataBlock>
@@ -122,6 +120,7 @@ import { createMixed1, createHBarChart1 } from '@/utils/charts/mixed'
 import useDataTimeRange from './data-time-range'
 import DataTimeRange from './data-time-range/DataTimeRange'
 import { parseNumberUnit, formatNumber } from '@/utils/utils'
+import ViewMore from '@/components/ViewMore'
 
 function hashToItemList(hash) {
   return Object.keys(hash)
@@ -141,7 +140,7 @@ function hashToItemList(hash) {
 }
 
 export default {
-  components: { DataTimeRange },
+  components: { DataTimeRange, ViewMore },
   props: ['platform', 'room'],
   data() {
     return {
@@ -165,8 +164,7 @@ export default {
       chartTypes1: [
         { label: '销售额', value: 'income' },
         { label: '订单量', value: 'orders' }
-      ],
-      collapsed1: true
+      ]
     }
   },
   computed: {
@@ -349,6 +347,7 @@ export default {
 }
 .flex1 {
   display: flex;
+  margin-bottom: 40px;
   & > div {
     flex: 1;
     &:not(:first-child) {
@@ -361,49 +360,5 @@ export default {
 }
 .radioList {
   display: inline;
-}
-.moreList {
-  position: relative;
-  padding-right: 50px;
-}
-.moreBtn {
-  position: absolute;
-  right: 0;
-  bottom: 4px;
-  height: 24px;
-  font-size: 12px;
-  border: 1px solid #e9ebf1;
-  border-radius: 2px;
-  background: #fff;
-  transition: all 0.3s;
-  &::after {
-    content: '';
-    display: inline-block;
-    vertical-align: middle;
-    margin: -2px 0 0 2px;
-    width: 0;
-    height: 0;
-    border: 0;
-    border-right: 5px solid transparent;
-    border-left: 5px solid transparent;
-    border-bottom: 6px solid #e6e7eb;
-  }
-  &:hover,
-  &:focus {
-    border-color: #a399ff;
-  }
-}
-.collapsed {
-  overflow: hidden;
-  max-height: 54px;
-  .moreBtn {
-    &::after {
-      margin-top: -1px;
-      border: 0;
-      border-right: 5px solid transparent;
-      border-left: 5px solid transparent;
-      border-top: 6px solid #d5d6da;
-    }
-  }
 }
 </style>

@@ -46,7 +46,7 @@
         </div>
       </template>
     </DataBlock>
-    <a-empty v-else style="margin-bottom:40px">
+    <a-empty :image="emptyImage" v-else style="margin-bottom:40px">
       <span slot="description">您还没有选择任何红人</span>
       <router-link to="/stars"><a-button type="primary">选择红人</a-button></router-link>
     </a-empty>

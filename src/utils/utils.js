@@ -100,10 +100,22 @@ export function arraysToDataset(arrays, rowKey, { rowKeyFormatter = val => val }
   return dataset
 }
 
+export const defaultAvatar = require('@/assets/user.svg')
 export function onAvatarError(e) {
   const img = e.target || e.srcElement
   if (img) {
     img.onerror = null
-    img.src = require('@/assets/user.svg')
+    img.src = defaultAvatar
   }
 }
+
+export const defaultImage = require('@/assets/gourd.svg')
+export function onImageError(e) {
+  const img = e.target || e.srcElement
+  if (img) {
+    img.onerror = null
+    img.src = defaultImage
+  }
+}
+
+export const emptyImage = require('@/assets/empty.svg')
