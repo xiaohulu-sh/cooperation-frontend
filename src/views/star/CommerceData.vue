@@ -87,7 +87,7 @@
                       </li>
                     </ul>
                   </div>
-                  <a-empty :image="emptyImage" v-else />
+                  <a-empty :image="noDataImage" v-else />
                   <a-pagination :class="c.pagin1" v-model="goodsPage" :total="total" :pageSize="10" :hideOnSinglePage="true"></a-pagination>
                 </template>
               </DataBlock>

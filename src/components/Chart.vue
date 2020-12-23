@@ -1,7 +1,7 @@
 <template>
   <div :class="s.container">
     <div ref="chart" :class="{ [s.chart]: true, [s.hidden]: isEmpty }"></div>
-    <a-empty :image="emptyImage" v-if="isEmpty" :class="s.center" />
+    <a-empty :image="noDataImage" v-if="isEmpty" :class="s.center" />
     <a-spin v-if="loading" :class="s.center" />
   </div>
 </template>

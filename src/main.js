@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import 'intersection-observer'
 import smoothscroll from 'smoothscroll-polyfill'
-import { onAvatarError, onImageError, defaultImage, emptyImage } from './utils/utils'
+import { onAvatarError, onImageError, defaultImage, noDataImage, emptyImage } from './utils/utils'
 
 smoothscroll.polyfill()
 
@@ -79,6 +79,7 @@ Vue.component('StarInfo', StarInfo)
 Vue.prototype.onAvatarError = onAvatarError
 Vue.prototype.onImageError = onImageError
 Vue.prototype.defaultImage = defaultImage
+Vue.prototype.noDataImage = noDataImage
 Vue.prototype.emptyImage = emptyImage
 /* custom components end */
 

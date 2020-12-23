@@ -118,4 +118,5 @@ export function onImageError(e) {
   }
 }
 
+export const noDataImage = require('@/assets/no-data.svg')
 export const emptyImage = require('@/assets/empty.svg')

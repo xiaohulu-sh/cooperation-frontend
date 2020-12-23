@@ -8,7 +8,7 @@
         </a-empty>
       </slot>
       <slot v-else-if="showEmpty && empty" name="empty" :data="data">
-        <a-empty :image="emptyImage" :class="s.center" />
+        <a-empty :image="noDataImage" :class="s.center" />
       </slot>
       <slot v-else-if="data" :data="data" :err="err" :loading="loading"></slot>
       <transition name="loading">
@@ -153,7 +153,7 @@ export default {
 <style lang="less" module="s">
 .container {
   position: relative;
-  min-height: 128px;
+  min-height: 130px;
 }
 .center {
   position: absolute;

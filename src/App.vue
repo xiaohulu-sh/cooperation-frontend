@@ -55,6 +55,6 @@ em {
   box-shadow: none;
 }
 .ant-empty-image {
-  height: 78px;
+  height: 83px;
 }
 </style>
