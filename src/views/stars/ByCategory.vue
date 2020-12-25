@@ -191,7 +191,7 @@ export default {
       } catch (err) {}
     },
     onItemClick({ id }) {
-      window.open(`/star/${id}`, '_blank')
+      window.open(`/star/${id}/commerce`, '_blank')
     }
   }
 }
