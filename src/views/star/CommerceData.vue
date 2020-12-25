@@ -41,7 +41,7 @@
               </div>
             </li>
           </ul>
-          <h3 id="categories" data-anchor="品类统计" :class="c.h3" style="margin-top:40px">带货品类统计 <em>(近30日)</em></h3>
+          <h3 id="categories" data-anchor="品类统计" :class="c.h3" style="margin-top:40px"><em>近30天</em> 带货品类统计</h3>
           <DataBlock :req="recent30Req" :handler="recent30Handler" :isEmpty="isRecent30Empty" style="min-height:356px">
             <template v-slot="{ data: { categories, brands, sources } }">
               <div :class="s.flex1">
@@ -145,6 +145,8 @@ export default {
   data() {
     return {
       ...useDataTimeRange.data(),
+      presetList: [{ value: 'recent_30', label: '近30天' }],
+      dayList: [],
       categDataset: null,
       brandDataset: null,
       goodsTotal: null,

@@ -1,7 +1,7 @@
 <template>
   <ul :class="[c.dataTabs, c.dataTab1]">
     <li v-for="{ value, label } in presetList" :key="value" :class="{ [c.dataTabActive]: value === preset }" @click="onPresetClick(value)">{{ label }}</li>
-    <a-dropdown>
+    <a-dropdown v-if="dayList.length > 0">
       <li :class="{ [c.dataTabActive]: day !== null }">{{ day || '按日期选择' }}</li>
       <a-menu slot="overlay" style="padding:10px 0">
         <a-menu-item v-for="{ value } in dayList" :key="value" :class="s.dropdownItem" @click="onTimeSelect(value)">{{ value }}</a-menu-item>
