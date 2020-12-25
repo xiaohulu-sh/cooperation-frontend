@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
+const { getVersion } = require('./scripts/version')
 
+process.env.VUE_APP_VERSION = getVersion()
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {

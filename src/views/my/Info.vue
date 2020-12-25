@@ -8,7 +8,7 @@
         <span :class="s.tag1">京东智联云版</span>
       </div>
     </div>
-    <div :class="s.version">软件系统版本：v0.0.1</div>
+    <div :class="s.version">软件系统版本：{{ version }}</div>
   </div>
 </template>
 
@@ -16,6 +16,11 @@
 import { mapState } from 'vuex'
 
 export default {
+  data() {
+    return {
+      version: process.env.VUE_APP_VERSION || 'v0.0.1'
+    }
+  },
   computed: mapState('user', ['name'])
 }
 </script>
