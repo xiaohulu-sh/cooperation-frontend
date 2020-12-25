@@ -42,7 +42,7 @@
         <router-link to="/my/orders">我的订单</router-link>
       </a-menu-item>
     </a-sub-menu>
-    <a-sub-menu key="/manual">
+    <!-- <a-sub-menu key="/manual">
       <span slot="title">
         <svg :class="s.icon" height="16" viewBox="0 0 16 16" width="16">
           <path
@@ -62,7 +62,7 @@
       <a-menu-item key="/manual/faq">
         <router-link to="/manual/faq">常见问题</router-link>
       </a-menu-item>
-    </a-sub-menu>
+    </a-sub-menu> -->
     <a-menu-item key="/contact">
       <router-link to="/contact">
         <svg :class="s.icon" height="16" viewBox="0 0 16 16" width="16">

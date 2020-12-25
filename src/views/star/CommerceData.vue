@@ -67,7 +67,7 @@
                 <div :class="s.filterRow"><label :class="s.label1">商品价格：</label><RadioList :class="s.radioList" :list="priceFilters" v-model="priceFilter" /></div>
                 <div :class="s.filterRow"><label :class="s.label1">商品来源：</label><RadioList :class="s.radioList" :list="sources" v-model="sourceFilter" /></div>
               </div>
-              <DataBlock :req="goodsListReq" :handler="goodsHandler" :showEmpty="false" :showErr="false">
+              <DataBlock :req="goodsListReq" :handler="goodsHandler" :showEmpty="false" :showErr="false" :loadingMask="true">
                 <template v-slot="{ data: { list, total } }">
                   <div v-if="total > 0" :class="c.itemList1">
                     <div :class="c.th">
