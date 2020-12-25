@@ -9,18 +9,16 @@
           <h3>/ 红人智选业务</h3>
           <div>如果您有红人投放的相关需求，或者相关问题欢迎洽谈。</div>
           <ul :class="s.txtList">
-            <li>联系电话：021-22456584</li>
-            <li>联系微信：xxx</li>
-            <li>联系邮箱：xxx@xiaohulu.com</li>
+            <li>联系电话：13611731051</li>
+            <li>联系邮箱：tangjun@xiaohulu.com</li>
           </ul>
         </div>
         <div :class="s.card2">
           <h3>/ 行业解决方案</h3>
           <div>如果您有单一行业的解决方案采购需求，或者相关问题欢迎洽谈。</div>
           <ul :class="s.txtList">
-            <li>联系电话：021-22456584</li>
-            <li>联系微信：xxx</li>
-            <li>联系邮箱：xxx@xiaohulu.com</li>
+            <li>联系电话：13611731051</li>
+            <li>联系邮箱：tangjun@xiaohulu.com</li>
           </ul>
         </div>
       </div>
@@ -88,7 +86,7 @@
   background-image: url(~@/assets/contact2.svg);
 }
 .txtList {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 20px;
 }
 </style>
