@@ -1,7 +1,7 @@
 <template>
   <div :class="c.dataBlock">
     <h2 :class="[c.imgTitle, s.title1]">直播数据分析</h2>
-    <DataTimeRange :preset.sync="preset" :presetList="presetList" :day.sync="day" :dayList="dayList" />
+    <!-- <DataTimeRange :preset.sync="preset" :presetList="presetList" :day.sync="day" :dayList="dayList" /> -->
     <div :class="c.block1">
       <DataBlock :req="overviewReq" :handler="overviewHandler" :isEmpty="isOverviewEmpty" style="min-height:300px">
         <template v-slot="{ data: { overview: { goods, goodsDelta, orders, ordersDelta, income, incomeDelta }, chartLines } }">
@@ -118,7 +118,7 @@
 import { createLine1 } from '@/utils/charts/line'
 import { createMixed1, createHBarChart1 } from '@/utils/charts/mixed'
 import useDataTimeRange from './data-time-range'
-import DataTimeRange from './data-time-range/DataTimeRange'
+// import DataTimeRange from './data-time-range/DataTimeRange'
 import { parseNumberUnit, formatNumber } from '@/utils/utils'
 import ViewMore from '@/components/ViewMore'
 
@@ -140,7 +140,10 @@ function hashToItemList(hash) {
 }
 
 export default {
-  components: { DataTimeRange, ViewMore },
+  components: {
+    // DataTimeRange,
+    ViewMore
+  },
   props: ['platform', 'room'],
   data() {
     return {
@@ -249,14 +252,18 @@ export default {
       if (!data) return null
       const { goods_num, order_num, total_income, compare_goods_num, compare_order_num, compare_total_income } = data.overview_data || {}
       const { sales_number = [], sales_price = [] } = data.data_detail || {}
+      sales_price.forEach(item => {
+        // 销售额单位为分
+        item.value = item.value / 100
+      })
       return {
         overview: {
           goods: parseNumberUnit(goods_num),
           goodsDelta: parseNumberUnit(compare_goods_num),
           orders: parseNumberUnit(order_num),
           ordersDelta: parseNumberUnit(compare_order_num),
-          income: parseNumberUnit(total_income),
-          incomeDelta: parseNumberUnit(compare_total_income)
+          income: parseNumberUnit(total_income / 100),
+          incomeDelta: parseNumberUnit(compare_total_income / 100)
         },
         chartLines: createLine1(
           ({ income: sales_price, orders: sales_number }[this.chartType1] || [])
