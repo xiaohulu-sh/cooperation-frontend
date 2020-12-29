@@ -114,6 +114,17 @@
         </DataBlock>
       </div>
     </div>
+    <div v-if="portraits1.length" :class="s.t1">购买红人商品的粉丝画像（京东）</div>
+    <DataBlock v-show="portraits1.length" :class="s.block1" :req="portraits1Req" :handler="portraits1Handler" :showEmpty="false" :showErr="false">
+      <template v-slot="{ data }">
+        <div v-for="{ name, chart } in data" :key="name">
+          <h3 :class="c.h3">{{ name }}</h3>
+          <LazyBlock :class="s.b1" :data="chart">
+            <Chart :class="s.chart1" :chartData="chart"></Chart>
+          </LazyBlock>
+        </div>
+      </template>
+    </DataBlock>
   </div>
 </template>
 
@@ -136,7 +147,8 @@ export default {
         area1: '',
         area2: ''
       },
-      areaReq: null
+      areaReq: null,
+      portraits1: []
     }
   },
   computed: {
@@ -158,6 +170,15 @@ export default {
     },
     ageReq() {
       return this.getChartReq(5)
+    },
+    portraits1Req() {
+      return {
+        url: 'v1_front_anchor/fansPortrayal',
+        params: {
+          platform: this.platform,
+          roomid: this.room
+        }
+      }
     }
   },
   methods: {
@@ -266,6 +287,30 @@ export default {
         chart: createChinaMap1(keys.map(name => ({ name, value: data[name].count }))),
         list: keys.slice(0, 10).map(name => ({ name, percent: data[name].percent }))
       }
+    },
+    portraits1Handler(resData) {
+      if (!resData) {
+        this.portraits1 = []
+        return resData
+      }
+      return (this.portraits1 = resData
+        .map(({ instruction, info }) => {
+          let list
+          try {
+            list = JSON.parse(info)
+            // eslint-disable-next-line no-empty
+          } catch (err) {}
+          if (!list) return null
+          return { name: instruction, list }
+        })
+        .filter(item => item)
+        .map(({ name, list }) => ({
+          name,
+          chart: createPie2(
+            list.map(({ instruction, percent }) => ({ name: instruction, value: Number(percent) })).filter(({ value }) => value),
+            { legend: false, showDataType: 'scale' }
+          )
+        })))
     }
   },
   async mounted() {
@@ -310,10 +355,11 @@ export default {
     color: #736af2;
   }
 }
-.block1 {
+div.block1 {
   display: flex;
   flex-wrap: wrap;
   padding: 0 30px 30px;
+  min-height: 200px;
   & > div {
     width: 50%;
     padding: 0 10px;
@@ -343,7 +389,7 @@ export default {
   color: #333;
   font-size: 18px;
   font-weight: 600;
-  margin: 10px 0 10px 30px;
+  margin: 20px 0 10px 30px;
 }
 .tipIcon {
   font-size: 14px;
