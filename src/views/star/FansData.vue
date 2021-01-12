@@ -1,7 +1,7 @@
 <template>
   <div :class="c.dataBlock">
     <template v-if="hasOverview">
-      <h2 id="overview" data-anchor="数据概览" :class="[c.imgTitle, s.title1]">粉丝数据概览</h2>
+      <h2 id="overview" data-anchor="粉丝数据概览" :class="[c.imgTitle, s.title1]">红人短视频平台粉丝数据概览</h2>
       <div :class="c.rtTip">
         <a-tooltip placement="bottom">
           <template slot="title">您可以看到他的粉丝性别比例，年龄分层，活跃时间段以及粉丝占比最高的地区</template>
@@ -24,7 +24,7 @@
         </li>
       </ul>
     </template>
-    <h2 id="portrait" data-anchor="粉丝画像" :class="[c.imgTitle, s.title2]">粉丝画像</h2>
+    <h2 id="portrait" data-anchor="平台粉丝画像" :class="[c.imgTitle, s.title2]">红人短视频平台粉丝画像</h2>
     <div :class="s.block1">
       <div>
         <h3 :class="c.h3">
@@ -114,11 +114,46 @@
         </DataBlock>
       </div>
     </div>
-    <div v-if="portraits1.length" :class="s.t1">购买红人商品的粉丝画像（京东）</div>
+    <h2 v-if="portraits1.length" id="portrait1" data-anchor="购买粉丝画像" :class="[c.imgTitle, s.title3]">购买过红人所推荐商品的粉丝画像</h2>
     <DataBlock v-show="portraits1.length" :class="s.block1" :req="portraits1Req" :handler="portraits1Handler" :showEmpty="false" :showErr="false">
       <template v-slot="{ data }">
         <div v-for="{ name, chart } in data" :key="name">
-          <h3 :class="c.h3">{{ name }}</h3>
+          <h3 :class="c.h3">
+            {{ name }}
+            <a-tooltip v-if="name === '购买力'" placement="bottom">
+              <template slot="title">
+                <div>购买力客户特征：</div>
+                <ul>
+                  <li>1. 土豪：经常买奢侈品和高端商品</li>
+                  <li>2. 高级白领：生活品质较高，会偶尔买一些高端商品</li>
+                  <li>3. 小白领：生活品质还不错，但是闲钱不多，喜欢买一些中端商品</li>
+                  <li>4. 蓝领：生活品质一般，更倾向于购买中低端商品</li>
+                  <li>5. 收入很少：量入为出，喜欢买经济实惠的东西，从不买高端商品</li>
+                </ul>
+              </template>
+              <a-icon type="question-circle" :class="s.tipIcon" />
+            </a-tooltip>
+            <a-tooltip v-else-if="name === '促销敏感度类型'" placement="bottom">
+              <template slot="title">
+                <div>第一部分：</div>
+                <ul>
+                  <li>L1-近一年有复购用户</li>
+                  <li>L2-近一年无复购用户</li>
+                  <li>L3-一年前有复购用户</li>
+                  <li>L4-一年前无复购用户</li>
+                </ul>
+                <div style="margin-top:5px">第二部分：</div>
+                <ul>
+                  <li>1-对价格不敏感</li>
+                  <li>2-对价格轻度敏感</li>
+                  <li>3-对价格中度敏感</li>
+                  <li>4-对价格高度敏感</li>
+                  <li>5-对价格极度敏感</li>
+                </ul>
+              </template>
+              <a-icon type="question-circle" :class="s.tipIcon" />
+            </a-tooltip>
+          </h3>
           <LazyBlock :class="s.b1" :data="chart">
             <Chart :class="s.chart1" :chartData="chart"></Chart>
           </LazyBlock>
@@ -322,21 +357,29 @@ export default {
 
 <style lang="less" module="s">
 .title1 {
-  width: 292px;
+  width: 348px;
   height: 48px;
   background-image: url(~@/assets/fans-title1.png);
 }
 .title2 {
-  width: 292px;
+  width: 308px;
   height: 48px;
   background-image: url(~@/assets/fans-title2.png);
+}
+.title3 {
+  width: 397px;
+  height: 48px;
+  background-image: url(~@/assets/fans-title3.png);
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .title1 {
     background-image: url(~@/assets/fans-title1@2x.png);
   }
   .title2 {
-    background-image: url(~@/assets/fans-title1@2x.png);
+    background-image: url(~@/assets/fans-title2@2x.png);
+  }
+  .title3 {
+    background-image: url(~@/assets/fans-title3@2x.png);
   }
 }
 .txtList {
@@ -384,12 +427,6 @@ div.block1 {
   ul {
     color: #666;
   }
-}
-.t1 {
-  color: #333;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 20px 0 10px 30px;
 }
 .tipIcon {
   font-size: 14px;
