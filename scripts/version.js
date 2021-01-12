@@ -9,19 +9,21 @@ exports.getVersion = function() {
   } catch (err) {}
   if (!files || !(files.length > 0)) return ''
 
-  const versions = files.map(v => {
-    const n = v
-      .replace(/v/gi, '')
-      .split('.')
-      .reduce(function(n, s, i) {
-        return n + (Number(s) || 0) / Math.pow(10, i)
-      }, 0)
-
-    return {
-      n: Math.round(n * 10e3) / 10e3,
+  const versions = files
+    .map(v => ({
+      arr: v
+        .replace(/v/gi, '')
+        .split('.')
+        .map(v => Number(v)),
       origin: v
-    }
-  })
-  const values = versions.map(({ n }) => n)
-  return versions[values.indexOf(Math.max(...values))]?.origin || ''
+    }))
+    .sort(({ arr: a }, { arr: b }) => {
+      const len = Math.max(a.length, b.length)
+      for (let i = 0; i < len; i++) {
+        if (a[i] === b[i]) continue
+        return a[i] > b[i] ? -1 : 1
+      }
+      return 0
+    })
+  return versions[0]?.origin || ''
 }
