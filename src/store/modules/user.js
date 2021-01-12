@@ -42,9 +42,9 @@ export default {
     navLogin() {
       location.href = `https://oauth2.jdcloud.com/authorize?response_type=code&redirect_uri=${encodeURIComponent(`https://${location.host}/v1_front_user/oauth`)}&client_id=9691604299493703&state=${Date.now()}`
     },
-    clear({ commit }) {
+    clear({ commit }, { name } = {}) {
       commit('token', null)
-      commit('name', null)
+      commit('name', name || null)
       commit('brands', [])
     },
     async logout({ dispatch }) {

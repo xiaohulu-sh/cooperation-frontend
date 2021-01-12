@@ -102,7 +102,7 @@ router.beforeEach(async (to, from, next) => {
   startProgressBar()
 
   if (to.query.error_msg) {
-    store.dispatch('user/clear')
+    store.dispatch('user/clear', { name: to.query.name })
     store.commit('err', to.query.error_msg)
     stopProgressBar()
     return
