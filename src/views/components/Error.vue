@@ -6,7 +6,7 @@
         (联系时请将您的用户名 <em>{{ name }}</em> 告知商务)
       </div>
       <div :class="s.btnWrap">
-        <router-link to="/" replace><a-button type="link">开通后，前往使用 &gt;</a-button></router-link>
+        <a-button type="link" @click="retry">开通后，前往使用 &gt;</a-button>
       </div>
     </div>
     <div :class="s.contact">
@@ -35,7 +35,12 @@ export default {
   props: {
     err: String
   },
-  computed: mapState('user', ['name'])
+  computed: mapState('user', ['name']),
+  methods: {
+    retry() {
+      location.replace('/')
+    }
+  }
 }
 </script>
 
