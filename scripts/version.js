@@ -20,8 +20,10 @@ exports.getVersion = function() {
     .sort(({ arr: a }, { arr: b }) => {
       const len = Math.max(a.length, b.length)
       for (let i = 0; i < len; i++) {
-        if (a[i] === b[i]) continue
-        return a[i] > b[i] ? -1 : 1
+        const n1 = a[i] || 0
+        const n2 = b[i] || 0
+        if (n1 === n2) continue
+        return n1 > n2 ? -1 : 1
       }
       return 0
     })
