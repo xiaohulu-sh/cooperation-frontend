@@ -1,19 +1,21 @@
 <template>
   <component :is="tag" :class="s.container">
     <template v-if="!lazyRender || shouldRender">
-      <slot v-if="showErr && err" name="err" :err="err">
-        <a-empty :image="errImg" :class="s.center">
-          <span slot="description" style="color:#999">加载失败</span>
-          <a-button :class="s.reload" type="primary" size="small" icon="reload" @click="onReloadClick">重试</a-button>
+      <slot v-if="showErr && err" name="err" :err="err" :ss="s" :img="simpleImg">
+        <a-empty :image="simpleImg" :class="s.center">
+          <span slot="description" style="color: #999">加载失败</span>
+          <a-button :class="s.reload" :loading="loading" type="primary" size="small" icon="reload" @click="onReloadClick">重试</a-button>
         </a-empty>
       </slot>
-      <slot v-else-if="showEmpty && empty" name="empty" :data="data">
+      <slot v-else-if="showEmpty && empty" name="empty" :data="data" :ss="s" :img="noDataImage">
         <a-empty :image="noDataImage" :class="s.center" />
       </slot>
-      <slot v-else-if="data" :data="data" :err="err" :loading="loading"></slot>
+      <slot v-else-if="data" :data="data" :req="curReq" :err="err" :loading="loading"></slot>
       <transition name="loading">
-        <slot v-if="showLoading && loading" name="loading" :loading="loading" :data="data">
-          <div v-if="loadingMask" :class="s.mask"><a-spin :class="s.center" /></div>
+        <slot v-if="showLoading && loading" name="loading" :loading="loading" :data="data" :ss="s">
+          <div v-if="loadingMask" :class="s.mask">
+            <a-spin :class="s.center" />
+          </div>
           <a-spin v-else :class="s.center" />
         </slot>
       </transition>
@@ -22,6 +24,7 @@
 </template>
 
 <script>
+import isEqual from 'lodash/isEqual'
 import { Empty } from 'ant-design-vue'
 import { createFetchAction } from '@/utils/http'
 import lazy from '@/components/common/lazy'
@@ -68,28 +71,34 @@ export default {
     loadingMask: {
       type: Boolean,
       default: false
+    },
+    silent: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
       ...lazy.data(),
       loading: false,
-      resData: null,
-      err: null
+      resData: undefined,
+      curReq: undefined,
+      err: undefined
     }
   },
   computed: {
     ...lazy.computed,
     data() {
-      return this.handler(this.resData, this.req)
+      return this.handler(this.resData, this)
     },
     empty() {
-      return this.isEmpty(this.data, this.resData, this.err, this.req)
+      return this.isEmpty(this.data, this)
     }
   },
   watch: {
     req: {
-      handler() {
+      handler(prevReq, req) {
+        if (isEqual({ ...prevReq, extra: null }, { ...req, extra: null })) return
         this.fetchData()
       },
       deep: true
@@ -109,7 +118,7 @@ export default {
     }
   },
   created() {
-    this.errImg = Empty.PRESENTED_IMAGE_SIMPLE
+    this.simpleImg = Empty.PRESENTED_IMAGE_SIMPLE
     this.fetchData = createFetchAction({
       key: 'resData',
       loadingKey: 'loading',
@@ -117,11 +126,12 @@ export default {
         return this.req
       },
       getReqOptions() {
-        return { silent: true }
+        return { silent: this.silent }
       },
-      setData(data, err) {
+      setData(data, req, err) {
         this.resData = data
-        this.err = err
+        this.curReq = req
+        this.err = !err && data === null ? { code: -1, msg: '加载失败' } : err
       }
     })
     if (!this.lazyRender) {
@@ -154,28 +164,36 @@ export default {
 .container {
   position: relative;
   min-height: 130px;
-}
-.center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-}
-.mask {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.62);
-  z-index: 100;
-}
-.reload {
-  font-size: 12px;
+  .center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+  .mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.62);
+    z-index: 100;
+  }
+  :global {
+    .ant-empty-image {
+      margin-bottom: 5px;
+    }
+    .ant-empty-footer {
+      margin-top: 10px;
+    }
+  }
+  .reload {
+    font-size: 12px;
 
-  & > :global.anticon + span {
-    margin-left: 4px;
+    & > :global.anticon + span {
+      margin-left: 4px;
+    }
   }
 }
 </style>

@@ -156,11 +156,11 @@ export function createFetchAction({
       if (!err) {
         dataTime = Date.now()
         setLoading.call(context, false)
-        setData.call(context, data)
+        setData.call(context, data, reqConfig)
       } else if (err.code !== ERROR_CODE.CANCEL) {
         lastReqConfig = null
         setLoading.call(context, false)
-        setData.call(context, data, err)
+        setData.call(context, data, reqConfig, err)
       }
     }
   }
