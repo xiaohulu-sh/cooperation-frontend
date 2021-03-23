@@ -97,7 +97,7 @@ export default {
   },
   watch: {
     req: {
-      handler(prevReq, req) {
+      handler(req, prevReq) {
         if (isEqual({ ...prevReq, extra: null }, { ...req, extra: null })) return
         this.fetchData()
       },
